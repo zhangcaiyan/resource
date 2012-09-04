@@ -1,0 +1,45 @@
+  <div class="fl2_bottom_right">
+    <div class="fl1_right_k1">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>各地<%= resource.name %>价格查询</strong></span></div>
+      <div class="fl1_right_k1_xia">
+      <ul>
+        <% resource.hangqingbaojias.top_tags(12).each do |tag| %>
+          <li><%= link_to truncate(tag.name, length: 5), search_home_path(category: "hangqing", keyword: tag.name), target: "_blank", title: tag.name %></li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+    <div class="guanggao1">
+      <%= image_tag "gg1.gif" %>
+    </div>
+    <% if resource.id != 3 %>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong><%= resource.name %>行情导读</strong></span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% resource.hangqings.limit(8).order("published_at DESC").each do |hangqing| %>
+            <li>·<%= link_to truncate(hangqing.title, length: 18), hangqing, title: hangqing.title, target: "_blank" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1">
+      <%= image_tag "gg1.gif" %>
+    </div>
+  <% end %>
+  <% if resource.id != 4 %>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong><%= resource.name %>最新市场动态</strong></span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+        <% resource.dongtais.order("published_at DESC").limit(8).each do |dongtai| %>
+            <li>·<%= link_to truncate(dongtai.title, length: 18), dongtai, title: dongtai.title, target: "_blank" %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1">
+      <%= image_tag "gg1.gif" %>
+    </div>
+  <% end %>
+  </div>

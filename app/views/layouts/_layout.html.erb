@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      <%= content_for?(:title) ? yield(:title) : "" %>资源再生交易平台
+    </title>
+    <link rel="icon" href="/assets/favicon.ico">
+
+    <%= yield(:head) %>
+
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "/javascripts/My97DatePicker/WdatePicker", "/javascripts/kindeditor/kindeditor-min", "/javascripts/kindeditor/kindeditor_config" %>
+
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    
+
+
+  </body>
+</html>

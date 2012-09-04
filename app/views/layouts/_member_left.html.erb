@@ -1,0 +1,81 @@
+
+<div class="gt_nav">
+  <ul>
+    <li><%= link_to "首页", member_home_path %></li>
+    <li><%= link_to "公司介绍", member_show_path %></li>
+    <li><%= link_to "最新供求", member_transactions_path %></li>
+    <li><%= link_to "公司动态", member_news_path %></li>
+    <li><%= link_to "在线留言", member_message_path %></li>
+    <li><%= link_to "联系方式", member_contact_path %></li>
+  </ul>
+</div>
+<div class="gt_banner">
+  <%= image_tag "gt_banner.gif" %>
+</div>
+<div class="gt_left">
+  <div class="gt_left_k1">
+    <div class="gt_left_year">
+      <%= @user.member_text %>
+    </div>
+    <ul>
+      <li class="gt_left_k1_zi1"><%= @user.company_name %></li>
+    </ul>
+    <ul>
+      <li class="gt_left_k1_zi2">主营业务：<%= truncate(@user.business, length: 80) %></li>
+    </ul>
+  </div>
+  <div class="gt_left_k2">
+    <div class="gt_left_k2_top">供应产品分类</div>
+    <div class="gt_left_k2_bot">
+      <%= form_tag member_transactions_path, method: "get" do %>
+        <%= text_field_tag "keyword", params[:keyword], class: "gt_wenben2" %>
+        <%= submit_tag "搜索", class: "gt_anniu3" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="gt_left_k2">
+    <div class="gt_left_k2_top">供求产品分类</div>
+    <div class="gt_left_k2_bot">
+      <ul>
+        <li><%= link_to "全部", member_transactions_path() %></li>
+        <li><%= link_to "未分类类型", member_transactions_path(transaction_type_id: "") %></li>
+        <% @user.transaction_types.each do |t| %>
+          <li><%= link_to t.name, member_transactions_path(transaction_type_id: t.id) %></li>
+        <% end %>
+        
+
+      </ul>
+    </div>
+  </div>
+  <div class="gt_left_k2">
+    <div class="gt_left_k2_top">友情链接</div>
+    <div class="gt_left_k2_bot">
+      <ul>
+        <% if @user.links.size > 0 %>
+          <% @user.links.each do |link| %>
+            <li>
+            <%= link_to link.name, link.url, target: "_blank" %>
+            </li>
+          <% end %>
+        <% else %>
+          <li>暂时没有<%= link_to_if is_self?(@user), "添加", new_link_path %>友情链接！</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="gt_left_k2">
+    <div class="gt_left_k2_top">联系方式</div>
+    <div class="gt_left_k2_bot">
+      <ul>
+        <li><%= @user.company_name %></li>
+        <li>联 系 人：<%= @user.call %></li>
+        <li>电    话：<%= @user.phone %></li>
+        <li>移动电话：<%= @user.mobile_phone %></li>
+        <li>传    真：<%= @user.fax %></li>
+        <li>地    址：<%= @user.address %>(<%= @user.suozaidi %>)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+

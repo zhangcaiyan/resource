@@ -1,0 +1,12 @@
+<% title "留言板" %>
+
+<h1>留言板</h1>
+
+<%= simple_form_for @message, html: {class: "validate_form"} do |f| %>
+  <%= f.input :to_id, as: "hidden", input_html: {value: @message.to_id} %>
+  <%= f.input :title, input_html: {class: "validate[required]"} %>
+  <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]]"} %>
+  验证码:
+  <%= show_simple_captcha %><%= flash[:captcha] %><br/>
+  <%= f.button :submit, "留言" %>
+<% end %>

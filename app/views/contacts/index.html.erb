@@ -1,0 +1,45 @@
+<%= title "联系人列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">联系人列表</div>
+  <div class="glgq_xia">
+    <div class="lxr_top">
+      <%= link_to '添加联系人', new_contact_path %>
+    </div>
+    <div class="gly_yhlb_xia_top">
+      <ul>
+        <li class="kehulb_zi2"><strong>联系人</strong></li>
+        <li class="kehulb_zi2"><strong>手机号码</strong></li>
+        <li class="kehulb_zi2"><strong>联系电话</strong></li>
+        <li class="kehulb_zi2"><strong>QQ</strong></li>
+        <li class="kehulb_zi3"><strong>邮箱</strong></li>
+        <li class="kehulb_zi2"><strong>是否公开</strong></li>
+        <li class="kehulb_zi2"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="lxrlb_bot">
+      <% @contacts.each do |contact| %>
+        <ul>
+          <li class="kehulb_zi2"><%= link_to truncate(contact.call, length: 8), edit_contact_path(contact), title: contact.call %></li>
+          <li class="kehulb_zi2"><%= truncate(contact.cell_phone, length: 15) %></li>
+          <li class="kehulb_zi2"><%= truncate(contact.phone, length: 15) %></li>
+          <li class="kehulb_zi2"><%= truncate(contact.qq, length: 15) %></li>
+          <li class="kehulb_zi3"><%= truncate(contact.email, length: 25) %></li>
+          <li class="kehulb_zi2"><%= contact.is_public_text %></li>
+          <li class="kehulb_zi2">
+          <%= link_to '编辑', edit_contact_path(contact) %> | 
+          <%= link_to '删除', contact, confirm: '确定删除吗?', method: :delete %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @contacts %>
+</div>
+<div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+    $("#contacts").addClass("ht_dianji2")
+  })
+</script>

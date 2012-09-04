@@ -1,0 +1,195 @@
+<% title "供求信息" %>
+
+<% if true %>
+  
+
+  <div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "交易中心", jiaoyis_path %>  > <font color="#FF6600">供求信息</font></div>
+  <div class="gqxx_bottom">
+    <div class="gqxx_bottom_left">
+        <div class="xiangguan_ser">
+        <ul>
+          <li><font color="#000000">相关搜索：</font></li>
+          <% Category.roots.each do |category| %>
+            <li><%= link_to category.name, search_home_path(keyword: category.name) %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="gy_text">共有<font color="#FF0000"><%= @transactions.total_entries %></font>条关于<font color="#006699"><strong><%= @keyword %></strong></font>的信息</div>
+      <div class="gqxx_left_xia">
+        <div class="bar">
+          <% [["全部信息", nil], ["供应信息", "supply"], ["求购信息", "seeking"]].each_with_index do |info, index| %>
+            <div id="newB<%= index.succ %>">
+              <%= link_to info[0], search_home_path(category: info[1], keyword: @keyword, region_id: @region_id, refreshed_at: @refreshed_at) %>
+            </div>
+          <% end %> 
+        </div>
+
+        <div class="bar_xia">
+          <div id="newA1">
+            <div class="gqxx_left_search2">
+              <%= form_tag search_home_path, method: "get" do %>
+                <div class="gqxx_left_search2_text">精确搜索：</div>
+                <%= select_tag "search[user_region_id_eq]", options_for_select(Region.all.map{|r| [r.name, r.id]}, @region_id), prompt: "请选择一个省份", class: "xialacaidan6" %>
+                <%= select_tag "refreshed_at", options_for_select([["1天内", 1], ["3天内", 3], ["一周内", 7], ["一个月内", 30], ["两个月内", 60]], @refreshed_at), prompt: "请选择发布时间", class: "xialacaidan6" %>
+
+                <div class="gqxx_left_search2_text">关键字：</div>
+                <%= text_field_tag "keyword", @keyword, class: "wenben6" %>
+                <%= submit_tag "筛选", class: "anniu7", style: "background:url(/assets/anniu5.gif)" %>
+              <% end %>
+            </div>
+            <div class="gqxx_left_btk">
+              <ul>
+                <li class="gqxx_left_btzi1">产品图片</li>
+                <li class="gqxx_left_btzi2">产品信息</li>
+                <li class="gqxx_left_btzi3">所属地区</li>
+                <li class="gqxx_left_btzi3">价格</li>
+                <li class="gqxx_left_btzi4">联系方式</li>
+              </ul>
+            </div>
+
+            <div class="gqxx_left_nrbot_dak">
+              <div class="gqxx_left_nrbot">
+                <% @transactions.each do |t| %>
+                <ul>
+                  <span class="gqxx_left_nrbot_pic">
+                    <%= link_to (head_image t, width: 110, height: 95), t, target: "_blank" %>
+                  </span>
+                  <li class="gqxx_left_nrbot_zik">
+                  <span class="gqxx_left_nrbot_zi1">
+                    <%= link_to truncate(t.title, length: 13), t, target: "_blank" %>
+                  </span>
+                  <span class="gqxx_left_nrbot_zi2">
+                    <%= l t.refreshed_at.to_date %>
+                  </span>
+                  <span class="gqxx_left_nrbot_zi3">
+                    <%= t.info_type_text %>：<%= truncate t.desc, length: 55 %>
+                  </span>
+                  <span class="gqxx_left_nrbot_zi4">
+                    <%= link_to truncate(t.user.company_name, length: 35), website_path(t.user), target: "_blank" %>
+                  </span>          
+                  </li>
+                  <li class="gqxx_left_btzi5">
+                    <%= t.user.suozaidi %>
+                  </li>
+                  <li class="gqxx_left_btzi5">
+                    <%= t.price_by_unit %>
+                  </li>
+                  <li class="gqxx_left_lxfsk">
+                  <span class="gqxx_left_btzi6">
+                    <%= link_to "给我留言", website_path(t.user, category: "message"), target: "_blank" %>
+                  </span>
+                  <span class="gqxx_left_btzi7">
+                    <%= link_to "联系方式", website_path(t.user, category: "contact"), target: "_blank" %>
+                  </span>          
+                  </li>
+                </ul>
+                <% end %>
+                </div>
+                <%= will_paginate @transactions %>
+              </div>
+            </div>
+
+            <div class="gqxx_left_di_anniu">
+              <%= link_to "发布供应信息", new_transaction_path(info_type: "supply") %>
+            </div>
+            <div class="gqxx_left_di_anniu2">
+              <%= link_to "发布求购信息", new_transaction_path(info_type: "seeking") %>
+            </div>
+            <div class="gqxx_left_di_zi">还没有找到合适的客户？发布您供求信息，让客户主动找上门！</div>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </div>
+      <div class="gqxx_bottom_right">
+        <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+        <div class="gqxx_right_k1">
+          <div class="jyzx_header_right_bt">
+            <span class="box1_right_xia_topzi1">
+              <strong><%= @keyword %>相关标签</strong>
+            </span>
+          </div>
+          <div class="gqxx_right_k1_xia">
+            <ul>
+              <% Transaction.search_by_title_and_category(@keyword).top_tags(30).each do |tag| %>
+                <li class="<%= ["yellow", "black", "red", "black", "green", "blue"][rand(6)] %>">
+                <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+                </li>
+                <li>|</li>
+              <% end %>
+            </ul>
+
+          </div>
+        </div>
+        <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+        <div class="box3_right_1k">
+          <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong><%= @keyword %>企业报价</strong></span></div>
+          <div class="box3_right_1k_xia">
+            <ul>
+              <% @company_prices.each do |company_price| %>
+                <li>
+                  <%= link_to truncate(company_price.name, length: 10), company_price, title: company_price.name %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+
+  <% else %>
+
+
+    共有<%= @transactions.total_entries.size %>条关于<%= @keyword %>的信息
+    <br/>
+
+    <% [["全部信息", nil], ["供应信息", "supply"], ["求购信息", "seeking"]].each do |info| %>
+      <%= link_to info[0], search_home_path(category: info[1], keyword: @keyword, region_id: @region_id, refreshed_at: @refreshed_at) %>
+    <% end %>
+    <br/>
+
+    <%= form_tag search_home_path, method: "get" do %>
+      <%= hidden_field_tag "category", @category %>
+      <%= select_tag "region_id", options_for_select(Region.all.map{|r| [r.name, r.id]}, @region_id), prompt: "请选择一个省份" %>
+      <%= select_tag "refreshed_at", options_for_select([["1天内", 1], ["3天内", 3], ["一周内", 7], ["一个月内", 30], ["两个月内", 60]], @refreshed_at), prompt: "请选择发布时间" %>
+      调整关键字: <%= text_field_tag "keyword", @keyword %>
+      <%= submit_tag "筛选" %>
+    <% end %>
+
+    <br/>
+
+    <% Transaction.top_tags(30).each do |tag| %>
+      <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+    <% end %>
+
+    <% @transactions.each do |t| %>
+      <%= link_to (head_image t, width: 50, height: 50), t, target: "_blank" %>
+      <%= l t.refreshed_at.to_date %>
+      <%= link_to t.title, t, target: "_blank" %>
+      <%= t.desc %>
+      <%= link_to t.user.company_name, website_path(t.user), target: "_blank" %>
+      <%= t.user.suozaidi %>
+      <%= t.user.member_text %>
+      <%= t.price_by_unit %>
+      <%= link_to "给我留言", website_path(t.user, category: "message"), target: "_blank" %>
+      <%= link_to "联系方式", website_path(t.user, category: "contact"), target: "_blank" %>
+      <%= link_to "门市部", website_path(t.user), target: "_blank" %>
+      <hr/>
+    <% end %>
+
+    <%= will_paginate @transactions %>
+
+  <% end %>
+
+  <script text="type/javascript">
+    $(function(){
+      var category = "<%= params[:category] %>"
+      switch(category){
+        case "": $(".bar div").eq(0).addClass("fbg1");break;
+        case "supply": $(".bar div").eq(1).addClass("fbg2");break;
+        case "seeking": $(".bar div").eq(2).addClass("fbg2");break;
+        default: $(".bar div").eq(0).addClass("fbg1");break;
+      }
+    })
+  </script>

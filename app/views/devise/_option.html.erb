@@ -1,0 +1,25 @@
+<% if user_signed_in? %>
+  <div class="top">
+    <div class="ssbjdz_top">
+      <ul>
+        <li><%= link_to "欢迎#{current_user.name}", my_path %></li>
+        <li><%= link_to "生意管家", admin_path %></li>
+        <li><%= link_to("您的个人站点", website_path(current_user)) if current_user.is_have_website %></li>
+        <li><%= link_to('退出', destroy_user_session_path, :method => :delete, :class => "logout") %></li>
+        <li>
+        <%= link_to "#{current_user.unread_message_size}条新留言", messages_path(category: "receive") if !current_user.unread_message_size.zero? %>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <div class="top">
+    <div class="top_t">
+      <ul>
+        <li class="wel">欢迎来到资源再生交易平台</li>
+        <li><a href="<%= new_user_session_path %>">请登录</a></li>
+        <li><a href="<%= new_user_registration_path %>">免费注册</a></li>
+      </ul>
+    </div>
+  </div>
+<% end %>

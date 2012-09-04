@@ -1,0 +1,40 @@
+<%= title "修改密码" %>
+
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">修改用户密码</div>
+  <div class="ht_xgmm_k1">您的姓名是： <%= current_user.name %><br/>您的Email是： <%= current_user.email %></div>
+  <div class="ht_bot">
+    <div class="fbxx_top">修改密码</div>
+    <%= simple_form_for(resource, :url => update_password_path, :html => { :method => :put }) do |f| %>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4">旧密码：</li>
+        <li><%= f.input :current_password, label: false, wrapper: false, as: :password, input_html: {autocomplete: "off", class: "wenben11"} %></li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">新密码：</li>
+        <li><%= f.input :password, label: false, wrapper: false, as: :password, input_html: {autocomplete: "off", class: "wenben11"} %></li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">确认新密码：</li>
+        <li><%= f.input :password_confirmation, as: :password, label: false, wrapper: false, input_html: {autocomplete: "off", class: "wenben11"} %></li>
+      </ul>
+      <ul>
+        <li>
+        <%= f.submit "确认修改", class: "anniu18", style: "background:url(/assets/ht_qyjj_anniu.gif)" %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+  </div>
+</div>
+<div class="clear"></div>
+
+
+<script text="type/javascript">
+  $(function(){
+    $("#bianji_mima").addClass("ht_dianji2")
+  })
+</script>
+

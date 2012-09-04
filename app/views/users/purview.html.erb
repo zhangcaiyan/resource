@@ -1,0 +1,64 @@
+<% title "权限控制" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_ck_k">
+    <ul>
+      <li>用户姓名：<%= @user.name %></li>
+      <li>email：<%= @user.email %></li>
+      <li>管理员：<span class="admin"><%= @user.admin_text %></span></li>
+      <%= form_tag user_path(@user), method: "put" do %>
+        <li>
+        <span class="gly_gxhy_zi1">后台录入：</span>
+        <span class="fuxuank2">
+          <%= check_box_tag "purview", "article", @user.tag_list.include?("article") %>
+        </span>
+        </li>
+        <li>
+        <span class="gly_gxhy_zi1">用户查询：</span>
+        <span class="fuxuank2">
+          <%= check_box_tag "purview", "user_search", @user.tag_list.include?("user_search") %>
+        </span>
+        </li>
+        <li>
+        <span class="gly_gxhy_zi1">用户权限：</span>
+        <span class="fuxuank2">
+          <%= check_box_tag "purview", "user_purview", @user.tag_list.include?("user_purview") %>
+        </span>
+        </li>
+        <li>
+        <span class="gly_gxhy_zi1">用户验证：</span>
+        <span class="fuxuank2">
+          <%= check_box_tag "purview", "user_verify", @user.tag_list.include?("user_verify") %>
+        </span>
+        </li>
+        <li>
+        <span class="gly_gxhy_zi1">升级会员：</span>
+        <span class="fuxuank2">
+          <%= check_box_tag "purview", "user_member", @user.tag_list.include?("user_member") %>
+        </span>
+        </li>
+        <% end  if current_user != @user %>
+      </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+
+  <script text="type/javascript">
+    $(function(){
+      $(":input").change(function(){
+        var quanxian = $(this).val()
+        $.post("<%= user_path(@user.id) %>", {_method: "put", purview: quanxian}, function(admin){
+          if(admin == "true"){
+            $(".admin").text("是")
+            }else if(admin == "false"){
+            $(".admin").text("否")
+            }else{
+      alert("设置权限失败，您已经没有权限对其他用户进行'权限控制'了, 请联系'超级管理员'为您添加权限")
+          }
+        })
+      })
+
+
+    })
+  </script>

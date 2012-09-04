@@ -1,0 +1,147 @@
+<%= title "管理员" %>
+
+<% if current_user.admin %>
+
+  <div class="gly_bottom_right">
+    <div class="gly_right_header">欢迎进入管理员界面</div>
+    <div class="gly_ctk">
+      <div class="gly_ctk1">
+        <div class="gly_ctk1_top">重要提醒</div>
+        <div class="gly_ctk1_xia">
+          <ul>
+            <li style="width:378px">你的身份：管理员</li>
+            <li style="width:378px">您的email：<%= current_user.email %></li>
+            <li style="width:378px">
+            开通时间：<%= l current_user.created_at.to_date %>
+            </li>
+            <li style="width:378px">
+            用户数: <%= User.no_admin.size %>
+            </li>
+            <li style="width:378px">
+            管理员数: <%= User.admin.size %>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gly_ctk2">
+        <div class="gly_ctk2_top">最新商机</div>
+        <div class="gly_ctk2_xia">
+          <div class="gly_ctk2_xia_k1">
+            <ul>
+              <% Transaction.supply.order("refreshed_at DESC").limit(10).each do |t| %>
+                <li class="gly_ctk2_xia_k1_zi1">供应</li>
+                <li class="ht_index_zi1">
+                <%= link_to truncate(t.title, length: 20), transaction_path(t) %>
+                </li>
+                <li class="gly_ctk2_xia_k1_zi3">
+                <%= t.user.country_or_region %>
+                </li>
+                <li class="gly_ctk2_xia_k1_zi3">
+                <%= l t.refreshed_at.to_date %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="gly_ctk2_xia_k2">
+            <ul>
+              <% Transaction.seeking.order("refreshed_at DESC").limit(10).each do |t| %>
+                <li class="gly_ctk2_xia_k1_zi5">求购</li>
+                <li class="ht_index_zi1">
+                <%= link_to truncate(t.title, length: 20), transaction_path(t) %>
+                </li>
+                <li class="gly_ctk2_xia_k1_zi3">
+                <%= t.user.country_or_region %>
+                </li>
+                <li class="gly_ctk2_xia_k1_zi3">
+                <%= l t.refreshed_at.to_date %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gly_r">
+      <div class="gly_r_top">最新资讯</div>
+      <div class="gly_r_xia">
+        <ul>
+          <% Article.order("created_at DESC").each do |a| %>
+            <li class="gly_r_xia_zi1_01">
+            ·<%= link_to truncate(a.title, length: 15), article_path(a) %>
+            </li>
+            <li class="gly_r_xia_zi1_02">
+            <%= l a.created_at.to_date %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+<% else %>
+
+  <div class="gly_bottom_right">
+    <div class="gly_right_header">欢迎进后台管理界面</div>
+    <div class="gly_ctk">
+      <div class="gly_ctk1">
+        <div class="gly_ctk1_top">重要提醒</div>
+        <div class="gly_ctk1_xia">
+          <ul>
+            <li style="width:378px">会员类型：<%= current_user.member_text %></li>
+            <li style="width:378px">您接收信息的email：<%= current_user.valid_email %></li>
+            <li style="width:378px">开通时间：<%= l current_user.created_at.to_date %></li>
+            <li style="width:378px">未读留言：您有 <%= current_user.receive_messages.unread.size %> 条未读留言信息</li><li class="chakan"><%= link_to "点此查看", messages_path(category: "receive") %></li>
+        <li style="width:378px">商业信息：您发布了 <%= current_user.transactions.valid.size %> 条供求信息</li><li class="chakan"><%= link_to "点此查看", transactions_path %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="gly_ctk2">
+        <div class="gly_ctk2_top">最新商机</div>
+        <div class="gly_ctk2_xia">
+          <div class="gly_ctk2_xia_k1">
+            <ul>
+              <% Transaction.supply.limit(10).order("refreshed_at DESC").each do |t| %>
+              <li class="gly_ctk2_xia_k1_zi1">供应</li>
+              <li class="ht_index_zi1">
+                <%= link_to truncate(t.title, length: 20), transaction_path(t) %>
+              </li>
+              <li class="gly_ctk2_xia_k1_zi3"><%= t.user.country_or_region %></li>
+              <li class="gly_ctk2_xia_k1_zi3"><%= l t.created_at.to_date %></li>
+            <% end %>
+
+            </ul>
+          </div>
+          <div class="gly_ctk2_xia_k2">
+            <ul>
+              <% Transaction.seeking.limit(10).order("refreshed_at DESC").each do |t| %>
+              <li class="gly_ctk2_xia_k1_zi5">求购</li>
+              <li class="ht_index_zi1">
+                <%= link_to truncate(t.title, length: 20), transactions_path(t) %>
+              </li>
+              <li class="gly_ctk2_xia_k1_zi3"><%= t.user.country_or_region %></li>
+              <li class="gly_ctk2_xia_k1_zi3"><%= l t.created_at.to_date %></li>
+            <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="gly_r">
+      <div class="gly_r_top">最新资讯</div>
+      <div class="gly_r_xia">
+        <ul>
+          <% Article.limit(20).order("created_at DESC").each do |a| %>
+            <li class="gly_r_xia_zi1_01">·<%= link_to truncate(a.title, length: 15), article_path(a) %></li>
+            <li class="gly_r_xia_zi1_02"><%= l a.created_at.to_date %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+
+<% end %>
+
+

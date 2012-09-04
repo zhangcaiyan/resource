@@ -1,0 +1,37 @@
+<div class="gly_fbwz_xia">
+  <%= simple_form_for(@article, html: {class: "validate_form"}) do |f| %>    
+    <%= f.input :category, as: "hidden", error_html: {value: @article.category, style: "display:none"}, wrapper: false %>
+    <ul>
+      <li class="gly_fbwz_zi1"><span class="require">*</span>标题：</li>
+      <%= f.input :title, input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+    </ul>
+    <ul id="fenlei">
+      <li class="gly_fbwz_zi1"><span class="require">*</span>行业分类：</li>
+      <%= f.input :fenlei, collection: Article.get_fenlei_values, include_blank: "请选择行业分类", input_html: {class: "validate[required] xialacaidan3"}, label: false, wrapper: false %>
+    </ul>
+    <ul>
+      <li class="gly_fbwz_zi1"><span class="require">*</span>版面位置：</li>
+      <%= f.input :forum, collection: Article.get_forum_values, include_blank: "选择版面位置", input_html: {class: "validate[required] xialacaidan3"}, label: false, wrapper: false %>
+      <li>重要:占据行业资讯顶端的两块重要位置, 比较重要: 占据行业资讯各小版块的首位</li>
+    </ul>
+    <ul>
+      <li class="gly_fbwz_zi2"><span class="require">*</span>内容：</li>
+      <li class="gly_fbwz_bianjiqi">
+        <%= f.input :content, input_html: {class: "kindeditor"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+    <ul>
+      <%= f.button :submit, class: "anniu8" %>
+    </ul>
+  <% end %>
+</div>
+
+<script text="type/javascript">
+  $(function(){
+    var category = "<%= @article.category %>"
+    if((category != "hangye") && (category != "zaisheng")){
+      $("#fenlei").hide()
+    }
+  })
+</script>
+

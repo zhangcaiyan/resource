@@ -1,0 +1,67 @@
+<div class="gly_bottom">
+  <div class="gly_bottom_left">
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        用户管理
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li><%= link_to "管理员首页", admin_path %></li>
+        <li>
+        <%= link_to "用户列表", users_path %>    
+        </li>
+        <li>
+        <%= link_to "查找用户", "#search_users", class: "boxy", title: "查询用户" %>
+        </li>
+      </ul>
+    </div>
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        信息管理
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li>
+        <%= link_to "行业动态", articles_path(category: "hangye") %>
+        <%= link_to "新建", new_article_path(category: "hangye") %>
+        </li>
+        <li>
+        <%= link_to "政策法规", articles_path(category: "zhengce") %>
+        <%= link_to "新建", new_article_path(category: "zhengce") %>
+        </li>
+        <li>
+        <%= link_to "再生技术", articles_path(category: "zaisheng") %>
+        <%= link_to "新建", new_article_path(category: "zaisheng") %>
+        </li>
+        <li>
+        <%= link_to "知识宝库", articles_path(category: "zhishi") %>
+        <%= link_to "新建", new_article_path(category: "zhishi") %>
+        </li>
+        <li>
+        <%= link_to "日报", comments_path(category: "day") %>
+        <%= link_to "新建", new_comment_path(category: "day") %>
+        </li>
+        <li>
+        <%= link_to "周报", comments_path(category: "week") %>
+        <%= link_to "新建", new_comment_path(category: "week") %>
+        </li>
+        <li>
+        <%= link_to "行情综述", hangqings_path %>
+        <%= link_to "新建", new_hangqing_path %>
+        </li>
+        <li>
+        <%= link_to "市场动态", dongtais_path %>
+        <%= link_to "新建", new_dongtai_path %>
+        </li>
+        <li>
+        <%= link_to "行情价格", jiages_path %>
+        <%= link_to "新建", new_jiage_path %>
+        </li>
+     </ul>
+    </div> 
+  </div>
+  <%= yield %>
+</div>
+<%= render partial: "/users/search" %>

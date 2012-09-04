@@ -1,0 +1,43 @@
+<div class="weizhi">
+  当前位置：<%= link_to '首页', home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @comment.resource.name + @comment.category_text %></font>
+</div>
+<div class="fl2_bottom">
+  <div class="fl2_bottom_left">
+    <div class="fl2_left_k">
+      <div class="nry_left_k_zi1"><%= @comment.title %></div>
+      <div class="nry_left_k_zi2">
+        发表时间：<%= @comment.published_at %> 
+      </div>
+      <div class="nry_left_text"><%= @comment.desc.html_safe %></div>
+
+      <div class="nry_left_k_botk">
+        <span class="nry_left_k_zi6">
+        <% if @comment.pre? %>
+          上一篇：<%= link_to truncate(@comment.pre.title, length: 20), @comment.pre, title: @comment.pre.title %>
+        <% end %>
+        </span>
+        <span class="nry_left_k_zi6">
+        <% if @comment.next? %>
+          下一篇：<%= link_to truncate(@comment.next.title, length: 20), @comment.next, title: @comment.next.title %>
+        <% end %>
+        </span>
+      </div>
+    </div>
+    <div class="fl2_left_k2">
+      <div class="lby_left_top"><%= @comment.resource.name %>最新报价</div>
+      <div class="fl2_left_xiak">
+      <ul>
+        <% @jiages.each_with_index do |jiage, index| %>
+          <% if index % 2 == 0; n = 2; else n = 1; end%>
+            <li class="fl2_left_xiak_zi<%= n %>">
+            ·<%= link_to truncate(jiage.title, length: 20), jiage, title: jiage.title, target: "_blank" %>
+          <font color="#999999"><%= jiage.published_at %></font>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <%= render partial: "/jiages/right", locals: {resource: @comment.resource} %>
+<div class="clear"></div>
+</div>

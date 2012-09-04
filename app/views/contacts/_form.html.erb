@@ -1,0 +1,59 @@
+<%= simple_form_for(@contact, html: {class: "validate_form"}) do |f| %>
+    <div class="ht_bot">
+      <div class="fbxx_top">添加联系人信息</div>
+      <div class="fbxx_footer">
+      <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>联系人姓名：</li>
+      <li>
+        <%= f.input :name, input_html: {class: "validate[required] wenben14"}, label: false, wrapper: false %>
+      </li>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>性别：</li>
+      <% Contact.get_gender_values.each do |contact| %>
+        <li class="dxanniu2">
+          <%= f.radio_button :gender, contact[1] %>
+        </li>
+        <li class="fbxx_footer_zi2"><%= contact[0] %></li>
+      <% end %>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4">是否公开联系方式：</li>
+      <li class="dxanniu2">
+        <%= f.radio_button :gender, true %>
+      </li>
+      <li class="fbxx_footer_zi2">是</li>
+      <li class="dxanniu2">
+        <%= f.radio_button :gender, false %>
+      </li>
+      <li class="fbxx_footer_zi2">否</li>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4">电话：</li>
+      <li><%= f.input :phone, input_html: {class: "wenben11"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>手机：</li>
+      <li><%= f.input :cell_phone, input_html: {class: "validate[required] wenben11"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4">QQ：</li>
+      <li><%= f.input :qq, input_html: {class: "wenben11"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+      <li class="fbxx_footer_zi4">邮箱：</li>
+      <li><%= f.input :email, as: :string, input_html: {class: "validate[custom[email]] wenben11"}, label: false, wrapper: false %></li>
+      </ul>
+      </div>
+    </div>
+    <div>
+      <%= f.button :submit, "确认无误并提交", class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+    </div>
+  <% end %>
+ 
+
+<script text="type/javascript">
+  $(function(){
+    $("#contacts").addClass("ht_dianji2")
+  })
+</script>

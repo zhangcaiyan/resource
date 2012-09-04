@@ -1,0 +1,19 @@
+
+
+<%= render "/layouts/layout" %>
+<div class="baidi">
+<% if user_signed_in? %>
+  <%= render "/devise/option" %>
+  <%= render "/layouts/search" %>
+  <%= render "/layouts/header" %>
+  <%= yield %>
+  <%= render "/layouts/footer" %>
+  
+<% else %>
+  <%= render "/devise/option" %>
+  <%= render "/layouts/search" %>
+  <%= render "/layouts/header" %>
+  <%= yield %>
+  <%= render "/layouts/footer" %>
+<% end %>
+</div>

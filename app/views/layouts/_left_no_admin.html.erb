@@ -1,0 +1,126 @@
+<div class="gly_bottom">
+  <div class="gly_bottom_left">
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        商机管理
+      </span>
+    </div>
+    <div class="ht_index_left_xiak">
+      <ul>
+        <li class="ht_index_left_zi1">
+          <%= link_to "管理员首页", admin_path %>
+        </li>
+        <li class="ht_index_left_zi1">供求信息</li>
+        <li class="ht_index_left_zi2" id="left_new_transaction">
+          <%= link_to "发布供求信息", new_transaction_path %>
+        </li>
+        <li class="ht_index_left_zi2" id="transactions">
+          <%= link_to "管理供求信息", transactions_path %>
+        </li>
+        <li class="ht_index_left_zi2" id="transaction_types">
+          <%= link_to "管理供求系列", transaction_types_path %>
+        </li>
+        <li class="ht_index_left_zi1">发布报价</li>
+        <li class="ht_index_left_zi2" id="new_company_price">
+          <%= link_to "添加报价", new_company_price_path %>
+        </li>
+        <li class="ht_index_left_zi2" id="company_prices">
+          <%= link_to "报价列表", company_prices_path %>
+        </li>
+      </ul>
+    </div> 
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        留言管理
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li id="receive_messages">
+        <%= link_to "我收到的留言", messages_path(category: "receive") %>
+        <% if !current_user.unread_message_size.zero? %>
+          (<%= current_user.unread_message_size %>)
+        <% end %>
+        </li>
+        <li id="send_messages">
+        <%= link_to "我发出的留言", messages_path(category: "send") %>
+        </li>
+        <li id="deleted_messages">
+        <%= link_to "垃圾留言", messages_path(category: "deleted") %>
+        </li>
+      </ul>
+    </div> 
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        客户管理
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li id="new_customer">
+        <%= link_to "添加客户", new_customer_path %>
+        </li>
+        <li id="customer_list">
+        <%= link_to "客户列表", customers_path %>
+        </li>
+      </ul>
+    </div> 
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        最新商机和行情
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li id="new_shangji"><%= link_to "最新在线商机", list_shangjidingzhis_path %></li>
+        <% if nil %>
+          <li><a href="#">最新在线行情</a></li>
+          <li><a href="#">行情定制管理</a></li>
+        <% end %>
+        <li id="shangjiguanli">
+          <%= link_to "商机定制管理", shangjidingzhis_path %>
+        </li>
+        <li id="lanzi"><%= link_to "我的篮子", lanzis_path %></li>
+      </ul>
+    </div> 
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        会员资料
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li id="edit_user"><%= link_to "编辑资料", edit_user_registration_path %></li>
+        <li id="contacts"><%= link_to "联系人管理", contacts_path %></li>
+        <li id="desc_and_pictures"><%= link_to "企业简介、相关照片", info_and_image_user_path(current_user) %></li>
+        <li id="bianji_mima"><%= link_to "修改密码", bianji_mima_path %></li>
+      </ul>
+    </div>
+    <% if current_user.is_have_website %>
+    <div class="gly_left_bt">
+      <span class="gly_left_btzi">
+        个人站点
+      </span>
+    </div>
+    <div class="gly_left_xiak">
+      <ul>
+        <li id="left_links">
+        <%= link_to "友情链接管理", links_path %>
+        </li>
+        <li id="left_new_link">
+        <%= link_to "添加友情链接", new_link_path %>
+        </li>
+        <li id="left_news">
+        <%= link_to '动态信息管理', news_index_path %>
+        </li>
+        <li id="left_new_news">
+        <%= link_to '添加动态信息', new_news_path %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+  </div>
+  <%= yield %>
+</div>
+
+

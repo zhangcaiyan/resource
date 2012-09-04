@@ -1,0 +1,55 @@
+zh-CN:
+  errors:
+    messages:
+      expired: "已过期，请申请一个新的"
+      not_found: "没有找到"
+      already_confirmed: "已经激活,请登陆"
+      not_locked: "未锁定"
+      not_saved:
+        one: #"1个错误禁止 %{resource} 被保存:"
+        other: #"%{count} 错误禁止 %{resource} 被保存:"
+
+  devise:
+    failure:
+      already_authenticated: '您已经登陆了'
+      unauthenticated: '您需要先登陆或注册'
+      unconfirmed: '您必须先去邮箱激活您的账户'
+      locked: '您的帐户已锁定'
+      invalid: '账户或密码有误'
+      invalid_token: '验证信息不合法'
+      timeout: '您的会话已超时,若要继续,请重新登录'
+      inactive: '您的帐户尚未激活'
+    sessions:
+      signed_in: '登陆成功'
+      signed_out: '退出成功'
+    passwords:
+      send_instructions: '几分钟内您将收到一封密码重置步骤的邮件'
+      updated: '您的密码已修改成功'
+      updated_not_active: '您的密码已修改成功'
+      send_paranoid_instructions: "如果您的E-mail在我们的数据库中存在，您将收到一个恢复您密码的E-mail链接"
+    confirmations:
+      send_instructions: '您会在几分钟内收到一封邮件，它将指引您完成帐户激活步骤'
+      send_paranoid_instructions: '如果您的E-mail在我们的数据库中存在，您将在几分钟内收到有关如何激活您的帐户的电子邮件'
+      confirmed: '您的帐户已成功激活'
+    registrations:
+      signed_up: '欢迎! 您已经注册成功'
+      signed_up_but_unconfirmed: '一封激活账户的邮件已发送到您的邮箱中,请点击激活链接激活您的帐户'
+      signed_up_but_inactive: '您已经注册成功, 但是您目前还无法登陆，因为您的账户不活跃'
+      signed_up_but_locked: '您已经注册成功, 但是您目前还无法登陆，因为您的账户被锁定'
+      updated: '更新账户成功'
+      update_needs_confirmation: "您成功更新了你的帐户成功,但我们需要验证您新的电子邮件地址.请检查您的电子邮件，并点击确认链接,完成确认新的电子邮件地址"
+      destroyed: '再见！您的帐户已成功取消，我们希望再次见到你'
+    unlocks:
+      send_instructions: '您将在几分钟内收到一封有关如何解开您帐户的电子邮件'
+      unlocked: '您的帐户已成功解锁,您现在可以登录了'
+      send_paranoid_instructions: '如果您的帐户存在，您将在几分钟内收到一封有关如解锁的电子邮件'
+    omniauth_callbacks:
+      success: '%{kind}账户授权成功'
+      failure: '%{kind}账户授权失败，因为"%{reason}"'
+    mailer:
+      confirmation_instructions:
+        subject: '帐户激活步骤'
+      reset_password_instructions:
+        subject: '密码重置步骤'
+      unlock_instructions:
+        subject: '帐户解锁步骤'

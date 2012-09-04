@@ -1,0 +1,12 @@
+<h2>主要联系人</h2>
+
+<%= @user.company_name %><br/>
+<%= @user.call %><br/>
+座机：<%= @user.phone %><br/>
+移动电话：<%= @user.mobile_phone %><br/>
+邮箱：<%= @user.zip_code %><br/>
+传    真：<%= @user.fax %><br/>
+地    址：<%= @user.address %><br/>
+主页：<%= link_to_if @user.company_url, @user.company_url, @user.company_url %><br/>
+
+<h2>其他联系人</h2>

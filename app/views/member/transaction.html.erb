@@ -1,0 +1,89 @@
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt">
+      <span class="gt_right_btzi"><%= @transaction.name %></span>
+    </div>
+    <div class="gt_right_bot">
+      <div class="gt_cpxxk">
+        <div class="gt_cp_pickuang">
+          <div class="gt_cp_pic">
+            <%= head_image @transaction, size: :medium, class: "medium", width: 320, height: 280 %>
+          </div>
+          <% @transaction.attachments.each do |atta| %>
+            <div class="gt_cp_pic2">
+              <%= image_tag atta.image.url(:medium), width: 60, height: 60, class: "thumb" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="gt_cp_xinxik">
+          <ul>
+            <li>价格：<%= transaction_price(@transaction) %></li>
+            <li>总量： <%= @transaction.provide_quantity_by_unit %></li>
+            <li>求购情况：<%= @transaction.provide_statu_text %></li>
+            <li> 现货所在地： <%= @transaction.location %></li>
+            <li>货源地：<%= @transaction.source %></li>
+            <li>公司所在地：<%= @transaction.user.address %>(<%= @transaction.user.suozaidi %>)</li>
+            <li>发布日期： <%= l @transaction.refreshed_at.to_date %></li>
+            <li>信息有效期：<%= @transaction.youxiaoqi %></li>
+            <li>加工说明：<%= @transaction.manufacture_text %></li>
+            <% if nil %>
+              <li><strong>交易条件</strong>：</li>
+              <li>外观：</li>
+              <li>颜色：</li>
+              <li>杂质含量：</li>
+            <% end %>
+          </ul>
+          <div class="gt_cp_anniu1">
+            <%= link_to "查看联系方式", member_contact_path %>
+          </div>
+        </div>
+      </div>
+      <div class="gt_cp_text1">
+        <strong>标签：</strong> 
+        <% @transaction.tag_list.each do |tag| %>
+          <%= link_to tag, search_by_tag_home_path(tag: tag) %>
+        <% end %>
+      </div>
+      <div class="gt_cp_bt"><div class="gt_cp_btzi">详细信息</div></div>
+      <div class="gt_cp_footer">
+        <ul>
+          <li>求购：</li>
+          <%= @transaction.desc %>
+        </ul>
+      </div>
+      <div class="gt_cp_bt">
+        <div class="gt_cp_btzi">在线留言</div>
+      </div>
+      <span class="error"><%= flash[:alert] %></span>
+      <span class="tishixinxi"><%= flash[:notice] %></span>
+      <%= simple_form_for Message.new, html: {class: "validate_form"} do |f| %>
+        <%= hidden_field_tag "liuyan", "yes" %>
+        <%= f.input :to_id, as: "hidden", input_html: {value: @user.id}, label: false, wrapper: false %> 
+        <div class="gt_cp_lytopk">
+          <div class="gly_fbwz_zi1">标题：</div>
+          <%= f.input :title, input_html: {value: "我对#{@transaction.category_name}感兴趣", class: "validate[required] wenben7"}, label: false, wrapper: false %>
+        </div>
+        <div class="gt_cp_footer">
+          <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]] gt_wenbenyu"}, label: false, wrapper: false %>
+          <% if nil %>
+          <div class="gt_cp_lytopk">
+            <div class="gly_fbwz_zi1">验证码：</div>
+            <div class="gt_cp_yzm"><img src="images/yanzhengma2.gif" /></div>
+          </div>
+        <% end %>
+          <%= f.button :submit, "提交留言", class: "gt_anniu4" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+<script text="type/javascript">
+  $(function(){
+    $(".thumb").click(function(){
+      $(".medium").attr("src", $(this).attr("src"))
+    })
+  })
+</script>

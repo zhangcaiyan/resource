@@ -1,0 +1,2 @@
+module DongtaisHelper
+end

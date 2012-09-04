@@ -1,0 +1,169 @@
+<% title "产品报价" %>
+
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "企业报价", baojias_path %>  > <%= link_to @company_price.category1.name, baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: @company_price.category1.name}) %> > <font color="#FF6600"><%= @company_price.name %></font></div>
+
+<%= render "/company_prices/search" %>
+
+<div class="bjnr_bottom">
+  <div class="bjnr_bottom_left">
+    <div class="bjlb_bottom_left_top">
+    <ul>
+      <li class="bjlb_bottom_left_top_bt">
+      <%= link_to "#{@company_price.category1.name}产品报价", baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: @company_price.category1.name}) %>
+      </li>
+      <li class="bjlb_bottom_left_top_btxia">
+      <% @company_price.category1.children.each do |category2| %>
+        <%= link_to category2.name,  baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: category2.name}) %> | 
+    <% end %>
+      </li>
+    </ul>
+    </div>
+    <div class="bjlb_left_bot">
+      <div class="bjlb_bottom_left_top_bt">产品报价</div>
+      <div class="bjnr_left_xiak">
+      <ul>
+        <li><strong>产品名称： <%= @company_price.name %></strong></li>
+        <li>产品价格： <%= @company_price.price %></li>
+        <li>公司所在地： <%= @company_price.suozaidi %></li>
+        <li>发布时间： <%= l @company_price.refreshed_at.to_date %></li>
+        <li>有效期： <%= @company_price.youxiaoqi %></li>
+        <li>产品描述： <%= @company_price.desc %></li>
+      <span>
+        <%= link_to "联系商家", website_path(@company_price.user), class: "bjnr_left_anniu", style: "background:url(/assets/bjnr_anniu.gif)" %>
+      </span>
+      </ul>
+      </div>
+    </div>
+    <div class="bjlb_left_bot">
+      <div class="bjlb_bottom_left_top_bt">该产品其他公司报价</div>
+      <div class="bjlb_left_xiak">
+        <div class="bjlb_left_xiak2">
+          <div class="bjnr_left_bot">
+            <% @other_company_prices.each do |price| %>
+          <ul>
+            <li class="bjlb_left_footer_zi1">
+            <%= link_to truncate(price.name,length: 14), price, target: "_blank" %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= truncate(price.price, length: 14) %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= price.suozaidi %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= l price.created_at.to_date %>
+            </li>
+            <li class="bjlb_left_footer_zi3">
+            <%= link_to truncate(price.user.company_name,length: 20), website_path(price.user) %>
+            </li>
+          </ul>
+        <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bjlb_left_bot">
+      <div class="bjlb_bottom_left_top_bt">该公司其他产品报价</div>
+      <div class="bjlb_left_xiak">
+        <div class="bjlb_left_xiak2">
+          <div class="bjnr_left_bot">
+            <% @company_prices.each do |price| %>
+          <ul>
+            <li class="bjlb_left_footer_zi1">
+            <%= link_to truncate(price.name,length: 14), price, target: "_blank" %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= truncate(price.price, length: 14) %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= price.suozaidi %>
+            </li>
+            <li class="bjlb_left_footer_zi2">
+            <%= l price.created_at.to_date %>
+            </li>
+            <li class="bjlb_left_footer_zi3">
+            <%= link_to truncate(price.user.company_name,length: 20), website_path(price.user) %>
+            </li>
+          </ul>
+        <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bjlb_bottom_right">
+    <div class="gqxx_right_k1">
+      <div class="jyzx_header_right_bt"><span class="box1_right_xia_topzi1"><strong><%= @company_price.category1.name %>相关标签</strong></span></div>
+      <div class="gqxx_right_k1_xia">
+      <ul>
+        <% Transaction.search_by_title_and_category(@company_price.category1.name).top_tags(20).each do |tag| %>
+          <li class="<%= ["yellow", "black", "red", "black", "green", "blue"][rand(6)] %>">
+          <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+          </li>
+          <li>|</li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>最新报价</strong></span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% @new_company_prices.each do |price| %>
+            <li>·<%= link_to truncate(price.name, length: 15), price %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+
+  </div>
+<div class="clear"></div>
+</div>
+
+<% if nil %>
+<h1>产品报价</h1>
+
+<p>
+  <b>产品名称:</b>
+  <%= @company_price.name %>
+</p>
+
+<p>
+  <b>产品价格:</b>
+  <%= @company_price.price %>
+</p>
+
+<p>
+  <b>公司所在地</b>
+  <%= @company_price.user.suozaidi %>
+</p>
+
+<p>
+  <b>发布时间</b>
+  <%= l @company_price.created_at.to_date %>
+</p>
+
+<p>
+  <b>联系座机:</b>
+  <%= @company_price.user.phone %>
+</p>
+
+<p>
+  <b>联系手机</b>
+  <%= @company_price.user.mobile_phone %>
+</p>
+
+<p>
+  <b>联系人</b>
+  <%= @company_price.user.name %>
+</p>
+
+<p>
+  <b>描述:</b>
+  <%= @company_price.desc %>
+</p>
+<% end %>
+
+
+

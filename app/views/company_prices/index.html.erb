@@ -1,0 +1,67 @@
+<% title "报价列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">报价列表</div>
+  <%= form_tag company_price_path("id"), method: "delete", id: "form" do %>
+    <div class="glgq_xia">
+      <div class="glgq_xia_top">
+        <ul>
+          <span class="fuxuank4">
+            <%= check_box_tag "select_all" %>
+          </span>
+          <li class="ht_bjlb_zi1"><strong><%= sort_link @search, :category1_id, "类别" %></strong></li>
+          <li class="ht_bjlb_zi1"><strong><%= sort_link @search, :name %></strong></li>
+          <li class="ht_bjlb_zi3"><strong><%= sort_link @search, :min_price, "产品价格" %></strong></li>
+          <li class="ht_bjlb_zi2"><strong>地区</strong></li>
+          <li class="ht_bjlb_zi2"><strong><%= sort_link @search, :valid_time %></strong></li>
+          <li class="ht_bjlb_zi2"><strong>操作</strong></li>
+        </ul>
+      </div>
+      <div class="glgq_xia_bot">
+        <% @company_prices.each do |price| %>
+          <ul>
+            <span class="fuxuank4">
+              <input type="checkbox" name="ids[]" value="<%= price.id %>"/>
+            </span>
+            <li class="ht_bjlb_zi1"><%= price.category1.name %></li>
+            <li class="ht_bjlb_zi1"><%= link_to truncate(price.name, length: 10), company_price_path(price.id), title: price.name %></li>
+            <li class="ht_bjlb_zi3"><%= truncate(price.price, length: 22) %></li>
+            <li class="ht_bjlb_zi2"><%= price.region.name %></li>
+            <li class="ht_bjlb_zi2"><%= price.youxiaoqi %></li>
+            <li class="ht_bjlb_zi2">
+            <%= link_to "编辑", edit_company_price_path(price) %> | 
+            <%= link_to "删除", company_price_path(price), method: :delete, confirm: "确认删除吗？" %>
+            </li>
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+    <div class="ht_bjlb_k">
+      <ul>
+        <li><%= submit_tag "永久删除", id: "delete" %></li>
+      </ul>
+    </div>
+  <%= will_paginate @company_prices %>
+</div>
+<div class="clear"></div>
+
+
+<script text="type/javascript">
+  $(function(){
+
+    $("#company_prices").addClass("ht_dianji")
+
+    $("#select_all").change(function(){
+      $("input[name='ids[]']").attr("checked", $(this).prop("checked"))
+    })
+
+    $("#delete").click(function(){
+      if(confirm("确定删除吗")){
+        $("#form").submit()
+      }
+    })
+  })
+</script>
+

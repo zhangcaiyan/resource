@@ -1,0 +1,166 @@
+
+  <%= simple_form_for(@customer, html: {class: "validate_form"}) do |f| %>
+<div class="ht_bot">
+  <div class="fbxx_top">联系人信息（提示：带<font color="#FF0000">*</font>为必填项）</div>
+  <div class="fbxx_footer">
+    <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>联系人姓名：</li>
+      <li><%= f.input :name, input_html: {class: "validate[required], wenben14"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">职务：</li>
+      <li><%= f.input :post, input_html: {class: "wenben14"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">性别：</li>
+      <% Customer.get_gender_values.each do |customer| %>
+      <li class="dxanniu2">
+        <%= f.radio_button :gender, customer[1], id: "RadioGroup1_0" %>
+      </li>
+      <li class="fbxx_footer_zi2"><%= customer[0] %></li>
+    <% end %>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">电话：</li>
+      <li><%= f.input :phone, input_html: {class: "wenben14"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">传真：</li>
+      <li> <%= f.input :fax, input_html: {class: "wenben14"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">手机：</li>
+      <li><%= f.input :mobile_phone, input_html: {class: "wenben11"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">邮箱：</li>
+      <li><%= f.input :email, as: :string, input_html: {class: "wenben11"}, label: false, wrapper: false %></li>
+    </ul>
+  </div>
+</div>
+<div class="ht_bot">
+  <div class="fbxx_top">公司信息</div>
+  <div class="fbxx_footer">
+    <ul>
+      <li class="fbxx_footer_zi4">公司名称：</li>
+      <li><%= f.input :company_name, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>国家：</li>
+      <li>
+      <%= f.association :country, include_blank: "请选择国家", input_html: {class: "validate[required] xialacaidan6"}, label: false, wrapper: false %>
+
+      </li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">省份/城市：</li>
+      <li>
+        <%= f.input :region_id, collection: customer_regions(@customer), include_blank: "请选择省份", label: false, wrapper: false, input_html: {class: "xialacaidan6"} %>
+      
+      </li>
+      <li>
+        <%= f.input :city_id, collection: customer_cities(@customer), include_blank: "请选择城市", label: false, wrapper: false, input_html: {class: "xialacaidan6"} %>
+      </li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">地址：</li>
+      <li><%= f.input :address, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">邮编：</li>
+      <li><%= f.input :zip_code, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>客户分组：</li>
+      <li>
+      <%= f.input :customer_type_id, collection: current_user.customer_types, include_blank: '请选择分组', input_html: {class: "validate[required] xialacaidan6"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+
+  </div>
+</div>
+<div class="ht_bot">
+  <div class="fbxx_top">客户设置</div>
+  <div class="fbxx_footer">
+    <ul>
+      <li class="fbxx_footer_zi4">客户等级：</li>
+      <% Customer.get_rating_values.each do |customer| %>
+      <li class="dxanniu2">
+        <%= f.radio_button :rating, customer[1], id: "RadioGroup1_0" %>
+      </li>
+      <li class="fbxx_footer_zi2"><%= customer[0] %></li>
+      <% end %>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">公司状态：</li>
+      <% Customer.get_status_values.each do |customer| %>
+      <li class="dxanniu2">
+        <%= f.radio_button :status, customer[1], id: "RadioGroup1_0" %>
+      </li>
+      <li class="fbxx_footer_zi2"><%= customer[0] %></li>
+      <% end %>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi4">备注：</li>
+      <li>
+        <%= f.input :desc, input_html: {class: "wenbenyu2"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div>
+  <%= f.button :submit, "确认无误并提交", class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+</div>
+<% end %>
+
+
+<% if nil %>
+  <%= simple_form_for(@customer, html: {class: "validate_form"}) do |f| %>
+
+    <div class="inputs">
+      <%= f.input :name, input_html: {class: "validate[required]"} %>
+      <%= f.input :post %>
+      <%= f.input :gender, collection: Customer.get_gender_values, as: "radio_buttons" %>
+      <%= f.input :phone, hint: "请确保添加上区号" %>
+      <%= f.input :mobile_phone %>
+      <%= f.input :fax %>
+      <%= f.input :email %>
+      <%= f.input :company_name %>
+      <%= f.association :country, include_blank: "请选择国家", wrapper_tag: "span", input_html: {class: "validate[required]"} %>
+      <%= f.input :region_id, collection: customer_regions(@customer), include_blank: "请选择省份", label: false, wrapper_tag: "span" %>
+      <%= f.input :city_id, collection: customer_cities(@customer), include_blank: "请选择城市", label: false, wrapper_tag: "span" %>
+      <%= f.input :address %>
+      <%= f.input :zip_code %>
+      <%= f.input :customer_type_id, collection: current_user.customer_types, include_blank: '请选择分组', input_html: {class: "validate[required]"} %>
+      <%= f.input :rating, collection: Customer.get_rating_values, as: "radio_buttons" %>
+      <%= f.input :status, collection: Customer.get_status_values, as: "radio_buttons" %>
+      <%= f.input :desc %>
+    </div>
+
+    <div class="actions">
+      <%= f.button :submit %>
+    </div>
+  <% end %>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#customer_region_id").bind("change", function(){
+      var region_id = $(this).val()
+      $.get("<%= region_path('id') %>", {region_id : region_id}, function(data){
+        $("#customer_city_id").html(data)
+      })
+    })
+
+    $("#customer_country_id").bind("change", function(){
+      var country_id = $(this).val()
+      $.get("<%= country_path('id') %>", {country_id : country_id}, function(data){
+        $("#customer_region_id").html(data)
+        $("#customer_region_id").trigger("change")
+      })
+    })
+
+  })
+</script>

@@ -1,0 +1,151 @@
+<%= title @transaction.name %>
+
+<div class="weizhi">当前位置：首页 >  交易中心 &gt; 供求信息 &gt; <font color="#FF6600">产品信息</font></div>
+<div class="cpxx_header">
+  <div class="cpxx_header_top">
+    <div class="cpxx_header_top_left">[<%= @transaction.info_type_text %>]<%= @transaction.title %></div>
+    <div class="cpxx_header_top_right"><%= @user.member_text %></div>
+  </div>
+  <div class="cpxx_header_bot">
+    <div class="cpxx_header_bot_k1">
+      <div class="cpxx_header_bot_k1_l">
+        <ul>
+          <li class="cpxx_header_bot_k1_pic">
+          <%= head_image @transaction, width: 252, height: 284, class: "medium" %>
+          </li>
+          <% @transaction.attachments.each do |atta| %>
+            <li class="cp_smallpic">
+              <%= image_tag atta.image.url(:medium), width: 46, height: 33, class: "thumb" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="cpxx_header_bot_k1_r">
+        <ul>
+          <li class="cpxx_header_bot_k1_zi2"><%= @transaction.info_type_text %>价格：<%= @transaction.price_by_unit %></li>
+          <li class="cpxx_header_bot_k1_zi2"><%= @transaction.info_type_text %>数量：<font color="#cc0000"><strong><%= @transaction.provide_quantity_by_unit %></strong></font></li>
+          <li class="cpxx_header_bot_k1_zi2"><%= @transaction.info_type_text %>总量：<font color="#cc0000"><strong><%= @transaction.provide_quantity_by_unit %></strong></font></li>
+          <li class="cpxx_header_bot_k1_zi2"><%= @transaction.info_type_text %>情况：<%= @transaction.provide_statu_text %></li>
+          <li class="cpxx_header_bot_k1_zi2">所在地：<%= @transaction.location %></li>
+          <li class="cpxx_header_bot_k1_zi2">发布日期：<%= l @transaction.created_at.to_date %></li>
+          <li class="cpxx_header_bot_k1_zi2">信息有效期：<%= @transaction.youxiaoqi %></li>
+          <li class="cpxx_header_bot_k1_zi3">
+          <% @transaction.tag_list.each do |tag| %>
+            <%= link_to tag, search_by_tag_home_path(tag: tag) %>
+          <% end %>
+          </li>
+          <%= link_to "加入篮子", lanzis_path(transaction_id: @transaction.id), method: :post, target: "_blank", class: "anniu5", style: "background:url(/assets/anniu3.gif)" %>
+        </ul>
+      </div>
+    </div>
+    <div class="cpxx_header_bot_k2">
+      <div class="cpxx_header_bot_k2_top">
+        <%= @user.company_name %>
+      </div>
+      <div class="cpxx_header_bot_k2_xia">
+        <div class="cpxx_header_bot_k2_anniu">
+          <a href="<%= website_path(@user) %>"  target="_blank"><img src="/assets/cpxxanniu1.gif" border="0"/></a> 
+        </div>
+        <% if @user.is_have_website? %>
+          <div class="cpxx_header_bot_k2_zi1">
+            <a href="<%= website_path(@user, category: "transactions") %>" target="_blank">最新供求</a> | <a href="<%= website_path(@user, category: "show") %>" target="_blank">公司介绍</a>
+          </div>
+        <% end %>
+        <ul>
+          <li>联系人：<%= @user.call %></li>
+          <li>电 话： <%= @user.phone %></li>
+          <li>传 真：<%= @user.fax %></li>
+          <li>邮 箱：<%= @user.email %></li>
+          <li>地 址：<%= @user.address %>(<%= @user.suozaidi %>)</li>
+          <li>邮 编：<%= @user.zip_code %></li>
+          <li>网 址：<%= link_to_if @user.company_url, @user.company_url, @user.company_url %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="cpxx_bottom">
+  <div class="cpxx_bottom_left">
+    <div class="cpxx_bottom_left_k1">
+      <div class="cpxx_bottom_left_top">
+        <ul>
+          <li class="cpxx_bottom_left_bt1">详细信息</li>
+          <li class="cpxx_bottom_left_bt2"></li>
+        </ul>
+      </div>
+      <div class="cpxx_bottom_left_xia">
+        <%= @transaction.desc %>
+      </div>
+    </div>
+    <div class="cpxx_bottom_left_k1">
+      <div class="cpxx_bottom_left_top">
+        <ul>
+          <li class="cpxx_bottom_left_bt3">该商家信息</li>
+          <li class="cpxx_bottom_left_bt4"></li>
+        </ul>
+      </div>
+      <div class="cpxx_bottom_left_xia2">
+        <% @transactions.each do |t| %>
+          <ul>
+            <div class="cpxx_bottom_left_xia2_pic">
+              <%= head_image(t, width: 114, height: 105) %>
+            </div>
+            <li class="cpxx_bottom_left_xia2_zi">
+            <%= link_to truncate(t.name, length: 12), t, title: t.name %>
+            </li>
+          </ul>
+        <% end %>
+        <%= will_paginate @transactions %>
+      </div>
+    </div>
+    <div class="cpxx_bottom_left_k1">
+      <div class="cpxx_bottom_left_top">
+        <ul>
+          <li class="cpxx_bottom_left_bt1">在线留言</li>
+          <li class="cpxx_bottom_left_bt2"></li>
+        </ul>
+      </div>
+      <%= simple_form_for Message.new, html: {class: "validate_form"} do |f| %>
+        <%= hidden_field_tag "liuyan", "yes" %>
+        <%= f.input :to_id, as: "hidden", input_html: {value: @user.id}, label: false, wrapper: false %> 
+        <div class="cpxiak">
+          <span class="error"><%= flash[:alert] %></span>
+          <span class="tishixinxi"><%= flash[:notice] %></span>
+          <div class="gt_cp_lytopk">
+            <div class="gly_fbwz_zi1">标题：</div>
+            <%= f.input :title, input_html: {value: "我对#{@transaction.category_name}感兴趣", class: "validate[required] wenben7"}, label: false, wrapper: false %>
+          </div>
+          <div class="cp_k2">
+            <div class="cp_text">内容：</div>
+            <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]] cp_wenbenyu"}, label: false, wrapper: false %>
+            <input name="" type="submit" class="cp_button" value="提交留言" />
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="cpxx_bottom_right">
+    <div class="cpxx_bottom_right_k2">
+      <div class="cpxx_bottom_right_k2_top">相关产品</div>
+      <div class="cp_right_fot">
+        <ul>
+          <% @xg_transactions.each do |t| %>
+            <li class="cp_right_fot_zi1">
+            ·<%= link_to truncate(t.name, length: 15), t, title: t.name %>
+            </li>
+            <li class="cp_right_fot_zi2"><%= l t.created_at.to_date %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+
+  <script text="type/javascript">
+  $(function(){
+    $(".thumb").click(function(){
+      $(".medium").attr("src", $(this).attr("src"))
+    })
+  })
+</script>

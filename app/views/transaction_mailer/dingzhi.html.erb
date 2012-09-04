@@ -1,0 +1,109 @@
+<% if true %>
+
+<div style="width:700px;height:auto;margin-left:auto;margin-right:auto;">
+  <div style="font-size:12px;line-height:24px;font-weight: bold;color: #000000;float: left;width: 700px;font-family: '宋体', '黑体';"><%= @user.call %> ：您好！ 以下是您在<%= link_to App::NAME, url_for(host: @host, port: @port, controller: "home", action: "index") %>订阅的最新商机</div>
+  <div style="float: left;height: auto;width: 700px;margin-bottom: 10px;">
+    <div style="background-color: #FF9900;float: left;height: 30px;width: 680px;padding-right: 10px;padding-left: 10px;">
+    <span style="width: 340px;height: 30px;float: left;color: #000000;line-height: 30px;font-size: 12px;font-family: '宋体', '黑体';">已订阅内容</span>
+    <span style="text-align: right;width: 340px;height: 30px;float: left;color: #003399;line-height: 30px;font-size: 12px;font-family: '宋体', '黑体';">
+      <%= link_to "管理订阅", url_for(controller: "shangjidingzhis", action: "index", host: @host, port: @port), style: "color:#003399;text-decoration: underline;" %>
+      <%= link_to "新增订阅", url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "new"), style: "color:#003399;text-decoration: underline;" %>
+    </span>    
+  </div>
+    <div style="padding: 10px;float: left;height: auto;width: 678px;border:1px solid #ff9900;">
+    <ul style="width: 678px;float: left;">
+      <% @user.shangjidingzhis.each do |shangji| %>
+        <li style="width: 678px;height: 24px;float: left;color: #000000;line-height: 24px;font-size: 12px;font-family: '宋体', '黑体';">
+      ·<span style="font-weight: bold;color: #003399;">
+        <%= link_to shangji.keyword, url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "list", id: shangji.id), style: "color:#003399;text-decoration: underline;" %>
+        </span> [<%= shangji.info_type_text %>]
+        </li>
+      <% end %>
+    </ul>
+    </div>
+  </div>
+  <% @user.shangjidingzhis.each do |shangji| %>
+
+  <div style="float: left;height: auto;width: 700px;margin-bottom: 10px;">
+    <div style="background-color: #FF9900;float: left;height: 30px;width: 680px;padding-right: 10px;padding-left: 10px;">
+      <span style="width: 340px;height: 30px;float: left;color: #000000;line-height: 30px;font-size: 12px;font-family: '宋体', '黑体';">
+        <%= "#{shangji.keyword} 最新信息（#{shangji.info_type_text}）" %>
+      </span>
+      <span style="text-align: right;width: 340px;height: 30px;float: left;color: #003399;line-height: 30px;font-size: 12px;font-family: '宋体', '黑体';">
+        <%= link_to "点此进入查看更多#{shangji.keyword}供求信息", url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "list", id: shangji.id) %> 
+      </span> 
+    </div>
+    <div style="float: left;float: left;width: 678px;border-right-width: 1px;border-bottom-width: 1px;border-left-width: 1px;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;border-right-color: #FF9900;border-bottom-color: #FF9900;border-left-color: #FF9900;padding-top: 10px;padding-right: 10px;padding-left: 10px;">
+      <div style="float: left;height: auto;">
+          <% shangji.transactions(6).each do |transaction| %>
+      <ul style="float: left;height: 62px;width: 280px;margin-bottom: 15px;list-style:none outside none;">
+        <li style="font-size: 12px;line-height: 62px;color: #000000;float: left;height: 62px;width: auto;padding-left: 10px;font-family: '宋体', '黑体';">[<%= transaction.info_type_text %>] 
+        <span style="color: #003399;text-decoration: underline;">
+          
+          <a href="<%= url_for(controller: "transactions", action: "show", id: transaction.id, host: @host, port: @port) %>" style="color:#003399;text-decoration: underline;">
+            <%= truncate(transaction.title, length: 10) %>
+          </a>
+        </span> 
+        <span style="color: #999999;">
+          (<%= l transaction.created_at.to_date %>)
+        </span>
+        </li>
+      </ul>
+    <% end %>
+      </div>
+
+      </div>
+    </div>
+    <% end %>
+    <div style="font-size: 12px;line-height: 24px;color: #000000;background-color: #FFCC99;text-align: center;float: left;height: 24px;width: 700px;margin-bottom: 10px;font-family: '宋体', '黑体';">
+      <span style="color: #003399;text-decoration: underline;">
+        <a href="#" style="color:#003399;text-decoration: underline;"></a>
+      </span>
+    </div>
+    <div style="font-size: 12px;line-height: 30px;color: #000000;text-align: center;float: left;height: auto;width: 700px;">【小提示】你的登录email：<%= @user.email %> 忘了密码？<span style="color: #003399;text-decoration: underline;">
+        <%= link_to "点此找回", url_for(host: @host, port: @port, controller: "devise/passwords", action: "new"), style: "color:#003399;text-decoration: underline;" %>
+      </span>
+    </div>
+  <div class="clear"></div>
+</div>
+
+
+<% else %>  
+
+<h1><%= "实时商机  #{Date.current}" %></h1>
+
+<%= @user.name %> <%= @user.gender.to_s == "male" ? "先生" : "女士" %> ：您好！ 以下是您在<%= link_to App::NAME, url_for(host: @host, port: @port, controller: "home", action: "index") %>订阅的最新商机
+
+如果本邮件无法正常显示，请<%= link_to "点此查看", url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "list") %>
+<br/>
+
+<%= link_to "管理订阅", url_for(controller: "shangjidingzhis", action: "index", host: @host, port: @port) %>
+<%= link_to "新增订阅", url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "new") %>
+<br/>
+<br/>
+<br/>
+
+
+已订阅内容:
+<br/>
+<% @user.shangjidingzhis.each do |shangji| %>
+  <%= link_to shangji.keyword, url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "list", id: shangji.id) %><%= shangji.info_type_text %>
+  <br/>
+<% end %>
+<br/>
+<br/>
+<br/>
+<%  @user.shangjidingzhis.each do |shangji| %>
+  <%= "#{shangji.keyword} 最新信息（#{shangji.info_type_text}）" %><br/>
+  <% shangji.transactions(6).each do |transaction| %>
+    <%= transaction.info_type_text %>
+    <%= transaction.title %>
+    <%= l transaction.created_at.to_date %>
+    <br/>
+    <%= link_to "点此进入查看更多#{shangji.keyword}供求信息", url_for(host: @host, port: @port, controller: "shangjidingzhis", action: "list", id: shangji.id) %>
+    <br/>
+    <br/>
+  <% end %>
+<% end %>
+
+<% end %>

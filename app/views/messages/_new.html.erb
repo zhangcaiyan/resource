@@ -1,0 +1,6 @@
+<%= simple_form_for Message.new, path: messages_path, html: {class: "validate_form"} do |f| %>
+  <%= f.input :title, as: "hidden", input_html: {value: "咨询"} %>
+  <%= f.input :to_id, as: "hidden", input_html: {value: user.id} %>
+  <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]]"} %>
+  <%= f.button :submit, "留言" %>
+<% end %>

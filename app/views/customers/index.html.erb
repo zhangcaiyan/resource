@@ -1,0 +1,104 @@
+<% title "客户列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">客户列表</div>
+  <div class="sdly_k1" style="margin-top:5px;margin-bottom:5px" id="customer_links">
+    <ul>
+      <li><%= link_to "全部", customers_path(search: {customer_type_id_eq: nil}) %></li>
+      <% current_user.customer_types.each do |type| %>
+        <li><%= link_to type.name, customers_path(search: {customer_type_id_eq: type.id}), name: type.id %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="kehulb_formk">
+    <ul>
+      <%= simple_form_for @search do |f| %>
+        <li class="kehulb_zi1">联系人：</li>
+        <li><%= f.input :name_contains, label: false, wrapper: false, input_html: {class: "wenben16"} %></li>
+        <li class="kehulb_zi1">公司名称：</li>
+        <li><%= f.input :company_name_contains, label: false, wrapper: false, input_html: {class: "wenben16"} %></li>
+        <li class="kehulb_zi1">电话：</li>
+        <li><%= f.input :phone_contains, label: false, wrapper: false, input_html: {class: "wenben16"} %></li>
+        <li class="kehulb_zi1">手机：</li>
+        <li><%= f.input :mobile_phone_contains, label: false, wrapper: false, input_html: {class: "wenben16"} %></li>
+        <li style="margin-top:4px">
+        <%= f.button :submit, "搜索", class: "anniu8" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= form_tag customer_path("id"), method: "delete" do %>
+    <%= hidden_field_tag "search[customer_type_id_eq]", params[:search].try(:[], :customer_type_id_eq) %>
+    <div class="glgq_xia">
+      <div class="sdly_top">
+        <ul>
+          <li class="kehulb_lianxiren"><strong>联系人</strong></li>
+          <li class="kehulb_company_name"><strong>公司名称</strong></li>
+          <li class="kehulb_zi2"><strong>公司电话</strong></li>
+          <li class="kehulb_zi2"><strong>手机</strong></li>
+          <li class="kehulb_zi2"><strong>地区</strong></li>
+          <li class="kehulb_zi2"><strong>操作</strong></li>
+        </ul>
+      </div>
+      <div class="glgq_xia_bot">
+        <% @customers.each do |customer| %>
+          <ul>
+            <span class="fuxuank4">
+              <%= check_box_tag "customers[customer_#{customer.id}]", customer.id, false, class: "customer_id" %>
+            </span>
+            <li class="kehulb_lianxiren">
+            <%= link_to truncate(customer.call, length: 12), edit_customer_path(customer), title: customer.call %>
+            </li>
+            <li class="kehulb_company_name">
+            <%= truncate customer.company_name, length: 16 %>
+            </li>
+            <li class="kehulb_zi2">
+            <%= customer.phone %>
+            </li>
+            <li class="kehulb_zi2">
+            <%= customer.mobile_phone %>
+            </li>
+            <li class="kehulb_zi2">
+            <%= customer.dizhi %>
+            </li>
+            <li class="kehulb_zi2">
+            <%= link_to '编辑', edit_customer_path(customer) %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class="sdly_k2">
+      <ul>
+        <li class="fuxuank6">
+        <%= check_box_tag "select" %>
+        </li>
+        <li>
+        <%= submit_tag "删除" %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+  <%= will_paginate @customers %>
+</div>
+<div class="clear"></div>
+
+
+<script text='type/javascript'>
+  $(function(){
+
+    var category = "<%= params[:search].try(:[], :customer_type_id_eq) %>"
+    if(category == ""){
+      $("#customer_links a").eq(0).addClass("ppp");
+    }else{
+      $("#customer_links a[name='"+category+"'] ").addClass("ppp") 
+    }
+
+    $("#customer_list").addClass("ht_dianji2")
+
+    $("#select").change(function(){
+      $(".customer_id").attr("checked", $(this).prop("checked"))
+    })
+  })
+</script>
+

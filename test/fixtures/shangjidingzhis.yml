@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  keyword: MyString
+  info_type: MyString
+  is_send_email: false
+  user_id: 1
+  region_id: 1
+  city_id: 1
+
+two:
+  keyword: MyString
+  info_type: MyString
+  is_send_email: false
+  user_id: 1
+  region_id: 1
+  city_id: 1

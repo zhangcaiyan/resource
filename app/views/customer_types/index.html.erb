@@ -1,0 +1,23 @@
+<h1>管理我的客户类型</h1>
+<% title "管理我的客户类型" %>
+
+<table>
+  <tr>
+    <th>分类名称</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @customer_types.each do |customer_type| %>
+  <tr>
+    <td><%= customer_type.name %></td>
+    <td><%= link_to '编辑', edit_customer_type_path(customer_type) %></td>
+    <td><%= link_to '删除', customer_type, confirm: '确定删除吗?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '添加客户类型', new_customer_type_path %>

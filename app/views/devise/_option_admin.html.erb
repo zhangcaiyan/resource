@@ -1,0 +1,13 @@
+<div class="top2">
+  <div class="top2_zi">
+    <a href="<%= home_path %>">返回首页</a> | 
+    <a href="<%= admin_path %>">生意管家</a> | 
+    <% if current_user.is_have_website %>
+      <%= link_to("您的个人站点", website_path(current_user))%> | 
+    <% end %>
+    <a href="<%= jiaoyis_path %>">交易中心</a> | 
+    <a href="<%= baojias_path %>">报价中心</a> | 
+    <a href="<%= zixuns_path %>">资讯中心</a> |
+    <%= link_to "#{current_user.unread_message_size}条新留言", messages_path(category: "receive") if !current_user.unread_message_size.zero? %>
+  </div>
+</div>

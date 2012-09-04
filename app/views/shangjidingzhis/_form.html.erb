@@ -1,0 +1,46 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> >  交易中心 &gt; <font color="#FF6600">订制报价</font></div>
+<div class="gly_bottom">
+  <div class="czmm_header">实时报价定制</div>
+  <%= simple_form_for(@shangjidingzhi, html: {class: "validate_form"}) do |f| %>
+    <div class="ht_bot">
+      <div class="czmm_footer">
+        <ul>
+          <li class="fbxx_footer_zi4">
+          <font color="#FF0000">*</font>关键字：
+          </li>
+          <li><%= f.input :keyword, input_html: {class: "validate[required] wenben11"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">商机类型：</li>
+
+          <% Shangjidingzhi.get_info_type_values.each do |shangjidingzhis| %>
+            <li class="dxanniu2">
+            <%= f.radio_button :info_type, shangjidingzhis[1] %>
+            </li>
+            <li class="fbxx_footer_zi2"><%= shangjidingzhis[0] %></li>
+          <% end %>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">提醒方式：</li>
+          <li>
+          <%= f.input :is_send_email, input_html: {class: "dxanniu2"}, label: false, wrapper: false %>
+          </li>
+          <li class="fbxx_footer_zi2"> 发送电子邮件通知我 </li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">您的Email：</li>
+          <li>
+          <%= f.input :email, as: :string, disabled: true, input_html: {value: current_user.valid_email, class: "wenben7"}, label: false, wrapper: false %>
+          </li>
+        </ul>
+        <ul>
+          <li>
+          <%= f.button :submit, "确认定制", class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+

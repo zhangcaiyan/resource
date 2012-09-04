@@ -1,0 +1,26 @@
+<%= title "升级高级会员" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_ck_k">
+    <ul>
+      <li>姓名：<%= @user.name %></li>
+      <li>电子邮件：<%= @user.email %></li>
+      <li>
+      <%= simple_form_for @user, url: member_user_path do |f| %>
+        <%= f.input :id, as: :hidden, wrapper: false %>
+        <span class="gly_gxhy_zi1">会员：</span>
+        <% User.get_member_values.each do |member| %>
+          <span class="dxanniu">
+            <%= f.radio_button :member, member[1], id: "RadioGroup1_0" %>
+          </span>
+          <span class="gly_gxhy_zi2"><%= member[0] %></span>
+        <% end %>
+        <%= f.button :submit, "更新用户", class: "anniu8" %>
+      <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="clear"></div>
+
+

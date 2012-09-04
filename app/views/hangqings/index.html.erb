@@ -1,0 +1,38 @@
+<% title "行情列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">行情列表</div>
+  <div class="gly_lb_xia">
+    <div class="gly_lb_xia_top">
+      <ul>
+        <li class="gly_lb_xia_top_zi1_my">
+        <strong>
+          <%= sort_link @search, :title, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi3">
+        <strong>
+          <%= sort_link @search, :published_at, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi4"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="gly_lb_xia_bot">
+      <% @hangqings.each do |hangqing| %>
+        <ul>
+          <span class="fuxuank"><input name="" type="checkbox" value="" /></span>
+          <li class="gly_lb_xia_top_zi1_my"><%= link_to truncate(hangqing.title, length: 35), hangqing, title: hangqing.title, target: "_blank" %></li> 
+          <li class="gly_lb_xia_top_zi3"><%= (l hangqing.published_at) if hangqing.published_at %></li>
+          <li class="gly_lb_xia_top_zi4">
+          <%= link_to '编辑', edit_hangqing_path(hangqing) %> | 
+          <%= link_to '删除', hangqing, confirm: '确定删除吗?', method: :delete %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @hangqings %>
+</div>
+<div class="clear"></div>
+</div>

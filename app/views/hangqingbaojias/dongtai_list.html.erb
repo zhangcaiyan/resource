@@ -1,0 +1,38 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @resource.name %></font></div>
+<div class="fl1_bottom">
+  <div class="fl1_bottom_left">
+    <div class="lby_left_top"><%= @resource.name %>市场动态</div>
+    <div class="fl1_left_xiak">
+      <% KeyValues::DongtaiCategory.find([1,2,3,4,6]).each do |region| %>
+        <ul>
+          <% @resource.dongtais.where(region_id: region.id).order("published_at DESC").limit(6).each do |dongtai| %>
+        <li class="fl1_left_xiak_text">
+            [<%= link_to region.name, more_dongtai_list_hangqingbaojias_path(id: region.id), target: "_blank" %>]  <%= link_to truncate(dongtai.title, length: 21 - region.name.length), dongtai %>
+            <font color="#999999">
+              <%= dongtai.published_at %>
+            </font>
+        </li>
+          <% end %>
+        <li class="more3">
+        <%= link_to "更多#{region.name}市场动态>>", more_dongtai_list_hangqingbaojias_path(id: region.id), target: "_blank" %>
+        </li>
+        </ul>
+      <% end %>
+
+        <ul>
+          <% @resource.dongtais.where(["region_id > 7"]).order("published_at DESC").limit(6).each do |dongtai| %>
+        <li class="fl1_left_xiak_text">
+            [<%= link_to dongtai.region.name, more_dongtai_list_hangqingbaojias_path(id: dongtai.region.id), target: "_blank" %>]  <%= link_to truncate(dongtai.title, length: 21 - dongtai.region.name.length), dongtai %>
+            <font color="#999999">
+              <%= dongtai.published_at %>
+            </font>
+        </li>
+          <% end %>
+        <li class="more3">
+        <%= link_to "更多其他市场动态>>", more_dongtai_list_hangqingbaojias_path(id: "qita"), target: "_blank" %>
+        </li>
+        </ul>      
+    </div>
+  </div>
+  <%= render partial: "right", locals: {resource: @resource} %>
+</div>

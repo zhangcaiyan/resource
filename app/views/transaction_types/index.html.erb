@@ -1,0 +1,52 @@
+<% title "供求类型列表" %>
+
+  <div class="gly_bottom_right">
+    <div class="gly_right_header">管理供求系列</div>
+    <div class="glxl_xia">
+      <div class="glxl_xia_top_1">按系列分类的供求信息</div>
+      <div class="glxl_xia_top_2">
+        <%= link_to '创建新供求系列', new_transaction_type_path %>
+      </div>
+      <div class="glxl_xia_bot">
+        <% @transaction_types.each do |transaction_type| %>
+          <ul>
+            <li class="glxl_xia_bot_zi2"><%= link_to transaction_type.name, transaction_types_path(id: transaction_type.id) %></li>
+            <li class="glxl_xia_bot_zi5">
+            <%= link_to '编辑', edit_transaction_type_path(transaction_type) %> | 
+            <%= link_to '删除', transaction_type, confirm: '确定删除吗?', method: :delete %>
+            </li>
+            <%= (render partial: "transaction", collection: @transactions) if @transaction_type == transaction_type %>
+          </ul>
+        <% end  %>
+
+        <ul>
+          <li class="glxl_xia_bot_zi2">
+          <%= link_to "未分类类型", transaction_types_path %>
+          </li>
+          <%= (render partial: "transaction", collection: @transactions) unless @transaction_type %>
+        </ul>
+
+      </div>
+    </div>
+    <%= will_paginate @transactions, params: {id: @transaction_type.try(:id)} %>
+  </div>
+  <div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+
+    $("#transaction_types").addClass("ht_dianji")
+
+    $(".transaction_type_id").change(function(){
+      var t = $(this)
+      var id = $(this).val()
+      var transaction_id = $(this).attr("transaction_id")
+      var transaction_type_id = $(this).attr("transaction_type_id")
+      if(id != "" && id != transaction_type_id){
+        $.get("<%= change_transaction_type_transaction_path('id') %>", {transaction_type_id: id, transaction_id: transaction_id}, function(data){
+          t.parent().remove()
+        })  
+      }
+    })
+  })
+</script>

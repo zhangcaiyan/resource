@@ -1,0 +1,102 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "交易中心", jiaoyis_path %> > <font color="#FF6600"><%= @category.name %></font></div>
+<div class="fllb_bottom">
+  <div class="fllb_bottom_left">
+    <div class="jyzx_bottom_left_top">
+      <ul>
+        <li class="jyzx_bottom_left_bt">
+        <%= @category.name %>
+        </li>
+        <li class="jyzx_bottom_left_xian"></li>
+      </ul>
+    </div>
+    <div class="fllb_bottom_left_xia">
+      <div class="fllb_bottom_left_xia_fenleik">
+        <div class="jyzx_fl_zi1">
+          <%= link_to @category.name, search_home_path(keyword: @category.name) %>
+        </div>
+        <% @category.children.each do |category2| %>
+        <ul>
+          <div class="jyzx_fl_zi2">
+            <%= link_to category2.name, search_home_path(keyword: category2.name) %>
+          </div>
+          <% category2.children.each do |category3| %>
+            <li>
+            <%= link_to category3.name, search_home_path(keyword: category3.name)%>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      </div>
+    </div>
+    <div class="fllb_left_xia_k">
+      <div class="fllb_left_xia_k_btk">
+        <div class="fllb_left_xia_k_btk1"><%= @category.name %>供应信息</div>
+        <div class="fllb_left_xia_k_btk2"><%= @category.name %>求购信息</div>
+      </div>
+      <div class="fllb_left_xia_bot">
+        <div class="fllb_left_xia_bot1">
+          <ul>
+            <% @supply_infos.each do |t| %>
+              <li class="fllb_left_xia_text">
+                <%= link_to truncate(t.title, length: 22), t, title: t.title %>
+              </li>
+              <li class="fllb_left_xia_riqi">
+                <%= l t.created_at.to_date %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="fllb_left_xia_bot2">
+          <ul>
+            <% @seeking_infos.each do |t| %>
+              <li class="fllb_left_xia_text">
+                <%= link_to truncate(t.title, length: 22), t, title: t.title %>
+              </li>
+              <li class="fllb_left_xia_riqi">
+                <%= l t.created_at.to_date %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fllb_bottom_right">
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">
+          <strong><%= "#{@category.name}相关标签" %></strong>
+        </span>
+      </div>
+
+    <div class="gqxx_right_k1_xia">
+      <ul>
+        <% @tags.each do |tag| %>
+          <li class="<%= ["yellow", "black", "red", "black", "green", "blue"][rand(6)] %>">
+          <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+          </li>
+          <li>|</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">
+          <strong>最新企业</strong>
+        </span>
+      </div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% @users.each do |user| %>
+            <li>·<%= link_to truncate(user.company_name, length: 18), website_path(user), title: user.company_name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>

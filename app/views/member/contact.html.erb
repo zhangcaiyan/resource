@@ -1,0 +1,39 @@
+
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt"><span class="gt_right_btzi">联系方式</span><span class="gt_more"></span></div>
+    <div class="gt_right_bot">
+      <ul>
+        <li>公 司 名： <%= @user.company_name %></li>
+        <li>联 系 人： <%= @user.call %></li>
+        <li>电    话： <%= @user.phone %></li>
+        <li>移动电话：<%= @user.mobile_phone %></li>
+        <li>邮编：<%= @user.zip_code %></li>
+        <li>QQ：<%= @user.qq %></li>
+        <li>MSN: <%= @user.msn %></li>
+        <li>传    真：<%= @user.fax %></li>
+        <li>地    址：<%= @user.address %>(<%= @user.suozaidi %>)</li>
+        <li>邮箱：<%= @user.email %></li>
+        <li>备用邮箱：<%= @user.backup_email %></li>
+        <li>公司主页： <%= link_to_if @user.company_url, @user.company_url, @user.company_url %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% if nil %>
+
+<h2>主要联系人</h2>
+
+<%= @user.company_name %><br/>
+<%= @user.call %><br/>
+座机：<%= @user.phone %><br/>
+移动电话：<%= @user.mobile_phone %><br/>
+邮箱：<%= @user.zip_code %><br/>
+传    真：<%= @user.fax %><br/>
+地    址：<%= @user.address %><br/>
+主页：<%= link_to_if @user.company_url, @user.company_url, @user.company_url %><br/>
+
+<h2>其他联系人</h2>
+
+<% end %>

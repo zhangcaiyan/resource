@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>
+      <%= content_for?(:title) ? yield(:title) : "" %>
+      <%= @user.company_name %>
+    </title>
+    <link rel="icon" href="/assets/favicon.ico">
+
+    <%= yield(:head) %>
+
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="baidi">
+    <%= render "/layouts/member_header" %>
+    <div class="gly_bottom">
+      <%= render "/layouts/member_left" %>
+      <%= yield %>
+      <div class="clear"></div>
+    </div>
+    <%= render "/layouts/member_footer" %>
+    </div>
+  </body>
+</html>

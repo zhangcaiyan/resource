@@ -1,0 +1,23 @@
+<%= title "忘记密码？" %>
+
+<div class="gly_bottom">
+  <div class="czmm_header">重置密码</div>
+  <div class="ht_bot">
+    <div class="czmm_footer">
+       <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+      <ul>
+        <li class="fbxx_footer_zi4">用户名(E-mail)：</li>
+        <li><%= f.input :email, as: :string, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"></li>
+        <li>
+        <%= f.button :submit, "发送邮件", class: "anniu17" %>
+        </li>
+      </ul>
+    <% end %>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+

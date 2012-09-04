@@ -1,0 +1,53 @@
+
+    imgUrl1="<%= asset_path '01.jpg' %>";
+    imgtext1=""
+    imgLink1=escape("");
+    //imgLink1="";
+    
+    imgUrl2="<%= asset_path '02.jpg' %>";
+    imgtext2=""
+    imgLink2=escape("");
+    //imgLink2="";
+    
+  
+    imgUrl3="<%= asset_path '03.jpg' %>";
+    imgtext3=""
+    imgLink3=escape("");
+    //imgLink3="";
+	
+    imgUrl4="<%= asset_path '04.jpg' %>";
+    imgtext4=""
+    imgLink4=escape("http://bfc.crra010.com/");
+    //imgLink4="";
+  
+    imgUrl5="<%= asset_path '05.jpg' %>";
+    imgtext5=""
+    imgLink5=escape("");
+    //imgLink5="";
+	
+    imgUrl6="<%= asset_path '06.jpg' %>";
+    imgtext6=""
+    imgLink6=escape("");
+    //imgLink6="";
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+     var focus_width=450
+     var focus_height=148
+	 var text_height=0
+     var swf_height = focus_height+text_height
+     
+     var pics=imgUrl1+"|"+imgUrl2+"|"+imgUrl3+"|"+imgUrl4+"|"+imgUrl5+"|"+imgUrl6
+     var links=imgLink1+"|"+imgLink2+"|"+imgLink3+"|"+imgLink4+"|"+imgLink5+"|"+imgLink6
+     var texts=imgtext1+"|"+imgtext2+"|"+imgtext3+"|"+imgtext4+"|"+imgtext5+"|"+imgtext6
+     var flashCode = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/hotdeploy/flash/swflash.cab#version=6,0,0,0" width="'+ focus_width +'" height="'+ swf_height +'">';
+     flashCode = flashCode + '<param name="allowScriptAccess" value="sameDomain"><param name="movie" value="/assets/focus.swf"><param name="quality" value="high"><param name="bgcolor" value="#ffffff">';
+     flashCode = flashCode + '<param name="menu" value="false"><param name=wmode value="opaque">';
+     flashCode = flashCode + '<param name="FlashVars" value="pics='+pics+'&links='+links+'&texts='+texts+'&borderwidth='+focus_width+'&borderheight='+focus_height+'&textheight='+text_height+'">';
+     flashCode = flashCode + '<embed src="/assets/focus.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'+ focus_width +'" height="'+ swf_height +'" FlashVars="pics='+pics+'&links='+links+'&texts='+texts+'&borderwidth='+focus_width+'&borderheight='+focus_height+'&textheight='+text_height+'"></embed>';
+     flashCode = flashCode + '</object>';
+     document.write(flashCode)

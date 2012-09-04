@@ -1,0 +1,50 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "行业资讯", zixuns_path %> > <font color="#FF6600"><%= @article.title %></font></div>
+<div class="nry_bottom">
+  <div class="nry_bottom_left">
+    <div class="nry_left_k">
+      <ul>
+        <li class="nry_left_k_zi1"><%= truncate(@article.title, length: 30) %></li>
+        <li class="nry_left_k_zi2">发表时间：<%= @article.created_at.to_date %></li>
+        <li class="nry_left_k_zi3">
+        <%= @article.content.html_safe %>
+        </li>
+        <li class="nry_left_k_zi4">相关资讯</li>
+        <% Article.where(category: @article.category).order("created_at DESC").limit(6).each do |article| %>
+          <li class="nry_left_k_zi5">
+          ·<a href="<%= article_path(article) %>" title="<%= article.title %>">
+            <%= truncate(article.title, length: 40) %>. <font color="#999999">(<%= l article.created_at.to_date %>)</font>
+          </a>
+          </li>
+        <% end %>
+
+        <li class="nry_left_k_botk">
+        <span class="nry_left_k_zi6">
+          <%= link_to truncate("上一篇：#{@article.pre.title}", length: 20), @article.pre, title: @article.pre.title if @article.pre? %>
+        </span>
+        <span class="nry_left_k_zi6">
+          <%= link_to truncate("下一篇：#{@article.next.title}", length: 20), @article.next, title: @article.pre.title if @article.next? %>
+        </span>    
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="lby_bottom_right">
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>最新资讯</strong></span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% Article.order("created_at DESC").limit(8).each do |article| %>
+            <li>
+            ·<%= link_to truncate(article.title, length: 15), article_path(article), title: article.title %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+
+

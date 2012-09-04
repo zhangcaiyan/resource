@@ -1,0 +1,38 @@
+<% title "市场动态列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">市场动态列表</div>
+  <div class="gly_lb_xia">
+    <div class="gly_lb_xia_top">
+      <ul>
+        <li class="gly_lb_xia_top_zi1_my">
+        <strong>
+          <%= sort_link @search, :title, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi3">
+        <strong>
+          <%= sort_link @search, :published_at, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi4"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="gly_lb_xia_bot">
+      <% @dongtais.each do |dongtai| %>
+        <ul>
+          <span class="fuxuank"><input name="" type="checkbox" value="" /></span>
+          <li class="gly_lb_xia_top_zi1_my"><%= link_to truncate(dongtai.title, length: 35), dongtai, title: dongtai.title, target: "_blank" %></li> 
+          <li class="gly_lb_xia_top_zi3"><%= (l dongtai.published_at) if dongtai.published_at %></li>
+          <li class="gly_lb_xia_top_zi4">
+          <%= link_to '编辑', edit_dongtai_path(dongtai) %> | 
+          <%= link_to '删除', dongtai, confirm: '确定删除吗?', method: :delete %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @dongtais %>
+</div>
+<div class="clear"></div>
+</div>

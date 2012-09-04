@@ -1,0 +1,30 @@
+<% title "企业报价搜索" %>
+
+<div class="weizhi">共有<%= @search.size %>条关于<%= @keyword %>的信息</div>
+<div class="gqxx_bottom">
+  <div class="baojia_top">
+    <ul>
+      <li><strong>类别</strong></li>
+      <li><strong>产品名称</strong></li>
+      <li><strong>产品价格</strong></li>
+      <li><strong>地区</strong></li>
+      <li><strong>信息有效期</strong></li>
+      <li><strong>描述</strong></li>
+    </ul>
+  </div>
+  <div class="baojia_bot">
+    <% @company_prices.each do |company_price| %>
+      <ul>
+        <li><%= company_price.category1.name %></li>
+        <li><%= link_to company_price.name, company_price, title: company_price.name %></li>
+        <li><%= company_price.price %></li>
+        <li><%= company_price.suozaidi %></li>
+        <li><%= company_price.youxiaoqi %></li>
+        <li><%= link_to "联系商家", website_path(company_price.user) %></li>
+      </ul>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+
+

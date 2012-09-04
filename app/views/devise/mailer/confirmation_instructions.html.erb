@@ -1,0 +1,5 @@
+<p>欢迎 <%= @resource.email %>!</p>
+
+<p>您可以通过下面的链接激活您的帐户,激活账户后，请进入系统上传企业照片和营业执照:</p>
+
+<p><%= link_to '激活我的帐户', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

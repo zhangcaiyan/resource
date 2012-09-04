@@ -1,0 +1,290 @@
+<div class="jghq_bottom">
+  <div class="jghq_bottom_left">
+    <div class="jghq_bottom_left_top">
+      <ul>
+        <li class="jghq_bottom_left_bt">废金属市场行情</li>
+        <li class="jghq_bottom_left_xian">
+        <% @jinshu.price_categories[0, 8].each do |category| %>
+          <%= link_to category.name, more_jiage_list_hangqingbaojias_path(id: category.id), target: "_blank"%> | 
+        <% end %>
+        </li>
+        <li class="more">
+          <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 1), target: "_blank" %>
+        </li>
+      </ul>
+    </div>
+    <div class="jghq_bottom_left_xia">
+      <div class="jghq_xiaok1">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">
+            废金属价格
+          </div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 1), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @jinshu_prices.each do |price| %>
+            <li>
+            <font color="#006699">[<%= link_to price.category.name, more_jiage_list_hangqingbaojias_path(id: price.category.id), target: "_blank" %>]</font>
+            <%= link_to truncate(price.title, length: 17 - price.category.name.length), price, title: price.title, target: "_blank" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="jghq_xiaok1">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">废金属市场动态</div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", dongtai_list_hangqingbaojias_path(id: 1), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @jinshu_dongtais.each do |dongtai| %>
+            <li>
+            <font color="#006699">[<%= link_to dongtai.region.name, more_dongtai_list_hangqingbaojias_path(id: dongtai.region.id), target: "_blank" %>]</font>
+            <%= link_to truncate(dongtai.title, length: 17 - dongtai.region.name.length), dongtai, title: dongtai.title, target: "_blank" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="jghq_xiaok2">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">废金属行情综述</div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", hangqing_list_hangqingbaojias_path(id: 1), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @jinshu_hangqings.each do |hangqing| %>
+            <li>
+            <%= link_to truncate(hangqing.title, length: 17), hangqing, title: hangqing.title, target: "_blank" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="jghq_bottom_left_top">
+      <ul>
+        <li class="jghq_bottom_left_bt">废塑料行情报价</li>
+        <li class="jghq_bottom_left_xian">
+        <% @suliao.price_categories.each do |category| %>
+          <%= link_to category.name, more_jiage_list_hangqingbaojias_path(id: category.id), target: "_blank"%> | 
+        <% end %>
+        </li>
+        <li class="more">
+        </li>
+      </ul>
+    </div>
+    <div class="jghq_bottom_left_xia">
+      <div class="jghq_xiaok1">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">废塑料价格</div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 2), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @suliao_prices.each do |price| %>
+            <li>
+            <font color="#006699">[<%= link_to price.category.name, more_jiage_list_hangqingbaojias_path(id: price.category.id), target: "_blank" %>]</font>
+            <%= link_to truncate(price.title, length: 17 - price.category.name.length), price, title: price.title, target: "_blank" %>
+            </li>
+          <% end %>          
+        </ul>
+      </div>
+      <div class="jghq_xiaok1">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">废塑料市场动态</div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", dongtai_list_hangqingbaojias_path(id: 2), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @suliao_dongtais.each do |dongtai| %>
+            <li>
+            <font color="#006699">[<%= link_to dongtai.region.name, more_dongtai_list_hangqingbaojias_path(id: dongtai.region.id) %>]</font>
+            <%= link_to truncate(dongtai.title, length: 17 - dongtai.region.name.length), dongtai, title: dongtai.title, target: "_blank" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="jghq_xiaok2">
+        <div class="jghq_left_btk">
+          <div class="jghq_left_btk_one">废塑料行情综述</div>
+          <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", hangqing_list_hangqingbaojias_path(id: 2), target: "_blank" %>
+          </div>
+        </div>
+        <ul>
+          <% @suliao_hangqings.each do |hangqing| %>
+            <li>
+            <%= link_to truncate(hangqing.title, length: 17), hangqing, title: hangqing.title, target: "_blank" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="jghq_bottom_left_top">
+      <ul>
+        <li class="jghq_bottom_left_bt_long">废纸/橡胶行情报价</li>
+        <li class="jghq_bottom_left_xian_long">
+        <% @zhi.price_categories.each do |category| %>
+          <%= link_to category.name, more_jiage_list_hangqingbaojias_path(id: category.id), target: "_blank"%> | 
+        <% end %>
+        
+        </li>
+        <li class="more">
+        </li>
+      </ul>
+    </div>
+    <div class="jghq_bottom_left_xia2">
+      <div class="jghq_bottom_left_l">
+        <div class="jghq_lk">
+          <div class="jghq_bottom_left_l_btk">
+            <div class="jghq_left_btk_three">废纸价格</div>
+            <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 3), target: "_blank" %>
+            </div>
+          </div>
+          <ul>
+            <% @zhi_prices.each do |price| %>
+            <li>
+            <font color="#006699">[<%= link_to price.category.name, more_jiage_list_hangqingbaojias_path(id: price.category.id), target: "_blank" %>]</font>
+            <%= link_to truncate(price.title, length: 19 - price.category.name.length), price, title: price.title, target: "_blank" %>
+            </li>
+            <% end %> 
+          </ul>
+        </div>
+        <div class="jghq_lk">
+          <div class="jghq_bottom_left_l_btk">
+            <div class="jghq_left_btk_three">废橡胶价格</div>
+            <div class="jghq_left_btk_two">
+              <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 4), target: "_blank" %>
+            </div>
+          </div>
+          <ul>
+            <% @xiangjiao_prices.each do |price| %>
+            <li>
+            <font color="#006699">[<%= link_to price.category.name, more_jiage_list_hangqingbaojias_path(id: price.category.id), target: "_blank" %>]</font>
+            <%= link_to truncate(price.title, length: 19 - price.category.name.length), price, title: price.title, target: "_blank" %>
+            </li>
+            <% end %> 
+          </ul>
+        </div>
+      </div>
+      <div class="jghq_xiaok3">
+        <div class="jghq_xiaok3_k">
+          <div class="jghq_left_btk">
+            <div class="jghq_left_btk_one">废纸市场动态</div>
+            <div class="jghq_left_btk_two">
+            <%= link_to "更多>>", dongtai_list_hangqingbaojias_path(id: 3), target: "_blank" %>
+            </div>
+          </div>
+          <ul>
+            <% @zhi_dongtais.each do |dongtai| %>
+            <li>
+            <font color="#006699">[<%= link_to dongtai.region.name, more_dongtai_list_hangqingbaojias_path(id: dongtai.region.id) %>]</font>
+            <%= link_to truncate(dongtai.title, length: 15 - dongtai.region.name.length), dongtai, title: dongtai.title, target: "_blank" %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+        <div class="jghq_xiaok3_k">
+          <div class="jghq_left_btk">
+            <div class="jghq_left_btk_one">废橡胶行情综述</div>
+            <div class="jghq_left_btk_two">
+              <%= link_to "更多>>", hangqing_list_hangqingbaojias_path(id: 4), target: "_blank" %>
+            </div>
+          </div>
+          <ul>
+            <% @xiangjiao_hangqings.each do |hangqing| %>
+            <li>
+            <%= link_to truncate(hangqing.title, length: 18), hangqing, title: hangqing.title, target: "_blank" %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="jghq_bottom_right">
+    <div class="jghq_right_k1">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>废金属行情评论</strong></span></div>
+      <div class="jghq_right_k2">
+        <div class="jghq_right_bt1">废金属行情日评</div>
+        <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 1, category: "day"), target: "_blank" %>
+        </div>
+        <ul>
+          <% @jinshu_ripings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="jghq_right_k3">
+        <div class="jghq_right_bt1">废金属行情周评</div>
+         <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 1, category: "week"), target: "_blank" %>
+        </div>
+       <ul>
+          <% @jinshu_zoupings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="jghq_right_k1">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>废塑料行情评论</strong></span></div>
+      <div class="jghq_right_k2">
+        <div class="jghq_right_bt1">废塑料行情日评</div>
+        <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 2, category: "day"), target: "_blank" %>
+        </div>
+      <ul>
+          <% @suliao_ripings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>          
+        </ul>
+      </div>
+      <div class="jghq_right_k3">
+        <div class="jghq_right_bt1">废塑料行情周评</div>
+         <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 2, category: "week"), target: "_blank" %>
+        </div>
+       <ul>
+          <% @suliao_zoupings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>          
+        </ul>
+      </div>
+    </div>
+    <div class="jghq_right_k1">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>废纸行情评论</strong></span></div>
+      <div class="jghq_right_k2">
+        <div class="jghq_right_bt1">废纸行情日评</div>
+          <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 3, category: "day"), target: "_blank" %>
+        </div>
+      <ul>
+          <% @zhi_ripings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>          
+        </ul>
+      </div>
+      <div class="jghq_right_k3">
+        <div class="jghq_right_bt1">废纸行情周评</div>
+         <div class="jghq_right_bt2">
+          <%= link_to "更多>>", list_comments_path(resource_id: 3, category: "week"), target: "_blank" %>
+        </div>
+     <ul>
+          <% @zhi_zoupings.each do |comment| %>
+            <li><%= link_to truncate(comment.title, length: 18), comment %></li>
+          <% end %>          
+        </ul>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <div class="clear"></div>
+</div>

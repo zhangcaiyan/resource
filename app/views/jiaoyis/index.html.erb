@@ -1,0 +1,81 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <font color="#FF6600">交易中心</font></div>
+<div class="jyzx_header">
+  <div class="jyzx_header_left">
+    <div class="jyzx_header_left_bt"><span class="box1_right_xia_topzi1"><strong>最新供求</strong></span></div>
+    <div class="jyzx_header_left_xia">
+      <div class="gongqiupic">
+        <ul>
+          <% Transaction.limit(6).order("created_at DESC").each do |transaction| %>
+            <li>
+            ·<%= link_to truncate(transaction.name, length: 20), transaction, title: transaction.name %>
+            <%= l transaction.created_at.to_date %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="jyzx_header_center"><img src="/assets/07.jpg" /></div>
+  <div class="jyzx_header_right">
+    <div class="jyzx_header_right_bt"><span class="box1_right_xia_topzi1"><strong>热门标签</strong></span></div>
+    <div class="gqxx_right_k1_xia">
+      <ul>
+        <% Transaction.search_by_title_and_category(@keyword).top_tags(20).each do |tag| %>
+          <li class="<%= ["yellow", "black", "red", "black", "green", "blue"][rand(6)] %>">
+          <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+          </li>
+          <li>|</li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</div>
+<div class="jyzx_bottom">
+  <div class="jyzx_bottom_left">
+    <div class="jyzx_bottom_left_top">
+      <ul>
+        <li class="jyzx_bottom_left_bt">全部分类</li>
+        <li class="jyzx_bottom_left_xian"></li>
+      </ul>
+    </div>
+    <div class="jyzx_bottom_left_xia">
+        <% Category.roots.each do |category1| %>
+      <div class="jyzx_bottom_left_xia_fenleik">
+          <div class="jyzx_fl_zi1"><%= link_to category1.name, search_home_path(keyword: category1.name) %></div>
+          <% category1.children.each do |category2| %>
+            <ul>
+              <div class="jyzx_fl_zi2">
+                <%= link_to category2.name, search_home_path(keyword: category2.name) %>
+              </div>
+              <% category2.children.each do |category3| %>
+                <li>
+                <%= link_to category3.name, search_home_path(keyword: category3.name) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+      </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="jyzx_bottom_right">
+    <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+
+    <div class="guanggao1"><img src="/assets/gg1.gif" /></div>
+    <div class="box1_right_xia">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><strong>最新企业报价</strong></span></div>
+      <div class="box1_right_xia_top_bot">
+        <ul>
+          <% CompanyPrice.order("created_at DESC").limit(6).each do |cp| %>
+            <li>
+            ·<%= link_to truncate(cp.name, length: 18), company_price_path(cp), title: cp.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>

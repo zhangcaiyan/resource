@@ -1,0 +1,60 @@
+
+  <div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "交易中心", jiaoyis_path %>  > <font color="#FF6600">企业报价</font></div>
+
+<%= render "/company_prices/search" %>
+
+<div class="gqxx_bottom">
+    <div class="xiangguan_ser2">相关类别：</div>
+    <div class="xiangguan_ser2_xia">
+    <ul>
+    <% CompanyPriceCategory.roots.each do |category| %>
+      <% if @category.try(:id) == category.id %>
+        <li><strong><%= link_to category.name, baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: category.name}, id: category.id) %></strong></li>
+      <% else %>
+        <li><%= link_to category.name, baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: category.name}, id: category.id) %></li>
+      <% end %>
+    <% end %>
+    </ul>
+    <ul>
+      <% @category.children.each do |category| %>
+        <% if @category2.try(:id) == category.id %>
+          <li><strong><%= link_to category.name,  baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: category.name}, id: category.parent.id, id2: category.id) %></strong></li>
+        <% else %>
+          <li><%= link_to category.name,  baojias_path(search: {name_or_category1_name_or_category2_name_or_category3_name_like: category.name}, id: category.parent.id, id2: category.id) %></li>
+        <% end %>
+      <% end if @category %>
+    </ul>
+    </div>
+    <div class="qiyebaojia_k">
+      <div class="qiyebaojia_top">企业报价</div>
+      <div class="qiyebaojia_bot">
+      <ul>
+      <li class="qiyebaojia_text1">产品名称</li>
+      <li class="qiyebaojia_text1">产品价格</li>
+      <li class="qiyebaojia_text1">所在地区</li>
+      <li class="qiyebaojia_text1">发布日期</li>
+      <li class="qiyebaojia_text2">企业名称</li>
+      </ul>
+      <% @company_prices.each do |company_price| %>
+      <ul>
+        <li class="qiyebaojia_text3"> 
+        <%= link_to truncate(company_price.name, length: 12), company_price, target: "_blank", title: company_price.name %>
+        </li>
+        <li class="qiyebaojia_text3"> <%= truncate(company_price.price, length: 24) %> </li>
+        <li class="qiyebaojia_text3"> <%= company_price.suozaidi %> </li>
+        <li class="qiyebaojia_text3"> <%= l company_price.created_at.to_date %> </li>
+        <li class="qiyebaojia_text4"><%= link_to company_price.user.company_name, website_path(company_price.user), title: company_price.user.company_name %></li>
+      </ul>
+    <% end %>
+
+      </div>
+      <%= will_paginate @company_prices %>
+    </div>
+    <div class="tishitext">中再交易网提示:企业报价频道所有报价均为本网注册会员自发提供,仅供参考.建议您在发布供求信息时,准确填写您的产品价格,这样您的供求信息将在企业报价频道出现,获得更多客户的查询.如果还不是会员,立即<%= link_to "注册", new_user_registration_path %>.</div>
+
+  <div class="clear"></div>
+</div>
+
+
+
+

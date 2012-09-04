@@ -1,0 +1,33 @@
+<%= title "#{@user.name}" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_ck_k">
+    <ul>
+      <li>电子邮件： <%= @user.email %></li>
+      <li>姓名：<%= @user.name %></li>
+      <li>会员： <%= @user.member_text %></li>
+      <li>是否验证：<%= @user.is_verify_text %></li>
+      <li>性别：<%= @user.gender_text %></li>
+      <li>类别：<%= @user.category_text %></li>
+      <li>公司名字：<%= @user.company_name %></li>
+      <li>省份：<%= @user.region.try(:name) %></li>
+      <li>城市：<%= @user.city.try(:name) %></li>
+      <li>地址：<%= @user.address %></li>
+      <li>商业类型：<%= @user.business_category_text %></li>
+      <li>固定电话：<%= @user.phone %></li>
+      <li>移动电话：<%= @user.mobile_phone %></li>
+      <li>QQ：<%= @user.qq %></li>
+      <li>MSN：<%= @user.msn %></li>
+      <li>传真：<%= @user.fax %></li>
+      <li>管理员： <%= @user.admin_text %></li>
+      <li>邮编： <%= @user.zip_code %></li>
+      <li>公司网址： <%= link_to_if @user.company_url, "#{@user.company_url}", @user.company_url, :target => "_blank" %></li>
+      <li>注册时间：<%= l @user.created_at.to_date %></li>
+      <li>当前营业执照：</li>
+      <li><%= image_tag (@user.attachment ? @user.attachment.image.url(:medium) : "/images/medium/missing.png"), width: 200, height: 200 %></li>
+    </ul>
+  </div>
+</div>
+<div class="clear"></div>
+
+

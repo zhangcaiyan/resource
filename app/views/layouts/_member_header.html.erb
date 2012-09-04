@@ -1,0 +1,28 @@
+<div class="gt_top">
+  <div class="gt_top2">
+    <div class="gt_logo">
+      <a href="<%= home_path %>" target="_blank"><%= image_tag "small_logo.gif" %></a>
+    </div>
+    <div class="gt_top_text">
+      您好，欢迎来到资源再生交易平台 | 
+      <% if user_signed_in? %>
+        <%= link_to('退出', destroy_user_session_path, :method => :delete, :class => "logout") %> | 
+      <% else %>
+      <%= link_to "请登录", user_session_path %> | 
+      <%= link_to "免费注册", new_user_registration_path %> | <%= link_to "生意管家", admin_path %> | 
+    <% end %>
+      <%= link_to "返回首页", home_path, target: "_blank" %>
+    </div>
+    <%= form_tag search_home_path, method: "get" do %>
+      <%= text_field_tag "keyword", @keyword, class: "gt_wenben1" %>
+      <%= submit_tag "搜索供求", class: "gt_anniu1", style: "background:url(/assets/gt_anniu.gif)" %>
+    <% end %>
+  </div>
+</div>
+<div class="gt_header">
+  <ul>
+    <li><%= @user.company_name %></li>
+    <li><%= @user.company_url %></li>
+  </ul>
+  <div class="clear"></div>
+</div>

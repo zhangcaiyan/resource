@@ -1,0 +1,52 @@
+<div class="weizhi">
+  当前位置：<%= link_to '首页', home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @jiage.title %></font>
+</div>
+<div class="fl2_bottom">
+  <div class="fl2_bottom_left">
+    <div class="fl2_left_k">
+      <div class="nry_left_k_zi1"><%= @jiage.title %></div>
+      <div class="nry_left_k_zi2">
+        发表时间：<%= @jiage.published_at %> 
+        相关标签：
+        <% @jiage.tag_list.each do |tag| %>
+          <%= link_to tag, search_home_path(category: "hangqing", keyword: tag), target: "_blank" %>
+        <% end %>
+      </div>
+      <div class="nry_left_text"><%= @jiage.desc.html_safe %></div>
+      <span class="fl2_left_biaoqian">
+        标签：
+        <% @jiage.tag_list.each do |tag| %>
+          <%= link_to tag, search_home_path(category: "hangqing", keyword: tag), target: "_blank" %>
+        <% end %>
+      </span>
+      <div class="nry_left_k_botk">
+        <span class="nry_left_k_zi6">
+        <% if @jiage.pre? %>
+          上一篇：<%= link_to truncate(@jiage.pre.title, length: 20), @jiage.pre, title: @jiage.pre.title %>
+        <% end %>
+        </span>
+        <span class="nry_left_k_zi6">
+        <% if @jiage.next? %>
+          下一篇：<%= link_to truncate(@jiage.next.title, length: 20), @jiage.next, title: @jiage.next.title %>
+        <% end %>
+        </span>
+      </div>
+    </div>
+    <div class="fl2_left_k2">
+      <div class="lby_left_top"><%= @jiage.resource.name %>最新报价</div>
+      <div class="fl2_left_xiak">
+      <ul>
+        <% @jiages.each_with_index do |jiage, index| %>
+          <% if index % 2 == 0; n = 2; else n = 1; end%>
+            <li class="fl2_left_xiak_zi<%= n %>">
+            ·<%= link_to truncate(jiage.title, length: 20), jiage, title: jiage.title, target: "_blank" %>
+          <font color="#999999"><%= jiage.published_at %></font>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <%= render partial: "right", locals: {resource: @jiage.resource} %>
+<div class="clear"></div>
+</div>

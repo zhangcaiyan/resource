@@ -1,0 +1,28 @@
+<h1>留言信息</h1>
+<% title "留言信息" %>
+
+<%= @message.title %><br/>
+时间：<%= l @message.created_at %><br/>
+留言内容： <%= @message.desc %><br/>
+留言者： <%= @message.sender.name %><br/>
+地址： <%= @message.sender.address %><br/>
+电话： <%= @message.sender.phone %><br/>
+传真： <%= @message.sender.try(:fax) %><br/>
+手机： <%= @message.sender.try(:mobile_phone) %><br/>
+<%= link_to "详细情况", user_path(@message.sender) %><br/>
+
+<h1>回复信息</h1>
+
+发送给: <%= @message.sender.call %>
+
+<%= simple_form_for (new_message = @message.children.new), path: messages_path, html: {class: "validate_form"} do |f| %>
+  <%= f.input :to_id, as: "hidden", input_html: {value: @message.sender.id} %>
+  <%= f.input :ancestry, as: "hidden", input_html: {value: new_message.ancestry} %>
+  <%= f.input :title, input_html: {value: "回复："+@message.title, class: "validate[required]"} %>
+  <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]]"} %>
+  <%= f.button :submit, "回复留言" %>
+<% end %>
+
+<%= render "history" %>
+
+

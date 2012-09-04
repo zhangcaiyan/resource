@@ -1,0 +1,143 @@
+<%= simple_form_for(@company_price, html: {class: "validate_form"}) do |f| %>
+  <div class="fbxx_footer">
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>废料所属类别：</li>
+      <div class="">
+          <%= f.input :category1_id, collection: CompanyPriceCategory.roots, include_blank: "请选择一级分类", wrapper: false, label: false, input_html: {class: "validate[required] xialacaidan6"} %>
+          <%= f.input :category2_id, collection:  @company_price.category1 ? @company_price.category1.children : [], include_blank: "请选择二级分类", wrapper: false, label: false, input_html: {class: "validate[required] xialacaidan6"} %>
+          <%= f.input :category3_id, collection: @company_price.category2 ? @company_price.category2.children : [], include_blank: "请选择三级分类", wrapper: false, label: false, input_html: {class: "xialacaidan6"} %>
+      </div>
+      <li class="tjbj_zi1">请选择详细类别以便让客户更快的找到您的报价</li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>产品名称：</li>
+      <li><%= f.input :name, input_html: {class: "validate[required] wenben11"}, wrapper: false, label: false %></li>
+      <li class="fbxx_footer_zi5">填写单一产品名称将更有利于潜在客户找到您的报价，如:PP</li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>价格单位：</li>
+      <li>
+      <%= f.input :unit, collection: CompanyPricesHelper::Unit, wrapper_tag: :span, include_blank: "请选择单位", required: true, input_html: {class: "validate[required] xialacaidan5"}, wrapper: false, label: false %>
+      </li>
+      <li class="fbxx_footer_zi6">其他：</li>
+      <li><%= f.input :other_unit, input_html: {class: "wenben10"}, wrapper: false, label: false %></li>
+      <li class="fbxx_footer_zi5">填写产品单位,如:元/吨</li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>产品价格：</li>
+      <li><%= f.input :min_price, input_html: {class: "validate[required, custom[number]] wenben_price wenben11"}, wrapper: false, label: false %></li>
+      <li class="fbxx_footer_zi5" id="max_price" style="display:none;">
+       至 <%= f.input :max_price, wrapper: false, label: false, input_html: {class: "wenben_price"} %>
+      </li>
+    </ul>
+    <ul style="height:30px">
+      <li>
+      <%= f.input :is_price_scope, label: false, wrapper: false, input_html: {class: "fuxuank5"} %>
+      </li>
+      <li class="fbxx_footer_zi2">支持价格范围</li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>地区：</li>
+      <li>
+      <%= f.input :region_id, collection: Region.all, include_blank: "请选择省份", input_html: {class: "validate[required] xialacaidan5"}, label: false, wrapper: false %>
+      </li>
+      <li>
+      <%= f.input :city_id, collection: @company_price.region ? @company_price.region.cities : [], include_blank: "请选择城市", input_html: {class: "validate[required] xialacaidan5"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>有效期：</li>
+      <li>
+        <%= f.input :valid_time, collection: CompanyPrice.get_valid_time_values, include_blank: "请选择有效期", input_html: {class: "validate[required] xialacaidan5"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+    <ul>
+      <li class="fbxx_footer_zi1">产品描述：</li>
+      <li>
+        <%= f.input :desc, input_html: {class: "validate[ maxSize[2000]] wenbenyu2"}, wrapper: false, label: false %>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <%= f.button :submit, class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+      </li>
+    </ul>
+  </div>
+
+<% end %>
+
+
+<script text="type/javascript">
+  $(function(){
+
+    $("#company_price_category1_id").change(function(){
+      var category1_id = $(this).val()
+      $.get("<%= company_price_category_path('id') %>", {category_id: category1_id, type: "1"}, function(data){
+        $("#company_price_category2_id").html(data)
+        $("#company_price_category2_id").trigger("change")
+      })
+    })
+
+    $("#company_price_category2_id").change(function(){
+      var category1_id = $(this).val()
+      $.get("<%= company_price_category_path('id') %>", {category_id: category1_id, type: "2"}, function(data){
+        $("#company_price_category3_id").html(data)  
+      })
+    })
+
+    $("#company_price_region_id").bind("change", function(){
+      var region_id = $(this).val()
+      if(region_id != ""){
+        $.get("<%= region_path('id') %>", {region_id : region_id}, function(data){
+          $("#company_price_city_id").html(data)
+        })
+      }
+    })
+
+    $("#company_price_is_price_scope").bind("change", function(){
+      $("#max_price").toggle(this.checked);
+    }).trigger("change");
+
+    $("#company_price_other_unit").blur(function(){
+      var value = $.trim($(this).val())
+      if(value != ""){
+        $("#company_price_unit option:first").attr("selected", "selected")
+      }
+    })
+
+    $("#company_price_unit").change(function(){
+      var value = $.trim($(this).val())
+      if(value != ""){
+        $("#company_price_other_unit").val("")
+      }
+    })
+
+    $("#company_price_is_price_scope").change(function(){
+      if($(this).prop("checked")){
+        $("#company_price_max_price").addClass("validate[required, custom[number]]")
+        $('.validate_form').validationEngine()
+      }
+    }).trigger("change")
+
+    $("#company_price_other_unit").blur(function(){
+      var other_unit = $(this).val()    
+      if(other_unit != ""){
+        $("#company_price_unit").removeClass("validate[required]")
+        $(".company_price_unitformError").remove()
+        $(this).addClass("validate[custom[unit]]")
+        $(".validate_form").validationEngine("validateField", "#company_price_other_unit")
+        }else{
+        $("#company_price_unit").addClass("validate[required]")
+      }
+    }).trigger("blur")
+
+    $("#company_price_unit").change(function(){
+      var unit = $(this).val()
+      $("#company_price_unit").addClass("validate[required]")
+      $("#company_price_other_unit").removeClass("validate[custom[unit]]")
+      $(".company_price_other_unitformError").remove()
+    })
+
+
+  })
+</script>

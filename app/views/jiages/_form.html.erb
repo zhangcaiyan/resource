@@ -1,0 +1,62 @@
+<div class="gly_fbwz_xia">
+  <%= simple_form_for(@jiage, html: {class: "validate_form"}) do |f| %>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>标题：</li>
+    <%= f.input :title, input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>资源分类：</li>
+    <%= f.input :resource_id, collection: KeyValues::Resource.all, include_blank: "请选择资源分类", input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>二级分类：</li>
+    <%= f.input :category_id, collection: @jiage.resource.price_categories, include_blank: "请选择二级分类", input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+  </ul>
+
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>发布日期：</li>
+    <%= f.input :published_at, as: :string, input_html: {class: "validate[required] wenben7 date"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi1">标签：</li>
+    <% 0.upto(4) do |i| %>
+      <li>
+      <%= text_field_tag "jiage[tag_list][#{i}]", @jiage.tag_list[i], class: "wenben12" %>
+      </li>
+    <% end %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi2">内容：</li>
+    <li class="gly_fbwz_bianjiqi">
+      <%= f.input :desc, input_html: {class: "kindeditor"}, label: false, wrapper: false %>
+    </li>
+  </ul>
+
+  <ul>
+    <%= f.button :submit, class: "anniu8" %>
+  </ul>
+<% end %>
+</div>
+
+
+<script>
+
+$(function(){
+  $("#jiage_resource_id").change(function(){
+    var resource_id = $(this).attr("value")
+    $.get("<%= get_categories_jiages_path %>", {id: resource_id}, function(data){
+      $("#jiage_category_id").html("")
+      $("#jiage_category_id").append("<option value=''>请选择二级分类</option>")
+      $.each(data, function(key, value){
+        $("#jiage_category_id").append("<option value='+" + value.id + "'>" + value.name + "</option>")
+      })
+    })
+  })
+})
+</script>
+
+
+
+
+
+

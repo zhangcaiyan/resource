@@ -1,0 +1,530 @@
+
+<%= simple_form_for @transaction, multiple: true, html: {class: "validate_form"} do |f| %>
+  <div class="ht_bot">
+    <div class="fbxx_top">您要发布的信息（提示：带<font color="#FF0000">*</font>为必填项）</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>信息类型：</li>
+        <% Transaction.get_info_type_values.each do |info_types| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :info_type, info_types[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= info_types[0] %></li>
+        <% end %>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi1">
+        <font color="#FF0000">*</font>废料所属类别：
+        </li>
+        <li>
+        <%= f.input :category1_id, collection: Category.roots, include_blank: "请选择主类别", wrapper: false, label: false, input_html: {class: "xialacaidan4 validate[required]"} %>
+        </li>
+        <div id="transaction_category1_idTip"></div>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi3">专家提示：为了使您的信息排名更靠前，有更多的曝光机会，强烈建议您<strong>一条信息只发布一个产品。</strong></li>
+        <div class="products_selectSorts">
+          <div id="category1" class="ComPicCategory1">
+            <%= f.association :category2, collection: @transaction.new_record? ? [] : @transaction.category1.try(:children), as: :select, include_blank: "二级分类", label: false, wrapper: false, input_html: {style: "width:135px;height:170px;", size: 10, class: "validate[required]"} %>
+          </div>
+          <div id="category2" class="ComPicCategory2">
+            <%= f.association :category3, collection: @transaction.new_record? ? [] : @transaction.category2.try(:children), as: :select, include_blank: "三级分类", label: false, wrapper: false, input_html: {style: "width:135px; height:170px;", size: 10} %>
+          </div>
+          <div id="category3" class="ComPicCategory3">
+            <%= f.association :category4, collection: @transaction.new_record? ? [] : @transaction.category1.try(:children), as: :select, include_blank: "四级分类", label: false, wrapper: false, input_html: {style: "width:135px; height:170px;", size: 10} %>
+          </div>
+          <div class="fbzi">
+            <div id="transaction_category2_idTip"></div>
+          </div>
+
+        </div>
+
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>产品名称：</li>
+        <li>
+        <%= f.input :title, label: false, wrapper: false, input_html: {class: "wenben9"} %>
+        </li>
+        <div id="transaction_titleTip"></div>
+      </ul>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">产品属性（提示：带<font color="#FF0000">*</font>为必填项）</div>
+    <div class="fbxx_bai"></div>
+    <div class="fbxx_wxts">详细填写产品属性，吸引更多客户，增加成交机会。</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>货源地：</li>
+        <li><%= f.input :source, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+        <div id="transaction_sourceTip"></div>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>加工说明：</li>
+        <% Transaction.get_manufacture_values.each do |manufactures| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :manufacture, manufactures[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= manufactures[0] %></li>
+        <% end %>
+
+      </ul>
+      <% if nil %>
+        <ul>
+          <li class="fbxx_footer_zi4">此废料/再生料来源产品：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">颜色：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">外观：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+          <li class="fbxx_footer_zi5">（如：光滑、干净...）</li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">产品规格：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+          <li class="fbxx_footer_zi5">（如：产品大小30cm*50cm、厚度20mm...）</li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">杂质（杂物）含量：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+          <li class="fbxx_footer_zi5">（请写明具体杂质及其含量，如：含镍3%）</li>
+        </ul>
+        <ul>
+          <li class="fbxx_footer_zi4">此废料可用于：</li>
+          <li><input name="" type="text" class="wenben11"/></li>
+          <li class="fbxx_footer_zi5">（此货品加工后的用途，如：造粒、注塑...）</li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">交易条件</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>供货数量：</li>
+        <li><%= f.input :quantity, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+        <div id="transaction_quantityTip"></div>
+      </ul>
+      <ul>
+
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>计量单位：</li>
+        <% [['吨', '吨'], ['千克', '千克'], ['斤', '斤'], ['其他', '']]. each do |quantity_units| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :quantity_unit, quantity_units[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= quantity_units[0] %></li>
+        <% end %>
+        <li>
+        <input class="wenben10" id="quantity_unit_other" value=<%= quantity_unit_other(@transaction, params["transaction"].try(:[], "quantity_unit")) %> >
+        </li>
+        <div id="quantity_unit_otherTip"></div>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>供应情况：</li>
+        <% Transaction.get_provide_statu_values.each do |provide_status| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :provide_statu, provide_status[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= provide_status[0] %></li>
+        <% end %>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">供应总量：</li>
+        <li><%= f.input :provide_quantity, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">报价：</li>
+        <li><%= f.input :min_price, label: false, wrapper: false, input_html: {class: "wenben10"} %></li>
+        <li class="zhi max_price">至</li>
+        <li class="max_price" style="display:none;">
+        <%= f.input :max_price, wrapper: false, label: false, input_html: {class: "wenben10"} %>
+        </li>
+        <li class="fbxx_footer_zi5">（请写明价格，如：10000，如果是一个价格范围，请选中以下“支持价格范围”）</li>
+      </ul>
+      <ul style="height:30px">
+        <li>
+        <%= f.input :is_price_scope, label: false, wrapper: false, input_html: {class: "fuxuank3"} %>
+        </li>
+        <li class="fbxx_footer_zi2">支持价格范围</li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>价格单位：</li>
+        <% [['元', '元'], ['美元', '美元'], ['其他', '']].each do |price_units| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :price_unit, price_units[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= price_units[0] %></li>
+        <% end %>
+
+        <li><input class="wenben10" id="price_unit_other" value="<%= price_unit_other(@transaction, params["transaction"].try(:[], "price_unit")) %>"/></li>
+        <div id="price_unit_otherTip"></div>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>信息有效期：</li>
+        <% Transaction.get_valid_time_values.each do |valid_time_values| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :valid_time, valid_time_values[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= valid_time_values[0] %></li>
+        <% end %>
+
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>现货物所在地：</li>
+        <li><%= f.input :location, label: false, wrapper: false, input_html: {class: "wenben11"} %></li>
+        <div id="transaction_locationTip"></div>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>期货现货：</li>
+        <% Transaction.get_goods_type_values.each do |goods_types| %>
+          <li class="dxanniu2">
+          <%= f.radio_button :goods_type, goods_types[1] %>
+          </li>
+          <li class="fbxx_footer_zi2"><%= goods_types[0] %></li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">信息描述</div>
+    <div class="fbxx_bai"></div>
+    <div class="fbxx_wxts">建议您参考以下方面描述您的货品：性能及优点、产品用途、售后服务、包装等。</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4"><font color="#FF0000">*</font>信息描述：</li>
+        <li>
+        <%= f.input :desc, label: false, wrapper: false, input_html: {class: "wenbenyu2"} %>
+        </li>
+        <div id="transaction_descTip"></div>
+      </ul>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">标签设置</div>
+    <div class="fbxx_bai"></div>
+    <div class="fbxx_wxts"> 给您的供求信息贴上标签，让客户更快更准找到你！</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4">标签：</li>
+        <% 0.upto(4) do |i| %>
+          <li>
+          <%= text_field_tag "transaction[tag_list][#{i}]", @transaction.tag_list[i], class: "wenben12" %>
+          </li>
+        <% end %>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"></li>
+        <% 5.upto(9) do |i| %>
+          <li>
+          <%= text_field_tag "transaction[tag_list][#{i}]", @transaction.tag_list[i], class: "wenben12" %>
+          </li>
+        <% end %>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"></li>
+        <li class="fbxx_footer_zi7">(每空限填1个标签名称,建议10个字以下,如：PTE）</li>
+      </ul>
+    </div>
+  </div>
+  <% if @transaction.new_record? %>
+    <div class="ht_bot">
+      <div class="fbxx_top">上传图片</div>
+      <div class="fbxx_bai"></div>
+      <div class="fbxx_wxts"> 所选图片都必须是jpg、jpeg、bng、gif、bmp格式；成为本站VIP会员，可为您的产品同时发布多达5张图片！</div>
+      <div class="fbxx_footer">
+        <%= hidden_field_tag "image_ids" %>
+        <ul>
+          <span class="fbxx_footer_pic">
+            <%= default_image_tag(width: 115, height: 87, id: "preview0") %>
+          </span>
+          <% 1.upto(4) do |i| %>
+            <span class="fbxx_footer_pic">
+              <% if current_user.common_member? %>
+                <%= image_tag("tu35.gif", width: 115, height: 87, id: "preview#{i}", border: "0", usemap: "#Map#{i}") %>
+                <map name="Map" id="Map<%= i %>">
+                  <area shape="rect" coords="23,67,91,85" href="#" />
+                </map>
+              <% else %>
+                <%= default_image_tag(width: 115, height: 87, id: "preview#{i}") %> 
+              <% end %>
+            </span>
+          <% end %>
+
+        </ul>
+        <ul>
+          <li>
+          <%= link_to "上传", "#new_attachment0", class: "boxy anniu100", title: "上传图片" %>
+          <%= link_to "删除", 'javascript:void(0)', style: "display:none;", id: "delete0", remote: true, class: "anniu100" %>
+          </li>
+          <% 1.upto(4) do |i| %>
+            <li>
+            <%= link_to "上传", "#new_attachment#{i}", class: "boxy anniu100", title: "上传图片" %>
+            <%= link_to "删除", 'javascript:void(0)', style: "display:none;", id: "delete#{i}", remote: true, class: "anniu100" %>
+            </li>
+            <% end if current_user.advanced_member? %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    <div class="ht_bot">
+      <div class="fbxx_top">联系方式的确认与修改</div>
+      <div class="fbxx_bai"></div>
+      <div class="fbxx_wxts2">
+        <span class="fbxx_footer_zi8">若有误，您将无法发布信息！</span>
+        <span class="fbxx_footer_zi9">
+          <%= link_to "点此修改", edit_user_registration_path %>
+        </span>
+      </div>
+    </div>
+
+    <div class="ht_bot">
+      <ul>
+        <li>
+        <%= f.button :submit, "发布信息", class: "anniu14", style: "background:url(/assets/fbxx_anniu.gif)" %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <% 5.times do |i| %>
+    <div class="gly_bottom" id="new_attachment<%= i %>" style="display:none;">
+      <div class="scpic_bot">
+        <%= simple_form_for Attachment.new, multipart: true, html: {class: "ajax_form"}, format: :js do |f| %>
+          <ul>
+            <li class="scpic_wrong"><div class="errors"></div></li>
+          </ul>
+
+          <%= hidden_field_tag "preview_id", i %>
+
+          <ul>
+            <li class="fbxx_footer_zi4">上传图片：</li>
+            <li><%= f.input :image, as: :file, wrapper: false, label: false, input_html: {class: "wenjianyu1"} %></li>
+          </ul>
+          <ul>
+            <li>
+            <%= f.button :submit, class: "scpic_button" %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+      <div class="clear"></div>
+    </div>
+
+
+    <% end if @transaction.new_record? %>
+
+
+    <script type="text/javascript">
+
+      (function() {
+
+
+        image_ids = $("#image_ids")
+        image_ids.attr("value", "")
+        $('.ajax_form').ajaxForm({
+          complete: function(xhr) {
+            json = $.parseJSON(xhr.responseText)
+            form = $("#new_attachment"+json.preview_id)
+            upload = $("a[href='#new_attachment"+json.preview_id+"']")
+            delete_link = $("#delete"+json.preview_id)
+            if(json.is_success){
+              image_ids.attr("value", image_ids.attr("value")+","+json.id)
+              form.parent(".boxy-inner").find(".close").trigger("click")
+              form.resetForm()
+              $("#preview"+json.preview_id).attr("src", json.url)
+              upload.hide()
+              delete_link.show()
+            }else{
+              $.each(json.errors, function(i, n){
+                form.find(".errors").html(n)
+              })
+            }
+          }
+        })
+
+        $("a[id^='delete']").click(function(){
+          preview_id = /\d*$/.exec($(this).attr("id"))
+          $("#delete"+preview_id).hide()
+          $("a[href='#new_attachment"+preview_id+"']").show()
+          $("#preview"+preview_id).attr("src", "/images/medium/missing.png")
+        })
+
+      })(); 
+
+
+      $(function(){
+
+        $("#transaction_category1_id").bind("change", function(){
+          var id = $(this).val()
+          if(id != ""){
+            $.get("<%= category_path('id') %>", {category_id : id}, function(data){
+              $("#transaction_category2_id").html(data)
+            })
+            $("#transaction_category3_id").html("<option value=''>请选择</option>")
+            $("#transaction_category4_id").html("<option value=''>请选择</option>")
+          }
+        })
+
+        $("#transaction_category2_id").bind("change", function(){
+          var id = $(this).val()
+          if(id != ""){
+            $.get("<%= category_path('id') %>", {category_id : id}, function(data){
+              $("#transaction_category3_id").html(data)
+            })
+            $("#transaction_category4_id").html("<option value=''>请选择</option>")
+          }
+        })
+
+        $("#transaction_category3_id").bind("change", function(){
+          var id = $(this).val()
+          if(id != ""){
+            $.get("<%= category_path('id') %>", {category_id : id}, function(data){
+              $("#transaction_category4_id").html(data)
+            })
+          }
+        })
+
+        $.formValidator.initConfig({
+          formID: "new_transaction",
+          wideWord: false,
+          onError:function(msg,obj,errorlist){
+            alert(msg)
+          }
+        });
+
+        $("#transaction_title").formValidator({
+          onShow:"",
+          onFocus:"请输入产品名称",
+          onCorrect:"输入正确"
+        }).inputValidator({
+          min: 1,
+          max: 50,
+          onErrorMin: "产品名称不能为空",
+          onErrorMax: "产品名称不能超过50个字符"
+        })
+
+        $("#transaction_source").formValidator({
+          onShow:"",
+          onFocus:"请输入货源地",
+          onCorrect:"输入正确"
+        }).inputValidator({
+          min: 1,
+          max: 50,
+          onErrorMin: "货源地不能为空",
+          onErrorMax: "货源地不能超过50个字符"
+        })
+
+        $("#transaction_location").formValidator({
+          onShow:"",
+          onFocus:"请输入货物所在地",
+          onCorrect:"输入正确"
+        }).inputValidator({
+          min: 1,
+          max: 50,
+          onErrorMin: "货物所在地不能为空",
+          onErrorMax: "货物所在地不能超过50个字符"
+        })
+
+        $("#transaction_quantity").formValidator({
+          onShow:"",
+          onFocus:"请输入供货数量",
+          onCorrect:"输入正确"
+        }).inputValidator({
+          min: 1,
+          onError: "供货数量不能为空"
+        }).inputValidator({
+          type: "number",
+          min: 0,
+          onError: "供货数量必须是大于0的数字"
+        }).regexValidator({
+          regExp: "num",
+          onError: "供货数量只能输入数字",
+          dataType: "enum"
+        })
+
+        $("#transaction_desc").formValidator({
+          onShow:"",
+          onFocus:"请输入信息描述",
+          onCorrect:"输入正确"
+        }).inputValidator({
+          min: 1,
+          max: 500,
+          onErrorMin: "信息描述不能为空",
+          onErrorMax: "信息描述不能超过500个字符"
+        })
+
+        $("#transaction_is_price_scope").bind("change", function(){
+          $(".max_price").toggle(this.checked);
+          if(this.checked == false){
+            $(".max_price input").val("")
+          }
+        }).trigger("change");
+
+        $("#quantity_unit_other").bind("focus", function(){
+          $("input[name='transaction[quantity_unit]']").last().attr("checked", "checked")
+        })
+
+        $("#quantity_unit_other").bind("blur", function(){
+          var value=$.trim($(this).val())
+          var other = $("input[name='transaction[quantity_unit]']").last()
+          if(value != ""){
+            other.attr("value", value)
+            other.attr("checked", "checked")
+          }
+        }).trigger("blur")
+
+        $("#quantity_unit_other ").bind("blur", function(){
+          if($.trim($(this).val()).length == 0){
+            $("#quantity_unit_otherTip").text("计量单位不能为空").attr("class", "onError")
+          }else{
+            $("#quantity_unit_otherTip").text("输入正确").attr("class", "onCorrect")
+          }
+        })
+
+        $(":radio[name='transaction[quantity_unit]']").bind("change", function(){
+          if($(this).val() == ""){
+            $("#quantity_unit_otherTip").text("请输入计量单位").attr("class", "onFocus")
+            $("#quantity_unit_other").trigger("focus")
+          }else{
+            $("#quantity_unit_otherTip").text("输入正确").attr("class", "onCorrect")
+          }
+        })
+
+        $("#price_unit_other").bind("focus", function(){
+          $("input[name='transaction[price_unit]']").last().attr("checked", "checked")
+        })
+
+        $("#price_unit_other").bind("blur", function(){
+          var value=$.trim($(this).val())
+          var other = $("input[name='transaction[price_unit]']").last()
+          if(value != ""){
+            other.attr("value", value)
+            other.attr("checked", "checked")
+          }
+        }).trigger("blur")
+
+        $(":radio[name='transaction[price_unit]']").bind("change", function(){
+          if($(this).val() == ""){
+            $("#price_unit_otherTip").text("请输入价格单位").attr("class", "onFocus")
+            $("#price_unit_other").trigger("focus")
+          }else{
+            $("#price_unit_otherTip").text("输入正确").attr("class", "onCorrect")
+          }
+        })
+
+        $("#price_unit_other").bind("blur", function(){
+          if($.trim($(this).val()).length == 0){
+            $("#price_unit_otherTip").text("价格单位不能为空").attr("class", "onError")
+          }else{
+            $("#price_unit_otherTip").text("输入正确").attr("class", "onCorrect")
+          }
+        })
+
+      })
+    </script>

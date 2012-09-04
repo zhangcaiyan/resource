@@ -1,0 +1,58 @@
+<div class="tishixinxi"><%= notice %><%= alert %></div>
+
+<div class="head">
+  <div class="logo">
+    <%= link_to (image_tag "logo.gif"), home_path %>
+  </div>
+  <div class="input">
+    <div class="input_top">
+      <ul>
+        <li id="t_1" onclick="x:HoverLi(1,4,'t_','tb_');">供应信息</li>
+        <li id="t_2" onclick="x:HoverLi(2,4,'t_','tb_');">求购信息</li>
+        <li id="t_3" onclick="x:HoverLi(3,4,'t_','tb_');">企业报价</li>
+        <li id="t_4" onclick="x:HoverLi(4,4,'t_','tb_');">行情报价</li>
+      </ul>
+    </div>
+    <div class="input_bot" id="tb_1">
+      <%= form_tag search_home_path, method: "get" do %>
+        <%= hidden_field_tag "category", "supply" %>
+        <%= text_field_tag "keyword", '', class: "wenben" %>
+        <%= submit_tag "搜索", class: "anniu" %>
+      <% end %>
+    </div>
+    <div class="undis" id="tb_2">
+      <%= form_tag search_home_path, method: "get" do %>
+        <%= hidden_field_tag "category", "seeking" %>
+        <%= text_field_tag "keyword", '', class: "wenben" %>
+        <%= submit_tag "搜索", class: "anniu" %>
+      <% end %>
+    </div>
+    <div class="undis" id="tb_3">
+      <%= form_tag search_home_path, method: "get" do %>
+        <%= hidden_field_tag "category", "price" %>
+        <%= text_field_tag "keyword", '', class: "wenben" %>
+        <%= submit_tag "搜索", class: "anniu" %>
+      <% end %>
+    </div> 
+    <div class="undis" id="tb_4">
+      <%= form_tag search_home_path, method: "get" do %>
+        <%= hidden_field_tag "category", "hangqing" %>
+        <%= text_field_tag "keyword", '', class: "wenben" %>
+        <%= submit_tag "搜索", class: "anniu" %>
+      <% end %>
+    </div>
+ </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    var category = "<%= params[:category] %>"
+    switch(category){
+      case "supply": $("#t_1").addClass("on");break;
+      case "seeking": $("#t_2").addClass("on");break;
+      case "price": $("#t_3").addClass("on");break;
+      case "hangqing": $("#t_4").addClass("on");break;
+      default: $("#t_1").addClass("on");break;
+    }
+  })
+</script>

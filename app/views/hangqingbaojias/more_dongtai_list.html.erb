@@ -1,0 +1,21 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @region.name %></font></div>
+<div class="fl1_bottom">
+  <div class="fl1_bottom_left">
+    <div class="lby_left_top"><%= @region.name %>市场动态</div>
+    <div class="fl4_left_xiak">
+      <ul>
+        <% @dongtais.each_with_index do |dongtai, index| %>
+          <li class="fl1_left_xiak_text">
+          <%= link_to truncate(dongtai.title, length: 20), dongtai %>
+          <font color="#999999"><%= dongtai.published_at %></font>
+          </li>
+          <% if index > 0 && index % 15 == 0 %>
+            <div class="xuxian"></div>
+          <% end %>
+        <% end %>
+      </ul>
+      <%= will_paginate @dongtais %>
+    </div>
+  </div>
+  <%= render partial: "right", locals: {resource: KeyValues::Resource.first} %>
+</div>

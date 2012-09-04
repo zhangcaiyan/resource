@@ -1,0 +1,19 @@
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt"><span class="gt_right_btzi">公司动态</span><span class="gt_more"></span></div>
+    <div class="gt_right_bot">
+      <ul>
+        <% if @news.size > 0 %>
+          <% @news.each do |news| %>
+            <li><%= link_to truncate(news.title, length: 40), member_new_path(news.id), target: "_blank" %></li>
+          <% end %>
+        <% else %>
+          您还没有<%= link_to "添加动态信息", new_news_path %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <%= will_paginate @news %>
+</div>
+
+

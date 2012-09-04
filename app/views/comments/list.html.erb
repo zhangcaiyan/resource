@@ -1,0 +1,29 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @resource.name + @category_name %></font></div>
+<div class="fl1_bottom">
+  <div class="fl1_bottom_left">
+    <div class="lby_left_top">
+      <%= "#{@resource.name}#{@category_name}" %>
+    </div>
+    <div class="fl4_left_xiak">
+      <ul>
+        <div class="fl6_bt">
+          <%= link_to @resource.name + "日评", list_comments_path(resource_id: @resource.id, category: "day") %>
+          |
+          <%= link_to @resource.name + "周评", list_comments_path(resource_id: @resource.id, category: "week") %>
+          
+        </div>
+        <% @comments.each_with_index do |comment, index| %>
+          <li class="fl1_left_xiak_text">
+          <%= link_to truncate(comment.title, length: 20), comment %>
+          <font color="#999999"><%= comment.published_at %></font>
+          </li>
+          <% if index > 0 && index % 15 == 0 %>
+            <div class="xuxian"></div>
+          <% end %>
+        <% end %>
+      </ul>
+      <%= will_paginate @comments %>
+    </div>
+  </div>
+  <%= render partial: "/hangqingbaojias/right", locals: {resource: @resource} %>
+</div>

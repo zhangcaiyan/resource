@@ -1,0 +1,33 @@
+<% title "友情链接列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">友情链接管理</div>
+  <div class="glgq_xia">
+    <div class="lianjie_top">
+      <ul>
+        <li class="lianjiezi"><strong>名称</strong></li>
+        <li class="lianjiezi"><strong>地址</strong></li>
+        <li class="ht_bjlb_zi2"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="lianjie_bot">
+      <% @links.each do |link| %>
+        <ul>
+          <li class="lianjiezi"><%= link_to link.name, link.url, target: "_blank" %></li>
+          <li class="lianjiezi"><%= link_to link.url, link.url, target: "_blank" %></li>
+          <li class="ht_bjlb_zi2"><%= link_to '编辑', edit_link_path(link) %> | <%= link_to '删除', link, confirm: '确定删除吗?', method: :delete %></li>
+        </ul> 
+      <% end %>
+      
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+    $("#left_links").addClass("ht_dianji")
+  })
+</script>
+
+

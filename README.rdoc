@@ -1,0 +1,23 @@
+﹡ 目前user中的created_at放回数据库的时间，添加另外一个方法，可以默认返回本地时间。  
+
+attachment中添加了其他的插件种类时，注意修改Attachment.delete_invalid_images
+
+Transaction.call_back_refreshed_at  项目上线后删除这个方法，这是用来设置所有Transaction的refreshed_at的
+
+
+whenever使用：  
+
+whenever -s environment=development -w /home/zcy/wode/app/resources/config/schedule.rb
+
+whenever -l
+
+delayed_job使用：
+
+rake jobs:work 
+RAILS_ENV=production script/delayed_job start 
+RAILS_ENV=production script/delayed_job stop 
+
+
+users/_user.html.erb是否被用到，如果没有，删掉
+
+

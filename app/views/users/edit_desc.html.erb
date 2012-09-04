@@ -1,0 +1,29 @@
+<%= title "公司简介修改" %>
+
+  <div class="gly_bottom_right">
+    <div class="gly_right_header"></div>
+    <div class="ht_qyjj_k1"><font color="#FF6600">说明：公司简介：包括门市部首页(左侧)对应的公司简介,首页(右侧)的公司简介，门市部的对应栏目&quot;公司简介&quot;下的公司简介。</font></div>
+    <%= simple_form_for(current_user, url: update_desc_user_path(current_user), html: { :method => :put, class: "validate_form" }) do |f| %>
+    <div class="ht_bot">
+      <div class="fbxx_top">公司简介修改</div>
+      <div class="fbxx_footer">
+      <ul>
+      <li class="fbxx_footer_zi4">企业简介：</li>
+      <li><%= f.input :desc, input_html: {class: "validate[maxSize[2000]] wenbenyu3"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+        <li>
+        <%= f.submit "保存更改", class: "anniu16", style: "background:url(/assets/ht_qyjj_anniu.gif)" %>
+        </li>
+      </ul>
+      </div>
+    </div>
+  <% end %>
+    </div>
+  <div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+    $("#desc_and_pictures").addClass("ht_dianji2")
+  })
+</script>

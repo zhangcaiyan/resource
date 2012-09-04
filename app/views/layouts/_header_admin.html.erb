@@ -1,0 +1,6 @@
+<div class="gly_nav">
+<ul>
+<li class="gly_nav_zi1">管理菜单</li>
+<li class="gly_nav_zi2">欢迎<%= link_to current_user.call, admin_path %>  [<%= link_to('退出', destroy_user_session_path, :method => :delete) %>]</li>
+</ul>
+</div>

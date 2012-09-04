@@ -1,0 +1,9 @@
+<h1>会话历史</h1>
+
+<% @message.root.subtree.order("created_at DESC").each do |message| %>
+  <%= message.sender.name %><br/>
+  <%= l message.created_at %><br/>
+  <%= message.title %><br/>
+  <%= message.desc %><br/>
+  <hr/>
+<% end %>

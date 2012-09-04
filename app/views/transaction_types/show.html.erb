@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @transaction_type.name %>
+</p>
+
+<p>
+  <b>Desc:</b>
+  <%= @transaction_type.desc %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @transaction_type.user_id %>
+</p>
+
+<p>
+  <b>Transaction:</b>
+  <%= @transaction_type.transaction_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_transaction_type_path(@transaction_type) %> |
+<%= link_to 'Back', transaction_types_path %>

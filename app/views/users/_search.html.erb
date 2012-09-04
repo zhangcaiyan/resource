@@ -1,0 +1,103 @@
+<span id="search_users" style="display:none;">
+    <%= form_tag users_path, :method => :get do %>
+    <table>
+      <tr>
+        <td><%= cn "user", "email" %>:</td>
+        <td><%= text_field_tag "search[email_contains]", params[:search].try(:[], :email_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "company_name" %></td>
+        <td><%= text_field_tag "search[company_name_contains]", params[:search].try(:[], :company_name_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "name" %></td>
+        <td><%= text_field_tag "search[name_contains]", params[:search].try(:[], :name_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "phone" %></td>
+        <td><%= text_field_tag "search[phone_contains]", params[:search].try(:[], :phone_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "mobile_phone" %></td>
+        <td><%= text_field_tag "search[mobile_phone_contains]", params[:search].try(:[], :mobile_phone_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "fax" %></td>
+        <td><%= text_field_tag "search[fax_contains]", params[:search].try(:[], :fax_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "zip_code" %></td>
+        <td><%= text_field_tag "search[zip_code_contains]", params[:search].try(:[], :zip_code_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "qq" %></td>
+        <td><%= text_field_tag "search[qq_contains]", params[:search].try(:[], :qq_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "msn" %></td>
+        <td><%= text_field_tag "search[msn_contains]", params[:search].try(:[], :msn_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "gender" %></td>
+        <td>
+          全部: <%= radio_button_tag "search[gender_eq]", '', params[:search].try(:[], :gender_eq).blank? %>
+          男: <%= radio_button_tag "search[gender_eq]", "male", params[:search].try(:[], :gender_eq) == "male" %>
+          女: <%= radio_button_tag "search[gender_eq]", "female", params[:search].try(:[], :gender_eq) == "female" %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "category" %></td>
+        <td>
+          全部: <%= radio_button_tag "search[category_eq]", '', params[:search].try(:[], :category_eq).blank? %>
+          两者都是: <%= radio_button_tag "search[category_eq]", "buy_and_sell", params[:search].try(:[], :category_eq) == "buy_and_sell" %>
+          买家: <%= radio_button_tag "search[category_eq]", "buy", params[:search].try(:[], :category_eq) == "buy" %>
+          卖家: <%= radio_button_tag "search[category_eq]", "sell", params[:search].try(:[], :category_eq) == "sell" %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "business_category" %></td>
+        <td>
+          <%= select_tag "search[business_category_eq]", options_for_select(User.get_business_category_values.insert(0, ["全部", ""]), params[:search].try(:[], :business_category_eq)) %>
+        </td>
+      </tr>
+      <tr>
+        <td>注册时间</td>
+        <td>
+          <%= text_field_tag "search[created_at_gte]", params[:search].try(:[], :created_at_gte), :class => "date"%>-
+          <%= text_field_tag "search[created_at_lte]", params[:search].try(:[], :created_at_lte), :class => "date"%>
+        </td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "address" %></td>
+        <td><%= text_field_tag "search[address_contains]", params[:search].try(:[], :address_contains) %></td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "region" %></td>
+        <td>
+          <%= select_tag "search[region_id_eq]", options_for_select(Region.all.collect{|region| [region.name, region.id]}.insert(0, ["全部", ""]), params[:search].try(:[], :region_id_eq)) %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= cn "user", "admin" %></td>
+        <td><%= check_box_tag "search[admin_is_true]", "true",  params[:search].try(:[], :admin_is_true) == "true" %></td>
+      </tr>
+
+
+      <tr>
+        <td colspan="2" style="text-align:center;"><input type="submit" value="查找"/></td>
+      </tr>
+    </table>
+     
+    
+  <% end %>
+</span>
+
+<script type="text/javascript">
+  $(function(){
+    $(".date").bind("focus", function(){
+      WdatePicker() 
+    })
+  })
+
+</script>
+

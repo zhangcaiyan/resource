@@ -1,0 +1,24 @@
+<%= simple_form_for(@news, html: {class: "validate_form"}) do |f| %>
+
+  <div class="tjyqlj_footer">
+
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>标题：</li>
+      <li><%= f.input :title, input_html: {class: "validate[required] wenben11"}, label: false, wrapper: false %></li>
+    </ul>
+    <ul>
+      <li class="gly_fbwz_zi2"><span class="require">*</span>内容：</li>
+      <li class="gly_fbwz_bianjiqi">
+        <%= f.input :content, input_html: {class: "kindeditor wenbenyu2"}, label: false, wrapper: false %>
+      </li>
+    </ul>
+
+    <ul>
+      <li>
+        <%= f.button :submit, class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+      </li>
+    </ul>
+  </div>
+
+<% end %>
+

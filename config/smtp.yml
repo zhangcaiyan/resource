@@ -1,0 +1,32 @@
+defaults: &defaults
+  config:
+    #address: mail.crra010.com
+    #port: 25
+    #user_name: postmaster@crra010.com
+    #password: "58699057"
+    #authentication: :login
+    #enable_starttls_auto: false 
+
+    address: smtp.163.com
+    port: 25
+    user_name: yongzhengjiaying@163.com
+    password: "zhangcaiyan"
+    authentication: :login
+    enable_starttls_auto: false 
+
+development:
+  <<: *defaults
+  host:
+    host: localhost:3000 
+    host_only: localhost
+    port_only: "3000"
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  host:
+    host: www.crra010.com
+    host_only: www.crra010.com
+    port_only: "80"

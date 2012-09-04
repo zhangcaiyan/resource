@@ -1,0 +1,76 @@
+<% title "我发出的留言" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">发出的留言</div>
+  <div class="glgq_xia">
+    <%= form_tag message_path("id"), method: "delete", id: "form1" do %>
+    <%= hidden_field_tag "delete_type", "soft_delete" %>
+    <%= hidden_field_tag "category", params[:category] %>
+    <div class="sdly_top">
+      <ul>
+        <li class="sdly_top_zi1"><strong>留言标题</strong></li>
+        <li class="sdly_top_zi1"><strong>收件人</strong></li>
+        <li class="sdly_top_zi2"><strong>时间</strong></li>
+      </ul>
+    </div>
+    <div class="glgq_xia_bot">
+      <% @messages.each do |message| %>
+      <ul>
+        <span class="fuxuank4">
+          <%= check_box_tag "message_ids[message_id_#{message.id}]", message.id, false, class: "message_id" %>
+        </span>
+        <li class="sdly_top_zi1"><%= link_to (truncate message.title, length: 25), message_path(message), title: message.title %></li>
+        <li class="sdly_top_zi1"><%= link_to message.addressee.name, website_path(message.addressee) %></li>
+        <li class="sdly_top_zi2"><%= l message.created_at.to_date %></li>
+      </ul>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+  <div class="sdly_k2">
+    <ul>
+      <li class="fuxuank6">
+        <%= check_box_tag "select", "" %>
+      </li>
+      <li><input id="delete" type="submit" value="永久删除" class="anniu8" /></li>
+      <li><input id="soft_delete" type="submit" value="垃圾留言" class="anniu8" /></li>
+    </ul>
+  </div>
+  <%= will_paginate @messages %>
+</div>
+<div class="clear"></div>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#send_messages").addClass("ht_dianji2")
+
+    $("#select").change(function(){
+      $(".message_id").attr("checked", $(this).prop("checked"))
+    })
+
+    $("#delete").click(function(){
+      var checked = $(".message_id:checked")
+      if(checked.length > 0){
+        $("input[name='delete_type']").attr("value", "delete")
+        $("#form1").submit()
+      }else{
+        alert("请选择删除信息!")
+      }
+    })
+
+    $("#soft_delete").click(function(){
+      var checked = $(".message_id:checked")
+      if(checked.length > 0){
+        $("input[name='delete_type']").attr("value", "soft_delete")
+        $("#form1").submit()
+      }else{
+        alert("请选择需要转为垃圾的留言！")
+      }
+    })
+  })
+</script>
+
+
+

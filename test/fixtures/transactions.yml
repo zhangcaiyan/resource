@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  info_type: MyString
+  source: MyString
+  manufacture: MyString
+  quantity: 1
+  quantity_unit: MyString
+  location: MyString
+  price: 1.5
+  price_unit: MyString
+  is_price_scope: false
+  min_price: 1.5
+  max_price: 1.5
+  valid_time: MyString
+  provide_statu: MyString
+  provide_quantity: 1
+  goods_type: MyString
+  desc: MyText
+  user_id: 1
+
+two:
+  title: MyString
+  info_type: MyString
+  source: MyString
+  manufacture: MyString
+  quantity: 1
+  quantity_unit: MyString
+  location: MyString
+  price: 1.5
+  price_unit: MyString
+  is_price_scope: false
+  min_price: 1.5
+  max_price: 1.5
+  valid_time: MyString
+  provide_statu: MyString
+  provide_quantity: 1
+  goods_type: MyString
+  desc: MyText
+  user_id: 1

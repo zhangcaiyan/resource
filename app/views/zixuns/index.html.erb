@@ -1,0 +1,388 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <font color="#FF6600">行业资讯</font></div>
+<div class="hyzx_header">
+  <div class="hyzx_header_left">
+    <div class="hyzx_header_left_pic"><img src="/assets/08.jpg" /></div>
+    <div class="hyzx_header_left_xia">
+      <div class="hyzx_header_left_xia_top"><span class="hyzx_header_left_topzi1">最新要闻</span></div>
+      <div class="hyzx_header_left_xia_bot">
+      <ul>
+      <% Article.order("created_at DESC").limit(6).each do |article| %>
+        <li>·<%= link_to truncate(article.title, length: 25), article, title: article.title %></li>
+    <% end %>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <div class="hyzx_header_center">
+      <span class="hyzx_header_centerzi1">
+        <%= truncate(@important_article1.try(:title), length: 20) %>
+      </span>
+      <span class="hyzx_header_centerzi2">
+        <%= truncate(@important_article1.try(:guolv_content), length: 100) %>
+        <% if @important_article1 %>
+        [<a href="<%= article_path(@important_article1) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+      <% end %>
+      </span> 
+      <span class="hyzx_header_centerzi1">
+        <%= truncate(@important_article2.try(:title), length: 20) %>
+      </span>
+      <span class="hyzx_header_centerzi2">
+        <%= truncate(@important_article2.try(:guolv_content), length: 100) %>
+        <% if @important_article2 %>
+          [<a href="<%= article_path(@important_article2) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+        <% end %>
+      </span> 
+ 
+  <ul>
+    <% Article.common.order("created_at DESC").limit(12).each do |article| %>
+      <li>
+      ·<%= link_to truncate(article.title, length: 13), article_path(article), title: article.title %>
+      </li>
+    <% end %>
+  </ul>
+  </div>
+  <div class="hyzx_header_right">
+    <div class="hyzx_header_right_top">
+      <div class="hyzx_header_right_top_bt"><span class="hyzx_header_right_top_btzi1">最新企业报价</span></div>
+      <div class="hyzx_header_right_bot">
+      <ul>
+        <% CompanyPrice.order("created_at DESC").limit(10).each do |company_price| %>
+          <li>
+          ·<%= link_to truncate(company_price.name, length: 15), company_price_path(company_price), title: company_price.name %>
+          </li>
+        <% end %>
+      </ul>
+      </div>
+    </div>
+    <div class="guanggao3"><img src="/assets/gg1.gif" /></div>
+  </div>
+<div class="clear"></div>
+</div>
+<div class="guanggao4"><img src="/assets/gg3.gif" /></div>
+<div class="hyzx_bottom">
+  <div class="hyzx_bottom_left">
+    <div class="hyzx_bottom_leftk1">
+      <div class="hyzx_bottom_left_dabt">
+        <a href="<%= list_zixuns_path(search: {category_eq: :hangye}) %>"><img src="/assets/hydt.gif" /></a>
+      </div>
+      <div class="hyzx_bottom_left_xiaok1">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废金属行业动态</li>
+        <li class="more2">
+        <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :hangye, fenlei_eq: :jinshu}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+          <%= image_tag @hangye_jinshu_article.image_src, width: 110, height: 74 if @hangye_jinshu_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@hangye_jinshu_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@hangye_jinshu_article.try(:guolv_content), length: 30) %>
+          <% if @hangye_jinshu_article %>
+            [<a href="<%= article_path(@hangye_jinshu_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @hangye_jinshu_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok2">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废塑料行业动态</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :hangye, fenlei_eq: :shuliao}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+          <%= image_tag @hangye_shuliao_article.image_src, width: 110, height: 74 if @hangye_shuliao_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@hangye_shuliao_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@hangye_shuliao_article.try(:guolv_content), length: 30) %>
+          <% if @hangye_shuliao_article %>
+            [<a href="<%= article_path(@hangye_shuliao_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @hangye_shuliao_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok1">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废纸行业动态</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :hangye, fenlei_eq: :zhi}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @hangye_zhi_article.image_src, width: 110, height: 74 if @hangye_zhi_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@hangye_zhi_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@hangye_zhi_article.try(:guolv_content), length: 30) %>
+          <% if @hangye_zhi_article %>
+            [<a href="<%= article_path(@hangye_zhi_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+
+          <% @hangye_zhi_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok2">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">其他行业动态</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :hangye, fenlei_eq: :qita}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @hangye_qita_article.image_src, width: 110, height: 74 if @hangye_qita_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@hangye_qita_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@hangye_qita_article.try(:guolv_content), length: 30) %>
+          <% if @hangye_qita_article %>
+            [<a href="<%= article_path(@hangye_qita_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @hangye_qita_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div class="guanggao5"><img src="/assets/gg4.gif" /></div>
+    <div class="hyzx_bottom_leftk1">
+      <div class="hyzx_bottom_left_dabt">
+        <a href="<%= list_zixuns_path(search: {category_eq: :zaisheng}) %>">
+          <img src="/assets/zsjs.gif" />
+        </a>
+      </div>
+      <div class="hyzx_bottom_left_xiaok1">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废金属再生技术</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zaisheng, fenlei_eq: :jinshu}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @zaisheng_jinshu_article.image_src, width: 110, height: 74 if @zaisheng_jinshu_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@zaisheng_jinshu_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@zaisheng_jinshu_article.try(:guolv_content), length: 30) %>
+          <% if @zaisheng_jinshu_article %>
+            [<a href="<%= article_path(@zaisheng_jinshu_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @zaisheng_jinshu_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok2">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废塑料再生技术</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zaisheng, fenlei_eq: :shuliao}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @zaisheng_shuliao_article.image_src, width: 110, height: 74 if @zaisheng_shuliao_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@zaisheng_shuliao_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@zaisheng_shuliao_article.try(:guolv_content), length: 30) %>
+          <% if @zaisheng_shuliao_article %>
+            [<a href="<%= article_path(@zaisheng_shuliao_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+           <% @zaisheng_shuliao_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok1">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">废纸再生技术</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zaisheng, fenlei_eq: :zhi}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @zaisheng_zhi_article.image_src, width: 110, height: 74 if @zaisheng_zhi_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@zaisheng_zhi_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@zaisheng_zhi_article.try(:guolv_content), length: 30) %>
+          <% if @zaisheng_zhi_article %>
+            [<a href="<%= article_path(@zaisheng_zhi_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @zaisheng_zhi_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+      <div class="hyzx_bottom_left_xiaok2">
+        <div class="hyzx_bottom_left_btk">
+        <ul>
+        <li class="hyzx_bottom_left_btzi">其他再生技术</li>
+        <li class="more2">
+          <%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zaisheng, fenlei_eq: :qita}) %>
+        </li>
+        </ul>
+        </div>
+        <div class="hyzx_bottom_left_xiaok_xia">
+        <ul>
+          <li class="hyzx_bottom_left_pic">
+            <%= image_tag @zaisheng_qita_article.image_src, width: 110, height: 74 if @zaisheng_qita_article %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi1">
+            <%= truncate(@zaisheng_qita_article.try(:title), length: 15) %>
+          </li>
+          <li class="hyzx_bottom_left_xiazi2">
+          <%= truncate(@zaisheng_qita_article.try(:guolv_content), length: 30) %>
+          <% if @zaisheng_qita_article %>
+            [<a href="<%= article_path(@zaisheng_qita_article) %>" style="text-decoration:underline;color:#FF9900">查看全文</a>]
+          <% end %>
+          </li>
+          <% @zaisheng_qita_articles.each do |article| %>
+            <li class="hyzx_bottom_left_xiazi3">
+            ·<a href="<%= article_path(article)%>" title="<%= article.title %>">
+              <%= truncate article.title, length: 20 %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hyzx_bottom_right">
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><a href="<%= list_zixuns_path(search: {category_eq: :zhengce}) %>">政策法规</a>(<%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zhengce}) %>)</span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% Article.zhengce.order("created_at DESC").limit(8).each do |article| %>
+            <li>
+            ·<%= link_to truncate(article.title, length: 18), article_path(article), title: article.title %>
+            </li>
+        <% end %>
+
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1"><img src="/assets/gg5.gif" /></div>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1"><a href="<%= list_zixuns_path(search: {category_eq: :zhishi}) %>">知识宝库</a>(<%= link_to "更多﹥﹥", list_zixuns_path(search: {category_eq: :zhishi}) %>)</span></div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% Article.zhishi.order("created_at DESC").limit(8).each do |article| %>
+            <li>
+            ·<%= link_to truncate(article.title, length: 18), article_path(article), title: article.title %>
+            </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="guanggao1"><img src="/assets/gg6.gif" /></div>
+
+    <div class="hyzx_right_bot">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1">最新用户</span></div>
+      <div class="hyzx_right_bot_xia">
+        <ul>
+        <% @users.each do |user| %>
+          <li>
+          ·<%= link_to truncate(user.company_name, length: 15), website_path(user), title: user.company_name %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>    
+
+
+  </div>
+  <div class="clear"></div>
+</div>

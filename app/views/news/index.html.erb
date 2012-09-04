@@ -1,0 +1,38 @@
+<% title "动态信息列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">动态信息管理</div>
+  <div class="glgq_xia">
+    <div class="lianjie_top">
+      <ul>
+        <li class="dtxxzi1"><strong>标题</strong></li>
+        <li class="dtxxzi3"><strong>发布时间</strong></li>
+        <li class="ht_bjlb_zi2"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="lianjie_bot">
+      <% @news.each do |news| %>
+        <ul>
+          <li class="dtxxzi1"><%= link_to truncate(news.title, length: 36), member_new_path(news.id), title: news.title, target: "_blank" %></li>
+          <li class="dtxxzi3"><%= l news.created_at.to_date %></li>
+          <li class="ht_bjlb_zi2">
+          <%= link_to '编辑', edit_news_path(news) %> | 
+          <%= link_to '删除', news, confirm: '确定删除吗?', method: :delete %>
+          </li>
+        </ul>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+    $("#left_news").addClass("ht_dianji")
+  })
+</script>
+
+
+
+

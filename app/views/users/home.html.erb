@@ -1,0 +1,91 @@
+
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> >  <font color="#FF6600"><%= @user.company_name %></font></div>
+<div class="jyzx_bottom">
+  <div class="geti_xian">
+    <div class="geti_top">公司简介</div>
+  </div>
+  <div class="geti_bot">
+    <ul>
+      <li><%= @user.desc %></li>
+    </ul>
+  </div>
+  <div class="geti_xian">
+    <div class="geti_top">主营业务</div>
+  </div>
+  <div class="geti_bot">
+    <ul>
+      <li><%= @user.business %></li>
+    </ul>
+  </div>
+  <div class="geti_xian">
+    <div class="geti_top">联系人及联系方式</div>
+  </div>
+  <div class="geti_bot">
+    <ul>
+      <li>主要联系人：<%= @user.company_name %></li>
+      <li>联系人：<%= @user.call %></li>
+      <li>电    话： <%= @user.phone %></li>
+      <li>传真： <%= @user.fax %></li>
+      <li>移动电话： <%= @user.mobile_phone %></li>
+      <li>邮箱：  <%= @user.email %></li>
+      <li>备用邮箱：  <%= @user.backup_email %></li>
+      <li>邮编：  <%= @user.zip_code %></li>
+      <li>QQ： <%= @user.qq %></li>
+      <li>MSN： <%= @user.msn %></li>
+      <li>地    址： <%= @user.address %>(<%= @user.suozaidi %>)</li>
+      <li>公司主页：<%= link_to_if @user.company_url, @user.company_url, @user.company_url %> </li>
+    </ul>
+  </div>
+  <div class="geti_xian"><div class="geti_top">供求信息</div></div>
+  <div class="geti_gqk1">
+    <ul>
+      <li class="geti_gq_zi1"><strong>标题</strong></li>
+      <li class="geti_gq_zi2"><strong>内容</strong></li>
+      <li class="geti_gq_zi3"><strong>发布时间</strong></li>
+    </ul>
+    <% @transactions[0..5].each do |t| %>
+      <ul>
+        <li class="geti_gq_zi<%= t.info_type == :supply ? "4" : "5" %>">【<%= t.info_type_text %>】</li>
+        <li class="geti_gq_zi2"><%= link_to truncate(t.title, length: 24), t %></li>
+        <li class="geti_gq_zi3"><%= l t.created_at.to_date %></li>
+      </ul>
+    <% end %>
+
+  </div>
+  <div class="geti_gqk2">
+    <ul>
+      <li class="geti_gq_zi1"><strong>标题</strong></li>
+      <li class="geti_gq_zi2"><strong>内容</strong></li>
+      <li class="geti_gq_zi3"><strong>发布时间</strong></li>
+    </ul>
+    <% @transactions[6..11].to_a.each do |t| %>
+      <ul>
+        <li class="geti_gq_zi<%= t.info_type == :supply ? "4" : "5" %>">【<%= t.info_type_text %>】</li>
+        <li class="geti_gq_zi2"><%= link_to truncate(t.title, length: 24), t %></li>
+        <li class="geti_gq_zi3"><%= l t.created_at.to_date %></li>
+      </ul>
+    <% end %>
+  </div>
+  <%= will_paginate @transactions %>
+  <div class="clear"></div>
+
+  <div class="geti_xian">
+    <div class="geti_top">在线留言</div>
+  </div>
+  <div class="geti_kkk">
+    <% if flash[:notice] || flash[:alert] %>
+    <div class="geti_liuyan_baocuo">
+      <%= flash[:notice] %><%= flash[:alert] %>
+    </div>
+  <% end %>
+    <%= simple_form_for Message.new, path: messages_path, html: {class: "validate_form"} do |f| %>
+      <%= hidden_field_tag "liuyan", "yes" %>
+      <%= f.input :title, as: "hidden", input_html: {value: "咨询"}, label: false, wrapper: false %>
+      <%= f.input :to_id, as: "hidden", input_html: {value: @user.id}, label: false, wrapper: false %> 
+      <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]] geti_liuyankuang"}, label: false, wrapper: false %>
+      <%= f.button :submit, "提交留言", class: "geti_liuyananniu" %>
+    <% end %>
+  </div>
+  <div class="clear"></div>
+</div>
+

@@ -1,0 +1,73 @@
+<% title "最新在线商机" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">最新在线商机</div>
+  <% if @shangjidingzhis.size > 0 %>
+    <div class="sdly_k3"><%= current_user.call %> ， 您好！<br/>
+      以下是您订阅的最新商机，快去看看有没有合适的客户吧！</div>
+    <div class="zxsj_xia">
+      <% @shangjidingzhis.each do |shangji| %>
+        <div class="zxsj_bt">
+          <%= link_to shangji.keyword, list_shangjidingzhis_path(id: shangji) %>
+        </div>
+      <% end %>
+
+      <div class="zxsj_bot">
+        <% @transactions.each do |t| %>
+          <ul>
+            <div class="gqxx_left_nrbot_pic">
+              <a href="<%= transaction_path(t) %>">
+                <%= head_image t, width: 110, height: 95 %>
+              </a>
+            </div>
+            <li class="zxsj_bot_zik">
+            <span class="zxsj_bot_zi1">
+              <%= link_to truncate(t.title, length: 18), transaction_path(t), title: t.title %>
+            </span>
+            <span class="zxsj_bot_zi2">
+              <font color="#006699"><%= t.info_type_text %></font> 
+              <%= l t.refreshed_at.to_date %>
+            </span>
+            <span class="zxsj_bot_zi3"><%= truncate t.desc, length: 70 %></span>
+            </li>
+            <li class="zxsj_bot_zi4"><%= t.user.member_text %></li>
+            <li class="zxsj_bot_lxk">
+            <span class="zxsj_bot_zi5">
+              <%= link_to truncate(t.user.company_name, length: 20), website_path(t.user), title: t.user.company_name %>
+            </span>
+            <span class="zxsj_bot_zi6">
+              <%= link_to "留言", website_path(t.user, category: "message") %>
+            </span>
+            <span class="zxsj_bot_zi7">
+              <%= link_to "联系方式", website_path(t.user, category: "contact") %>
+            </span> 
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <%= will_paginate @transactions %>
+  <% else %>
+    <div class="dingyue1">
+      <ul>
+        <li><%= current_user.call %>您好 ， 您好！ </li>
+        <li> 以下是您订阅的最新商机，快去看看有没有合适的客户吧！ </li>
+      </ul>
+    </div>
+    <div class="dingyue2">
+      您还没有订阅在线商机信息，<img src="/assets/tb23.gif" />
+      <%= link_to "点此订阅", new_shangjidingzhi_path, target: "_blank" %>
+    </div>
+  <% end %>
+</div>
+<div class="clear"></div>
+
+
+
+<script text="type/javascript">
+  $(function(){
+    $("#new_shangji").addClass("ht_dianji2")
+  })
+</script>
+
+

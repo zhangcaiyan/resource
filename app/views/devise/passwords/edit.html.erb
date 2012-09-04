@@ -1,0 +1,45 @@
+<%= title "修改密码" %>
+
+<div class="gly_bottom">
+  <div class="czmm_header">重置密码</div>
+  <div class="ht_bot">
+    <div class="czmm_footer">
+      <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= f.input :reset_password_token, as: :hidden, wrapper: false %>
+      <ul>
+        <li class="fbxx_footer_zi4">新密码：</li>
+        <li>
+        <%= f.input :password, label: false, wrapper: false, input_html: {class: "wenben11"} %>
+        </li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">再次输入密码：</li>
+        <li>
+        <%= f.input :password_confirmation, label: false, wrapper: false, input_html: {class: "wenben11"} %>
+        </li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4"></li>
+        <li>
+        <%= f.submit "确认", class: "anniu17" %>
+        </li>
+      </ul>
+    <% end %>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.input :reset_password_token, as: :hidden, wrapper: false %>
+
+  <div><%= f.label :password, "新密码" %><br />
+    <%= f.input :password, as: :password, label: false, wrapper: false %></div>
+
+  <div><%= f.label :password_confirmation, "再次输入新密码" %><br />
+    <%= f.input :password_confirmation, as: :password, label: false, wrapper: false %></div>
+
+  <div><%= f.submit "确认" %></div>
+  <% end if nil %>
+

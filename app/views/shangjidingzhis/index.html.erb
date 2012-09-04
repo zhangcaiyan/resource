@@ -1,0 +1,77 @@
+<% title "商机定制管理" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">商机定制管理</div>
+  <% if @shangjidingzhis.size > 0 %>
+    <div class="sjdz_bt">
+      <span class="xjgl">供求商机管理</span>
+      <span class="xjgl_2">
+        <%= link_to "订阅新的商机", new_shangjidingzhi_path, target: "_blank" %>
+      </span>
+    </div>
+    <div class="sjdz_xia">
+      <div class="sjdz_xia_top">
+        <ul>
+          <li class="sjdz_xia_zi1"><strong>订阅内容</strong></li>
+          <li class="sjdz_xia_zi2"><strong>商机类型</strong></li>
+          <li class="sjdz_xia_zi3"><strong>地区</strong></li>
+          <li class="sjdz_xia_zi3"><strong>提醒方式</strong></li>
+          <li class="sjdz_xia_zi3"><strong>操作</strong></li>
+        </ul>
+      </div>
+
+      <div class="sjdz_xia_bot">
+        <% @shangjidingzhis.each do |shangjidingzhi| %>
+          <ul>
+            <li class="sjdz_xia_zi1">
+            <%= link_to shangjidingzhi.keyword, list_shangjidingzhis_path(id: shangjidingzhi), title: shangjidingzhi.keyword %>
+            </li>
+            <li class="sjdz_xia_zi2">
+            <%= shangjidingzhi.info_type_text %>
+            </li>
+            <li class="sjdz_xia_zi3">
+            <%= shangjidingzhi.address %>
+            </li>
+            <li class="sjdz_xia_zi3">
+            <%= shangjidingzhi.is_send_email_text %>
+            </li>
+            <li class="sjdz_xia_zi3">
+            <%= link_to '编辑', edit_shangjidingzhi_path(shangjidingzhi) %>| 
+            <%= link_to '删除', shangjidingzhi, confirm: '确定删除吗?', method: :delete %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+    <div class="sjdz_tixing1">邮件地址提醒</div>
+    <div class="sjdz_tixing2">
+      当前用于接收的电子邮箱为：<%= current_user.valid_email %>  
+      <a href="<%= edit_user_registration_path %>">
+        <font color="#999999">修改</font>
+      </a>
+    </div>
+    <%= will_paginate @shangjidingzhis %>
+  <% else %>
+    <div class="dingyue1">
+      <ul>
+        <li><%= current_user.call %>， 您好！ </li>
+        <li> 以下是您订阅的最新商机，快去看看有没有合适的客户吧！ </li>
+      </ul>
+    </div>
+    <div class="dingyue2">
+      您还没有订阅在线商机信息，<img src="/assets/tb23.gif" />
+      <%= link_to "点此订阅", new_shangjidingzhi_path, target: "_blank" %>
+    </div>
+
+  <% end %>
+</div>
+<div class="clear"></div>
+
+
+<script text="type/javascript">
+  $(function(){
+    $("#shangjiguanli").addClass("ht_dianji2")
+  })
+</script>
+
+

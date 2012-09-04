@@ -1,0 +1,27 @@
+<div class="gly_fbwz_xia">
+  <%= simple_form_for(@comment, html: {class: "validate_form"}) do |f| %>
+  <%= f.input :category, as: "hidden", error_html: {value: @comment.category, style: "display:none"}, wrapper: false %>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>标题：</li>
+    <%= f.input :title, input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>资源分类：</li>
+    <%= f.input :resource_id, collection: KeyValues::Resource.find([1,2,3]), include_blank: "请选择资源分类", input_html: {class: "validate[required] wenben7"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi1"><span class="require">*</span>发布日期：</li>
+    <%= f.input :published_at, as: :string, input_html: {class: "validate[required] wenben7 date"}, label: false, wrapper: false %>
+  </ul>
+  <ul>
+    <li class="gly_fbwz_zi2">内容：</li>
+    <li class="gly_fbwz_bianjiqi">
+      <%= f.input :desc, input_html: {class: "kindeditor"}, label: false, wrapper: false %>
+    </li>
+  </ul>
+
+  <ul>
+    <%= f.button :submit, class: "anniu8" %>
+  </ul>
+<% end %>
+</div>

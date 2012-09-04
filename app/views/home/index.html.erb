@@ -1,0 +1,415 @@
+<%= title "首页" %>
+
+<div class="box1">
+  <div class="box1_left">
+    <div class="box1_left_top">
+      <span class="box1_left_btzi1">最新企业报价</span>
+      <span class="box1_left_btzi2"><%= link_to "更多﹥﹥", baojias_path %></span>
+    </div>
+    <div class="box1_left_xia">
+      <span class="box1_left_xia_pic"><img src="/assets/tu1.gif" /></span>
+      <% if @company_prices.present? %>
+      <span class="box1_left_xia_pic_zi1">
+        <strong>
+          <%= link_to truncate(@company_prices.first.name, length: 10), company_price_path(@company_prices.first), title: @company_prices.first.name %>
+        </strong>
+      </span>
+      <span class="box1_left_xia_pic_zi1">
+        <%= truncate(@company_prices.first.desc, length: 32) %> 
+      </span>
+      <ul>
+        <% @company_prices[1, 8].each do |price| %>
+          <li>· <%= link_to truncate(price.name, length: 17), price, title: price.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </div>
+  </div>
+  <div class="box1_center">
+    <span class="box1_center_pic">
+      <%= javascript_include_tag "portal_flash" %> 
+    </span>
+    <div class="box1_center_xia">
+      <div class="box1_center_xia_l">
+        <ul>
+        <span class="box1_center_xia_bt">最新供应</span>
+        <% @supply_infos.each do |transaction| %>
+          <li>·<%= link_to truncate(transaction.name, length: 18), transaction, title: transaction.name %></li>
+        <% end %>
+        </ul>
+      </div>
+      <div class="box1_center_xia_r">
+        <ul>
+        <span class="box1_center_xia_bt">最新求购</span>
+          <% @seeking_infos.each do |transaction| %>
+            <li>·<%= link_to truncate(transaction.name, length: 18), transaction, title: transaction.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="box1_right">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1">综合资讯</span></div>
+      <div class="box1_right_xia_top_bot_ffff">
+          <span class="box1_left_xia_pic">
+            <%= image_tag @article.image_src, width: 89, height: 75 if @article %>
+          </span>
+          <span class="box1_left_xia_pic_zi1_ffff">
+            <strong><%= link_to_if @article, truncate(@article.try(:title), length: 9), article_path(@article), title: @article.try(:title) %></strong>
+          </span>
+          <span class="box1_left_xia_pic_zi1_ffff">
+            <%= truncate(@article.try(:guolv_content), length: 22) %>
+          </span>
+          <ul>
+            <% @articles.each do |article| %>
+              <li>
+              ·<%= link_to truncate(article.title, length: 15), article, title: article.title %>
+              </li>
+            <% end %>
+         </ul>
+  
+    </div>
+  </div>
+</div>
+<div class="banner">
+  <a href="http://bfc.crra010.com" target="_blank"><%= image_tag "banner.gif" %></a>
+</div>
+<div class="box2">
+<ul>
+<li class="pic_2"><a href="#"><img src="/assets/7.gif" /></a></li>
+<li class="pic_2"><a href="#"><img src="/assets/8.gif" /></a></li>
+<li class="pic_2"><a href="#"><img src="/assets/9.gif" /></a></li>
+<li class="pic_2"><a href="#"><img src="/assets/10.gif" /></a></li>
+<li class="pic_2"><a href="#"><img src="/assets/11.gif" /></a></li>
+<li class="pic"><a href="#"><img src="/assets/12.gif" /></a></li>
+</ul>
+<div class="clear"></div>
+</div>
+
+<div class="box4">
+  <div class="box4_top">
+  <a href="<%= hangqingbaojias_path %>" target="_blank"><%= image_tag "jghq.gif" %></a>
+  </div>
+  <div class="box4_topright"></div>
+  <div class="box4_xia">
+    <div class="box4_xia_left">
+      <div class="box4_xia_left_bt">最新废金属报价</div>
+      <div class="box4_xia_left_bt_more">
+      <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 1), target: "_blank" %>
+      </div>
+      <ul>
+        <% @jiages_jinshu.each do |jiage| %>
+          <li><%= link_to truncate(jiage.title, length: 15), jiage, title: jiage.title, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="box4_xia_left">
+      <div class="box4_xia_left_bt">最新废塑料报价</div>
+      <div class="box4_xia_left_bt_more">
+      <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 2), target: "_blank" %>
+      </div>
+      <ul>
+        <% @jiages_suliao.each do |jiage| %>
+          <li><%= link_to truncate(jiage.title, length: 15), jiage, title: jiage.title, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="box4_xia_left">
+      <div class="box4_xia_left_bt">最新废纸报价</div>
+      <div class="box4_xia_left_bt_more">
+      <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 3), target: "_blank" %>
+      </div>
+      <ul>
+        <% @jiages_zhi.each do |jiage| %>
+          <li><%= link_to truncate(jiage.title, length: 15), jiage, title: jiage.title, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="box4_xia_left2">
+      <div class="box4_xia_left_bt">最新废橡胶报价</div>
+      <div class="box4_xia_left_bt_more">
+      <%= link_to "更多>>", jiage_list_hangqingbaojias_path(id: 4), target: "_blank" %>
+      </div>
+      <ul>
+        <% @jiages_xiangjiao.each do |jiage| %>
+          <li><%= link_to truncate(jiage.title, length: 15), jiage, title: jiage.title, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+    </div>
+  <div class="clear"></div>
+</div>
+
+<div class="box3">
+
+  <div class="box3_left">
+    <div class="box3_left_bt">
+      <div class="box3_left_btbj">产品分类</div>
+    </div>
+    <div class="box3_left_bottom">
+      <% widths = [["52px", "98px"], ["52px", "98px"], ["52px", "52px"], ["65px", "98px"], ["52px", "58px"], ["52px", "42px"], ["26px", "52px"], ["52px", "78px"], ["65px", "52px"], ["52px", "52px"], ["26px", "52px"]] %>
+  <% Category.roots.each_with_index do |category1, index| %>
+      <div class="box3_left_bk">
+        <div class="box3_left_bk_bt">
+          <table width="20" height="117" border="0" align="center">
+  <tr>
+    <td style="vertical-align: middle">
+      <%= link_to category1.name, jiaoyi_path(category1.id), target: "_blank" %>
+    </td>
+  </tr>
+</table>
+</div>
+        <div class="box3_left_bk2">
+          <% category1.children.limit(4).each do |category2| %>
+        <ul>
+          <li style="width:<%= widths[index][0] %>">
+          <strong>
+            <a style="color:#0099CC;" href="<%= search_home_path(keyword: category2.name) %>">
+              <%= category2.name %>
+            </a>
+          </strong>
+          </li>
+          <% category2.children.limit(6).each do |category3| %>
+            <li><%= link_to category3.name, search_home_path(keyword: category3.name) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      </div>
+      <div class="box3_left_bk2">
+        <% category1.children.offset(4).limit(3).each do |category2| %>
+        <ul>
+          <li style="width:<%= widths[index][1] %>">
+          <strong>
+            <a style="color:#0099CC;" href="<%= search_home_path(keyword: category2.name) %>">
+              <%= category2.name %>
+            </a>
+          </strong>
+          </li>
+          <% category2.children.limit(5).each do |category3| %>
+            <li><%= link_to category3.name, search_home_path(keyword: category3.name) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+        <ul>
+          <li>
+          <strong>
+            <a href="<%= jiaoyi_path(category1.id) %>" style="color:#0099CC;">
+              全部>>
+            </a>
+          </strong>
+          </li>
+      </ul>
+
+      </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+
+  <div class="box3_right">
+    <div class="box3_right_2k">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">推荐供求</span>
+      </div>
+      <div class="box3_right_2k_xia">
+        <% @tuijian_transactions.each do |t| %>
+        <div class="box3_right_2k_xia_kuang">
+        <ul>
+          <li class="pic2">
+          <a href="<%= transaction_path(t) %>">
+            <%= head_image t, width: 84, height: 74 %>
+          </a>
+          </li>
+          <li class="rightzi1">
+            <%= link_to truncate(t.name, length: 15), t, title: t.name %>
+          </li>
+          <li class="rightzi2"></li>
+        </ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="box3_right_3k">
+      <div class="box1_right_xia_top"><span class="box1_right_xia_topzi1">最新用户</span></div>
+      <div class="box3_right_3k_xia">
+        <% @users.each do |user| %>
+        <div class="k3top">
+          <span class="pic3">
+            <a href="<%= website_path(user) %>">
+              <%= head_image user, width: 102, height: 111 %>
+            </a>
+          </span>
+          <span class="rightzi3">
+            <%= link_to user.company_name, website_path(user), title: user.company_name %><br/>
+            联系人: <%= user.call %><br/>
+          </span>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="box5">
+  <div class="box5_top">
+    <a href="<%= zixuns_path %>" target="_blank"><%= image_tag "syzx.gif" %></a>
+  </div>
+  <div class="box4_topright"></div>
+  <div class="box5_xia_left">
+    <div class="box5_xia_one">
+    <ul>
+      <li class="box5_xia_btzi"><a href="<%= list_zixuns_path(search: {category_eq: :hangye}) %>">行业资讯</a></li>
+      <li class="box5_xia_pic">
+      <%= image_tag @hangye_article.try(:image_src), width: 120, height: 86 if @hangye_article %>
+      </li>
+      <li class="box5_xia_zi1">
+        <%= link_to_if @hangye_article, truncate(@hangye_article.try(:title), length: 20), article_path(@hangye_article), title: @hangye_article.try(:title) %>
+      </li>
+      <li class="box5_xia_zi2">
+        <%= truncate(@hangye_article.try(:guolv_content), length: 40)%>
+        <% if @hangye_article %>
+          [<a href="<%= article_path(@hangye_article) %>"><font color="#FF6600">详细</font></a>]
+        <% end %>
+      </li>
+    <% @hangye_articles.each do |article| %>
+      <li class="box5_xia_zi3">·
+      <%= link_to truncate(article.title, length: 32), article, title: article.title %>
+      </li>
+    <% end %>
+    
+    </ul>
+    </div>
+    <div class="box5_xia_two">
+    <ul>
+      <li class="box5_xia_btzi"><a href="<%= list_zixuns_path(search: {category_eq: :zhengce}) %>">政策法规</a></li>
+      <li class="box5_xia_pic">
+      <%= image_tag @zhengce_article.try(:image_src), width: 120, height: 86 if @zhengce_article %>
+      </li>
+      <li class="box5_xia_zi1">
+        <%= link_to_if @zhengce_article, truncate(@zhengce_article.try(:title), length: 20), article_path(@zhengce_article), title: @zhengce_article.try(:title) %>
+      </li>
+      <li class="box5_xia_zi2">
+      <%= truncate(@zhengce_article.try(:guolv_content), length: 40)%>
+      <% if @zhengce_article %>
+        [<a href="<%= article_path(@zhengce_article) %>"><font color="#FF6600">详细</font></a>]
+      <% end %>
+      </li>
+    <% @zhengce_articles.each do |article| %>
+      <li class="box5_xia_zi3">·
+      <%= link_to truncate(article.title, length: 32), article, title: article.title %>
+      </li>
+    <% end %>
+    
+    </ul>
+    </div>
+    <div class="box5_xia_three">
+    <ul>
+    <li class="box5_xia_btzi"><a href="<%= list_zixuns_path(search: {category_eq: :zaisheng}) %>">变废为宝</a></li>
+      <li class="box5_xia_pic">
+      <%= image_tag @zaisheng_article.image_src, width: 120, height: 86 if @zaisheng_article %>
+      </li>
+      <li class="box5_xia_zi1">
+        <%= link_to_if @zaisheng_article, truncate(@zaisheng_article.try(:title), length: 20), article_path(@zaisheng_article), title: @zaisheng_article.try(:title) %>
+      </li>
+      <li class="box5_xia_zi2">
+        <%= truncate(@zaisheng_article.try(:guolv_content), length: 40)%>
+        <% if @zaisheng_article %>
+        [<a href="<%= article_path(@zaisheng_article) %>"><font color="#FF6600">详细</font></a>]
+      <% end %>
+      </li>
+    <% @zaisheng_articles.each do |article| %>
+      <li class="box5_xia_zi3">·
+      <%= link_to truncate(article.title, length: 32), article, title: article.title %>
+      </li>
+    <% end %>
+    
+    </ul>
+    </div>
+    <div class="box5_xia_four">
+    <ul>
+    <li class="box5_xia_btzi"><a href="<%= list_zixuns_path(search: {category_eq: :zhishi}) %>">收废知识</a></li>
+      <li class="box5_xia_pic">
+      <%= image_tag @zhishi_article.try(:image_src), width: 120, height: 86 if @zhishi_article %>
+      </li>
+      <li class="box5_xia_zi1">
+        <%= link_to_if @zhishi_article, truncate(@zhishi_article.try(:title), length: 20), article_path(@zhishi_article), title: @zhishi_article.try(:title) %>
+      </li>
+      <li class="box5_xia_zi2">
+        <%= truncate(@zhishi_article.try(:guolv_content), length: 40)%>
+        <% if @zhishi_article %>
+          [<a href="<%= article_path(@zhishi_article) %>"><font color="#FF6600">详细</font></a>]
+        <% end %>
+      </li>
+    <% @zhishi_articles.each do |article| %>
+      <li class="box5_xia_zi3">·
+      <%= link_to truncate(article.title, length: 32), article, title: article.title %>
+      </li>
+    <% end %>
+    
+    </ul>
+    </div>
+  </div>
+</div>
+<div class="only_text">中国物资再生协会唯一指定网络交易平台</div> 
+<div class="box6">
+  <div class="box6_top">
+  <ul>
+  <li class="box6_top_bt"></li>
+  <li class="box6_top_xian"></li>
+  </ul>
+  </div>
+  <div class="box6_bot">
+    <div class="box6_bot_nrk">
+    <ul>
+    <li class="box6_bot_bt">政府指导</li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.sdpc.gov.cn/"target="_blank">国家发展和改革委员会</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.mofcom.gov.cn/"target="_blank">中华人民共和国商务部</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.zhb.gov.cn/"target="_blank">中华人民共和国环境保护部</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.miit.gov.cn/n11293472/index.html"target="_blank">中华人民共和国工业和信息化部</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.crra.com.cn"target="_blank">中国物资再生协会</a></li>
+    <li class="box6_bot_bt_zi">·<a href="#"></a></li>
+    </ul>
+    </div>
+    <div class="box6_bot_nrk">
+    <ul>
+    <li class="box6_bot_bt">合作伙伴</li>
+    <li class="box6_bot_bt_zi">
+      ·<a href="http://www.chinarem.org/" target="_blank">
+          中国物资再生协会再制造专业委员会
+        </a>
+    </li>
+    <li class="box6_bot_bt_zi">· 军队退役报废装备专业委员会</li>
+    <li class="box6_bot_bt_zi">·
+      <a href="http://bfqc.scjss.mofcom.gov.cn/" target="_blank">
+        汽车以旧换新信息管理系统 
+      </a>
+    </li>
+    <li class="box6_bot_bt_zi">·
+        <a href="http://www.ycld.com.cn/" target="_blank">
+          湖北力帝机床股份有限公司
+        </a>
+    </li>
+    <li class="box6_bot_bt_zi">·
+        <a href="http://www.kobelco-cg.com/" target="_blank">
+          成都神钢建设机械有限公司
+        </a>
+    </li>
+    <li class="box6_bot_bt_zi">·<a href="#"></a></li>
+    </ul>
+    </div>
+    <div class="box6_bot_nrk">
+    <ul>
+    <li class="box6_bot_bt">合作媒体</li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.crra.com.cn" target="_blank">中国物资再生信息网</a>
+    </li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.cei.gov.cn/" target="_blank">中国经济信息网</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.chnepc.com/" target="_blank">环保中国网</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.ifeng.com" target="_blank">凤凰网</a></li>
+    <li class="box6_bot_bt_zi">·<a href="http://www.ifengweekly.com/" target="_blank">凤凰周刊</a></li>
+    <li class="box6_bot_bt_zi">·<a href="#"></a></li>
+    </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+

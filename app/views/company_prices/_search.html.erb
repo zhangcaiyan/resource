@@ -1,0 +1,26 @@
+<div class="qiyebaojia">
+  <%= form_tag baojias_path, method: :get do %>
+    <div class="gqxx_left_search2_text">精确搜索：</div>
+    <%= select_tag "search[region_id_eq]", options_for_select(Region.all.map{|r| [r.name, r.id]}, @region_id), prompt: "请选择省份", class: "xialacaidan3" %>
+    <%= select_tag "search[city_id_eq]", options_for_select(@region_id.present? ? City.all.map{|r| [r.name, r.id]} : [], @city_id), prompt: "请选择城市", class: "xialacaidan3" %>
+    <%= select_tag "year", options_for_select(2012..Date.current.year, @year), prompt: "请选择时间", class: "xialacaidan3" %>
+    <div class="gqxx_left_search2_text">关键字：</div>
+    <%= text_field_tag "search[name_or_category1_name_or_category2_name_or_category3_name_like]", @keyword, class: "wenben6" %>
+    <%= submit_tag "筛选", class: "anniu7", style: "background:url(/assets/anniu5.gif)" %>
+    <%= link_to "立即发布报价", new_company_price_path, class: "qiyebaojia_anniu", style: "background:url(/assets/qiyebaojiaanniu.gif)" %>
+  <% end %>
+</div>
+
+
+<script text="type/javascript">
+  $(function(){
+
+    $("#search_region_id_eq").bind("change", function(){
+      var region_id = $(this).val()
+      $.get("<%= region_path('id') %>", {region_id : region_id}, function(data){
+        $("#search_city_id_eq").html(data)
+      })
+    })
+  })
+
+</script>

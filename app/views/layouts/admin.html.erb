@@ -1,0 +1,23 @@
+
+<% if current_user.admin %>
+
+<%= render "/layouts/layout" %>
+<div class="baidi">
+<%= render "/devise/option_admin" %>
+<%= render "/layouts/search" %>
+<%= render "/layouts/header_admin" %>
+<%= render "/layouts/left_admin" %>
+<%= render "/layouts/footer_admin" %>
+</div>
+<% else %>
+
+<%= render "/layouts/layout" %>
+<div class="baidi">
+<%= render "/devise/option_admin" %>
+<%= render "/layouts/search" %>
+<%= render "/layouts/header_admin" %>
+<%= render "/layouts/left_no_admin" %>
+<%= render "/layouts/footer_admin" %>
+</div>
+<% end %>
+

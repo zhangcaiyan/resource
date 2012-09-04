@@ -1,0 +1,31 @@
+<div class="weizhi">
+  当前位置：<%= link_to "首页", home_path %> > <%= link_to "行情报价", hangqingbaojias_path %> > <font color="#FF6600">行情报价信息搜索</font>
+</div>
+<div class="fl1_bottom">
+  <div class="fl1_bottom_left">
+    <div class="fl5_k">
+      <div class="fl5_btzi1">您搜索的报价关键字为：<font color="#FF0000"><%= @keyword %></font></div>
+      <div class="fl5_btzi2">
+        精确报价，买卖商机，尽在crra010再生交易平台
+      </div>
+    </div>
+    <div class="fl5_left_xiak">
+      <ul>
+        <% @hangqings.each_with_index do |hangqing, index| %>
+          <li class="fl5_left_xiak_text">
+          <%= link_to hangqing.title, hangqing, target: "_blank" %>
+          <font color="#999999">
+            <%= hangqing.published_at %>
+          </font>
+          </li>
+          <% if index > 0 && index % 5 == 0 %>
+            <div class="xuxian"></div>
+          <% end %>
+        <% end %>
+      </ul>
+      <%= will_paginate @hangqings %>
+    </div>
+  </div>
+  <%= render partial: "/hangqingbaojias/right", locals: {resource: KeyValues::Resource.first} %>
+  <div class="clear"></div>
+</div>

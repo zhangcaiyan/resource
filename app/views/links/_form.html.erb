@@ -1,0 +1,23 @@
+<%= simple_form_for(@link, html: {class: "validate_form"}) do |f| %>
+
+  <div class="tjyqlj_footer">
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>名称：</li>
+      <li><%= f.input :name, input_html: {class: "validate[required] wenben11"}, label: false, wrapper: false %></li>
+    </ul>
+
+    <ul>
+      <li class="fbxx_footer_zi1"><font color="#FF0000">*</font>地址：</li>
+      <li><%= f.input :url, input_html: {class: "validate[required, custom[url]] wenben11"}, label: false, wrapper: false %></li>
+    </ul>
+
+    <ul>
+      <li>
+        <%= f.button :submit, class: "anniu12", style: "background:url(/assets/fbxx_anniu.gif)" %>
+      </li>
+    </ul>
+  </div>
+
+<% end %>
+
+

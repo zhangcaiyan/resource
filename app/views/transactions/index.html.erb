@@ -1,0 +1,132 @@
+<%= title transaction_title(params[:search].try(:[], :info_type_eq)) %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">管理供求信息</div>
+  <div class="glgq_k1">
+    <ul>
+      <li class="glgq_zi1">教您如何修改信息，如何争取排名更靠前：</li>
+      <li class="glgq_zi2">修改：仅修改信息内容</li>
+      <li class="glgq_zi2">刷新：信息内容保持不变，仅更新发布时间，让您的信息排名靠前，高级会员每隔半小时可刷新一次，普通会员每天限刷新一次！</li>
+    </ul>
+  </div>
+  <div class="glgq_k2"><%= link_to "全部(#{current_user.transactions.size})", transactions_path %> | <%= link_to "未过期(#{current_user.transactions.valid.size})", transactions_path({search: {is_valid_eq: true}}) %> | <%= link_to "已过期(#{current_user.transactions.invalid.size})", transactions_path({search: {is_valid_eq: false}}) %> </div>
+  <%= form_tag delete_transactions_path, method: "delete", id: "form" do %>
+    <%= hidden_field_tag "search[is_valid_eq]", params[:search].try(:[], :is_valid_eq) %>
+    <div class="glgq_xia">
+      <div class="glgq_xia_top">
+        <ul>
+          <span class="fuxuank4">
+            <%= check_box_tag "select_all", '', false %>
+          </span>
+          <li class="glgq_xia_zi1_new"><strong>刷新</strong></li>
+          <li class="glgq_xia_zi1"><strong>标题</strong></li>
+          <li class="glgq_xia_zi2"><strong>刷新时间</strong></li>
+          <li class="glgq_xia_zi2"><strong>发布时间</strong></li>
+          <li class="glgq_xia_zi2"><strong>操作</strong></li>
+        </ul>
+      </div>
+      <div class="glgq_xia_bot">
+        <% @transactions.each do |transaction| %>
+          <ul>
+            <span class="fuxuank4">
+              <%= check_box_tag "id[]", transaction.id, false, class: 'transaction_id' %>
+            </span>
+            <li class="glgq_xia_zi1_new">
+            <% if transaction.can_refresh? %>
+              <%= image_tag "refresh.gif" %>
+              <%= link_to "刷新", "javascript:void(0)", value: transaction.id, class: "refresh" %>
+            <% else %>
+              最新
+            <% end %>
+            </li>
+            <li class="glgq_xia_zi1">
+            <%= link_to truncate(transaction.name, length: 15), transaction, title: transaction.name %>
+            </li>
+            <li class="glgq_xia_zi2 refreshed_at">
+            <%= l transaction.refreshed_at %>
+            </li>
+            <li class="glgq_xia_zi2">
+            <%= l transaction.created_at %>
+            </li>
+            <li class="glgq_xia_zi2">
+            <%= link_to "编辑", edit_transaction_path(transaction) %> | <%= link_to "图片", images_transaction_path(transaction) %> | 
+            <%= link_to "删除", transaction, method: :delete, confirm: "确定删除吗?" %>
+            </li>
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+
+  <div class="glgq_xia_bot_k">
+    <ul>
+      <li><%= button_tag "刷新", id: "refresh" %></li>
+      <li><%= button_tag "删除", id: "delete" %></li>
+      <li><%= button_tag "一键刷新", id: "refresh_all" %></li>
+    </ul>
+  </div>
+  <%= will_paginate @transactions %>
+</div>
+<div class="clear"></div>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    var category = "<%= params[:search].try(:[], :is_valid_eq) %>"
+    switch(category){
+      case "": $(".glgq_k2 a").eq(0).addClass("ppp");break;
+      case "true": $(".glgq_k2 a").eq(1).addClass("ppp");break;
+      case "false": $(".glgq_k2 a").eq(2).addClass("ppp");break;
+      default: $(".glgq_k2 a").eq(0).addClass("ppp");break;
+    }
+
+    $(".glgq_k2 a").bind("click", function(){
+      $(".glgq_k2 a").removeClass("ppp")
+      $(this).addClass("ppp")
+    })
+
+    $("#transactions").addClass("ht_dianji")
+
+    $(".refresh").click(function(){
+      link = $(this)
+      $.get("<%= refresh_transactions_path %>", {id: link.attr("value")}, function(data){
+        if("<%= params['search'] && (params['search']['is_valid_eq'] == 'false') %>" == "true"){
+          link.parents("ul").hide()
+        }else{
+          link.parents("li").next().next().text(data["refreshed_at"])
+          link.parent().text("最新")
+        }
+      })
+    })
+
+    $("#select_all").change(function(){
+      $(".transaction_id").attr("checked", $(this).prop("checked"))
+    })
+
+    $("#refresh").click(function(){
+      if($(".transaction_id:checked").length > 0){
+        $("#form").attr("method", "get")
+        $("#form").attr("action", "<%= refresh_transactions_path %>")
+        $("#form").submit()
+      }
+    })
+
+    $("#refresh_all").click(function(){
+      $(".transaction_id").attr("checked", true)
+      $("#form").attr("method", "get")
+      $("#form").attr("action", "<%= refresh_transactions_path %>")
+      $("#form").submit()
+    })
+
+    $("#delete").click(function(){
+      if(confirm("确认要删除吗？")){
+        if($(".transaction_id:checked").length > 0){
+          $("#form").submit()
+        }
+      }
+    })
+
+  })
+</script>

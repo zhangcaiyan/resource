@@ -1,0 +1,23 @@
+<h1>留言类型管理</h1>
+<% title "留言类型管理" %>
+
+<table>
+  <tr>
+    <th>留言类型名称</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @message_types.each do |message_type| %>
+  <tr>
+    <td><%= message_type.name %></td>
+    <td><%= link_to '编辑', edit_message_type_path(message_type) %></td>
+    <td><%= link_to '删除', message_type, confirm: '确定删除吗?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to '添加留言类型', new_message_type_path %>

@@ -1,0 +1,372 @@
+zh-CN:
+  will_paginate:
+    previous_label: 上一页
+    next_label: 下一页
+
+  simple_captcha:
+    label:  请输入图片中的验证码
+
+  activerecord:
+    models:
+      user: 用户
+      transaction: 供求信息
+      attachment: 附件
+      article: 文章
+      message: 站内信
+      message_type: 留言类型
+      company_price: 报价
+      shangjidingzhi: 商机定制
+      link: 超链接
+      transaction_type: 供求类型
+      news: 动态信息
+      customer: 客户
+      customer_type: 客户类型
+      contact: 联系人
+      comment: 评论
+      hangqing: 行情
+      dongtai: 市场动态
+      jiage: 价格
+
+    attributes:
+      user:
+        email: 电子邮件
+        encrypted_password: 加密密码
+        reset_password_token: 重置密码
+        reset_password_sent_at: 重新设置密码被送在
+        remember_created_at: 记住创造在
+        current_sign_in_at: 当前登录时间
+        last_sign_in_at: 最后登录时间
+        current_sign_in_ip: 当前登录ip
+        last_sign_in_ip: 最后登录ip
+        password: 密码
+        remember_me: 记住密码
+        password_confirmation: 密码确认
+        current_password: 当前密码
+        login: 帐号
+        username:  用户名
+        confirmation_token: 激活码
+        company_name: 公司名字
+        name: 联系人姓名
+        gender: 性别
+        address: 地址
+        country: 国家/地区
+        country_id: 国家/地区
+        country_name: 国家/地区
+        region_id: 省份
+        region_name: 省份
+        region: 省份
+        city_id: 城市
+        city_name: 城市 
+        city: 城市
+        phone: 固定电话
+        mobile_phone: 手机
+        zip_code: 邮编
+        qq: QQ 
+        msn: MSN 
+        company_url: 公司网址
+        category: 类别
+        fax:  传真
+        admin: 管理员
+        super_admin: 超级管理员
+        business_category: 商业类型
+        is_verify: 是否验证
+        created_at: 注册时间
+        member: 会员
+        desc: 公司介绍
+        is_have_website: 是否开通个人网站
+        business: 主营业务
+        backup_email: 备用邮箱
+        
+
+      transaction:
+        title: 产品名称
+        info_type: 信息类型
+        source: 货源地
+        manufacture: 加工说明
+        quantity: 供货数量
+        quantity_unit: 计量单位
+        location: 现货物所在地
+        price_unit: 价格单位
+        is_price_scope: 支持价格范围
+        price: 报价
+        min_price: 报价
+        max_price: 最高报价
+        valid_time: 信息有效期
+        provide_statu: 供应情况
+        provide_quantity: 供应总量
+        goods_type: 期货现货
+        desc: 信息描述 
+        user_id: 发布者
+        created_at: 发布时间
+        user: 发布者
+        attachments: 上传图片
+        tag_list: 标签
+        category1_id: 主类别
+        category2_id: 二级分类
+        category3_id: 三级分类
+        category4_id: 四级分类
+        category1: 主类别
+        category2: 二级分类
+        category3: 三级分类
+        category4: 四级分类
+        is_valid: 是否有效
+        refreshed_at: 刷新时间
+
+      attachment:
+        image: 上传图片
+        image_file_name: 名称
+        image_file_size: 大小
+        image_content_type: 类型
+        category: 插件类型
+
+      article:
+        title: 标题
+        content: 内容
+        category: 类别
+        created_at: 发布时间
+        fenlei: 行业分类
+        forum: 重要性
+
+      message:
+        title: 标题
+        desc: 内容
+        from_id: 发件人
+        to_id: 收件人
+        created_at: 时间
+        is_read: 是否已读
+
+      message_type:
+        name: 类型名称
+        user_id: 用户
+
+      company_price:
+        name: 产品名称
+        unit: 价格单位
+        is_price_scope: 支持价格范围
+        min_price: 最小价格
+        max_price: 最高价格
+        region_id: 省份
+        city_id: 城市
+        valid_time: 有效期
+        desc: 产品描述
+        category1_id: 一级分类
+        category2_id: 二级分类
+        category3_id: 三级分类
+        created_at: 发布日期
+        other_unit: 其他
+
+      shangjidingzhi:
+        keyword: 关键字
+        info_type: 商机类型
+        is_send_email: 发送电子邮件通知
+        region_id: 省份
+        city_id: 城市
+        email: 您的Email
+
+      link:
+        name: 友情链接
+        user_id: 所属用户
+        
+
+      transaction_type:
+        name: 名称
+        desc: 描述
+
+      news: 
+        title: 标题
+        content: 内容
+        user_id: 发布者
+        created_at: 发布时间
+
+      customer:
+        name: 姓名
+        post: 职务
+        gender: 性别
+        phone: 电话
+        fax: 传真
+        mobile_phone: 手机
+        email: 邮箱
+        company_name: 公司名称
+        country: 国家
+        country_id: 国家
+        region_id: 省份
+        city_id: 城市
+        address: 地址
+        zip_code: 邮编
+        rating: 客户等级
+        status: 公司状态
+        desc: 备注
+        customer_type_id: 客户分组
+
+      customer_type:
+        name: 名称
+        user_id: 所属用户
+
+      contact:
+        name: 联系人姓名
+        gender: 性别
+        is_public: 是否公开联系方式
+        phone: 电话
+        cell_phone: 手机
+        qq: QQ 
+        email: 邮箱
+        enums:
+          is_public:
+            true: 是
+            false: 否
+
+      comment:
+        title: 标题
+        category: 分类
+        resource_category: 资源分类
+        desc: 内容 
+        published_at: 发布日期
+        created_at: 创建日期
+
+      hangqing:
+        title: 标题
+        desc: 内容 
+        published_at: 发布日期
+        created_at: 创建日期
+        resource_id: 资源种类
+
+      dongtai:
+        title: 标题
+        desc: 内容 
+        published_at: 发布日期
+        created_at: 创建日期
+        resource_id: 资源种类
+        city_id: 城市
+
+      jiage:
+        title: 标题
+        desc: 内容 
+        published_at: 发布日期
+        created_at: 创建日期
+        resource_id: 资源种类
+        category_id: 具体资源种类
+
+    symbolizes:
+      user:
+        category:
+          buy:  买家
+          sell: 卖家 
+          buy_and_sell: 两者都是
+        gender:
+          male: 先生
+          female: 女士
+        admin:
+          "true": 是
+          "false": 否
+        business_category:
+          a: 国外供货商
+          b: 国外回收贸易商
+          c: 码头，仓库储存商
+          d: 国内供应商
+          e: 国内回收贸易商
+          f: 国内加工，拆解商
+          g: 利废企业
+          h: 设备，技术，服务提供商
+          i: 其他
+        is_verify:
+          "true": 是 
+          "false": 否
+        member:
+          a: 普通会员
+          b: 一级会员
+          c: 二级会员
+
+      transaction:
+        provide_statu:
+          changqi: 长期供应
+          budingqi: 不定期供应 
+        info_type:
+          supply: 供应 
+          seeking: 求购
+        manufacture:
+          z: 无加工要求
+          a: 可直接加工生产
+          b: 需要手工分拣
+        valid_time:
+          ten_days: 10天
+          twenty_days: 20天
+          one_month: 1个月
+          three_months: 3个月
+          chang_qi: 长期有效
+        goods_type:
+          xian_huo: 现货 
+          qi_huo: 期货
+          qi_ta: 其他
+
+      article:
+        category:
+          hangye: 行业动态
+          zhengce: 政策法规
+          zaisheng: 再生技术
+          zhishi: 知识宝库
+        fenlei:
+          jinshu: 废金属
+          shuliao: 废塑料
+          zhi: 废纸
+          qita: 其他
+        forum:
+          important: 重要位置
+          less_important: 比较重要
+          common: 普通
+
+      company_price:
+        valid_time:
+          ten_days: 10天
+          twenty_days: 20天
+          one_month: 1个月
+          three_months: 3个月
+          six_months: 6个月
+          chang_qi: 长期有效
+
+
+      shangjidingzhi:
+        info_type: 
+          supply: 供应
+          seeking: 求购
+          all: 供求 
+
+      customer:
+        gender:
+          male: 男
+          female: 女        
+
+        rating:
+          one: 一星
+          two: 二星
+          three: 三星
+          four: 四星
+          five: 五星
+
+        status:
+          yi: 潜在
+          er: 有意向
+          san: 已成交
+
+      contact:
+        gender:
+          male: 男
+          female: 女
+
+      attachment:
+        category:
+          license: 执照
+
+      comment:
+        category:
+          day: 日报
+          week: 周报
+
+        resource_category:
+          jinshu: 废金属
+          suliao: 废塑料
+          zhi: 废纸
+          xiangjiao: 废橡胶
+
+
+
+

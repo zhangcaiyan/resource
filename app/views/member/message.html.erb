@@ -1,0 +1,19 @@
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt">
+      <span class="gt_right_btzi">在线留言</span>
+    </div>
+    <div class="gt_right_bot">
+      <span class="tishixinxi"><%= flash[:notice] %></span>
+      <span class="error"><%= flash[:alert] %></span>
+      <%= simple_form_for Message.new, path: messages_path, html: {class: "validate_form"} do |f| %>
+        <%= hidden_field_tag "liuyan", "yes" %>
+        <%= f.input :title, as: "hidden", input_html: {value: "咨询"}, label: false, wrapper: false %>
+        <%= f.input :to_id, as: "hidden", input_html: {value: @user.id}, label: false, wrapper: false %> 
+        <%= f.input :desc, input_html: {class: "validate[required, maxSize[1500]] gt_wenbenyu"}, label: false, wrapper: false %>
+        <%= f.button :submit, "提交留言", class: "gt_anniu4" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+

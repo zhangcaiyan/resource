@@ -1,0 +1,9 @@
+<span>
+  <li class="glxl_xia_bot_zi4">
+  <%= link_to truncate(transaction.name, length: 40), transaction %>
+  </li>
+  <li class="glxl_xia_bot_zi3">转移到</li>
+
+  <%= select_tag "transaction_type_id", options_for_select(@transaction_types.collect{|t| [t.name, t.id]}, transaction.transaction_type_id), prompt: "请选择供求系列", transaction_id: transaction.id, transaction_type_id: transaction.transaction_type_id, class: "transaction_type_id xialacaidan7" %>
+</span>
+

@@ -1,0 +1,25 @@
+<div class="weizhi">当前位置：<%= link_to "首页", home_path %> > <%= link_to "行情报价", hangqingbaojias_path %>  > <font color="#FF6600"><%= @resource.name %></font></div>
+<div class="fl1_bottom">
+  <div class="fl1_bottom_left">
+    <div class="lby_left_top"><%= @resource.name %>价格</div>
+    <div class="fl1_left_xiak">
+      <% @resource.price_categories.each do |category| %>
+        <ul>
+          <% category.jiages.order("published_at DESC").limit(6).each do |jiage| %>
+        <li class="fl1_left_xiak_text">
+            [<%= link_to category.name, more_jiage_list_hangqingbaojias_path(id: category.id), target: "_blank" %>]  <%= link_to truncate(jiage.title, length: 21 - category.name.length), jiage %>
+            <font color="#999999">
+              <%= jiage.published_at %>
+            </font>
+        </li>
+          <% end %>
+        <li class="more3">
+        <%= link_to "更多#{category.name}价格>>", more_jiage_list_hangqingbaojias_path(id: category.id), target: "_blank" %>
+        </li>
+        </ul>
+      <% end %>
+
+    </div>
+  </div>
+  <%= render partial: "right", locals: {resource: @resource} %>
+</div>

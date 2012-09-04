@@ -1,0 +1,49 @@
+<% title "上传#{current_user.company_name}的照片" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header"></div>
+  <div class="ht_bot">
+    <div class="fbxx_top">上传<%= current_user.company_name %>的图片</div>
+    <div class="fbxx_footer">
+      <ul>
+        <% current_user.attachments.each do |attachment| %>
+          <div class="aaa">
+            <div class="aaa_pic">
+              <%= image_tag attachment.image.url, width: 110, height: 95 %>
+            </div>
+            <div class="center_text">
+              <%= link_to "删除", attachment_path(attachment), method: :delete, class: "centeranniu" %>
+            </div>
+          </div>
+        <% end %>
+        <li class="wrong_text">
+        <%= flash[:error_messages].try(:join, ",") %>
+        </li>
+      </ul>
+      <%= simple_form_for Attachment.new, path: attachments_path, multiple: true do |f| %>
+        <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id}, label: false, wrapper: false %>
+        <ul>
+          <li class="fbxx_footer_zi4">在此上传图片：</li>
+          <li>
+          <%= f.input :image, as: :file, label: false, wrapper: false, input_html: {class: "wenjianyu1"} %>
+          </li>
+          <li>
+          <%= f.submit "上传", class: "anniu17" %>
+          </li>
+        </ul>
+        <ul>
+        </ul>
+        <ul>
+          <li class="ht_qyjj_xgpic_text"><font color="#FF6600">提示：</font>所选图片都必须是jpg、gif、png、jpeg或bmp格式，图片的大小不得超过2M</li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<script text="type/javascript">
+  $(function(){
+    $("#desc_and_pictures").addClass("ht_dianji2")
+  })
+</script>

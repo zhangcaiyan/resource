@@ -1,0 +1,44 @@
+<%= title "用户列表" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">用户列表</div>
+  <div class="gly_yhlb_xia">
+    <div class="gly_yhlb_xia_top">
+      <ul>
+        <li class="gly_yhlb_xia_top_zi1"><strong><%= sort_link @search, :gender, "姓名" %></strong></li>
+        <li class="gly_yhlb_xia_top_zi4"><strong><%= sort_link @search, :category %></strong></li>
+        <li class="gly_yhlb_xia_top_zi2"><strong><%= sort_link @search, :company_name %></strong></li>
+        <li class="gly_yhlb_xia_top_zi4"><strong>地区</strong></li>
+        <li class="gly_yhlb_xia_top_zi3"><strong><%= sort_link @search, :business_category %></strong></li>
+        <li class="gly_yhlb_xia_top_zi4"><strong><%= sort_link @search, :created_at %></strong></li>
+        <li class="gly_yhlb_xia_top_zi4"><strong><%= sort_link @search, :is_verify %></strong></li>
+        <li class="gly_yhlb_xia_top_zi4"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="gly_yhlb_xia_bot">
+      <% @users.each do |user| %>
+        <ul>
+          <li class="gly_yhlb_xia_bot_zi1"><%= user.call %></li>
+          <li class="gly_yhlb_xia_bot_zi4"><%= user.category_text %></li>
+          <li class="gly_yhlb_xia_bot_zi2"><%= user.company_name %></li>
+          <li class="gly_yhlb_xia_bot_zi4"><span class="gly_yhlb_xia_top_zi4"><%= user.suozaidi %></span></li>
+          <li class="gly_yhlb_xia_bot_zi3"><span class="gly_yhlb_xia_top_zi3"><%= user.business_category_text %></span></li>
+          <li class="gly_yhlb_xia_bot_zi4"><span class="gly_yhlb_xia_top_zi4"><%= l user.created_at.to_date %></span></li>
+          <li class="gly_yhlb_xia_bot_zi4"><%= user.is_verify_text %></li>
+          <li class="gly_yhlb_xia_bot_zi5">
+          <%= link_to "查看", user_path(user) %><br/>
+          <%= link_to "验证", entverify_user_path(user) %><br/>
+          <%= link_to "权限控制", purview_user_path(user) %><br/>
+          <%= link_to "升级会员", entmember_user_path(user) %> 
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @users %> 
+</div>
+<div class="clear"></div>
+</div>
+
+
+

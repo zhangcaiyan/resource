@@ -1,0 +1,127 @@
+<% title "我收到的留言" %>
+
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">收到的留言</div>
+  <div class="sdly_k1" id="receive_message_links">
+    <ul>
+      <li><%= link_to "全部", messages_path(category: "receive") %></li>
+      <li><%= link_to "未分类", messages_path(category: "receive", search: {message_type_id_is_null: true}) %></li>
+      <% current_user.message_types.each do |message_type| %>
+        <li>
+          <%= link_to message_type.name, messages_path(category: "receive", search: {message_type_name_equals: message_type.name}), name: message_type.name %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="sdly_k2">
+    <ul>
+      <li class="fuxuank6">
+        <%= check_box_tag "select", "", false, class: "select" %>
+      </li>
+      <li>
+        <input class="delete" type="submit" value="永久删除"  class="anniu8"/>
+      </li>
+      <li>
+        <input class="soft_delete" type="submit" value="垃圾留言" class="anniu8" />
+      </li>
+    </ul>
+  </div>
+  <div class="glgq_xia">
+    <%= form_tag message_path("id"), method: "delete", id: "form1" do %>
+      <%= hidden_field_tag "delete_type", "soft_delete" %>
+      <%= hidden_field_tag "category", params[:category] %>
+    <div class="sdly_top">
+      <ul>
+        <li class="sdly_top_zi1"><strong>发件人</strong></li>
+        <li class="sdly_top_zi1"><strong>内容</strong></li>
+        <li class="sdly_top_zi2"><strong>时间</strong></li>
+      </ul>
+    </div>
+    <div class="glgq_xia_bot">
+      <% @messages.each do |message| %>
+      <ul>
+        <span class="fuxuank4">
+          <%= check_box_tag "message_ids[message_id_#{message.id}]", message.id, false, class: "message_id" %>
+        </span>
+        <li class="sdly_top_zi1">
+          <%= mail_img(message) %>
+          <%= link_to message.sender.name, website_path(message.sender) %>
+        </li>
+        <li class="sdly_top_zi1">
+          <%= link_to (truncate message.title, length: 20), message_path(message), title: message.title %>
+        </li>
+        <li class="sdly_top_zi2">
+          <%= l message.created_at.to_date %>
+        </li>
+      </ul>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+  <div class="sdly_k2">
+    <ul>
+      <li class="fuxuank6">
+        <%= check_box_tag "select", "", false, class: "select" %>
+      </li>
+      <li>
+        <input class="delete" type="submit" value="永久删除"  class="anniu8"/>
+      </li>
+      <li>
+        <input class="soft_delete" type="submit" value="垃圾留言" class="anniu8" />
+      </li>
+    </ul>
+  </div>
+  <%= will_paginate @messages %>
+  <div class="sdly_k3" style="margin-top:10px">提醒：您可基于留言直接回复，请打开有明确交易意向的留言，点击"回复"<br/>
+    留言的有效期为1年，系统将自动删除超出有效期的留言。请注意保存重要留言！</div>
+</div>
+<div class="clear"></div>
+
+
+<script type="text/javascript">
+  $(function(){
+
+    var message_type_id_is_null = "<%= params[:search].try(:[], :message_type_id_is_null) %>"
+    var category = "<%= params[:search].try(:[], :message_type_name_equals) %>"
+    if(message_type_id_is_null == "true"){
+      $("#receive_message_links a").eq(1).addClass("ppp")
+    }else{
+      if(category == ""){
+        $("#receive_message_links a").eq(0).addClass("ppp");
+      }else{
+        $("#receive_message_links a[name='"+category+"'] ").addClass("ppp") 
+      }
+    }
+
+    $("#receive_messages").addClass("ht_dianji2")
+    
+    $(".select").change(function(){
+      $(".message_id").attr("checked", $(this).prop("checked"))
+    })
+
+    $(".delete").click(function(){
+      var checked = $(".message_id:checked")
+      if(checked.length > 0){
+        $("input[name='delete_type']").attr("value", "delete")
+        $("#form1").submit()
+      }else{
+        alert("请选择删除信息!")
+      }
+    })
+
+    $(".soft_delete").click(function(){
+      var checked = $(".message_id:checked")
+      if(checked.length > 0){
+        $("input[name='delete_type']").attr("value", "soft_delete")
+        $("#form1").submit()
+      }else{
+        alert("请选择需要转为垃圾的留言！")
+      }
+    })
+  })
+</script>
+
+
+
+

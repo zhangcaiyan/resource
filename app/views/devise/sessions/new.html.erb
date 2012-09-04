@@ -1,0 +1,69 @@
+<%= title "登陆" %>
+
+<div class="denglu_bottom">
+  <div class="denglu_left_pic"><%= image_tag "tu33.gif" %></div>
+  <div class="denglu_right">
+    <div class="denglu_right_bian"><%= image_tag "dl_left.gif" %></div>
+    <div class="denglu_right_ct">
+      <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <ul>
+          <li class="denglu_zi1_xiao">请输入用户名和密码</li>
+        </ul>
+        <ul style="width:287px;height:50px">
+          <li class="denglu_zi2">用户名：</li>
+          <li>
+          <%= f.input :login, label: false, input_html: {class: "wenben8"}, wrapper: false %>
+          </li>
+        </ul>
+        <ul style="width:287px;height:45px">
+          <li class="denglu_zi2">密码：</li>
+          <li>
+          <%= f.input :password, label: false, input_html: {class: "wenben8"}, wrapper: false %>
+          </li>
+        </ul>
+        <ul style="width:222px;height:40px;padding-left:65px">
+          <% if devise_mapping.rememberable? -%>
+            <li class="fuxuank2">
+            <%= f.input :remember_me, as: :boolean, label: false, wrapper: false %>
+            </li>
+            <li class="denglu_zi3">记住密码</li>
+          <% end %>
+        </ul>
+        <ul style="width:242px;height:45px;padding-left:45px">
+          <li>
+          <%= f.button :submit, "登陆", style: "background:url(/assets/dengluanniu1.gif)", class: "anniu9" %>
+          </li>
+          <li>
+          <%= link_to "注册", new_registration_path(resource_name), class: "anniu10", style: "background:url(/assets/dengluanniu2.gif)" %>
+          </li>
+        </ul>
+      <% end %>
+      <ul style="width:242px;height:50px;padding-left:45px">
+        <li class="denglu_zi4">
+        <%= link_to "忘记密码？", new_password_path(resource_name) %>
+        </li>
+        <li class="denglu_zi4">
+        <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+          <%= link_to "没有收到激活邮件?", new_confirmation_path(resource_name) %><br />
+        <% end -%>
+        </li>
+      </ul>
+    </div>
+    <div class="denglu_right_bian">
+      <%= image_tag "dl_right.gif" %>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<% if nil %>
+  <br/> 
+  普通账户: <br/> 
+  email: yongzhengjiaying@gmail.com<br/>
+  passwd: yongzhengjiaying<br/>
+  <br/>
+  管理员账户：<br/>
+  email:  postmaster@crra010.com<br/>
+  passwd: postmaster
+<% end %>
+
+

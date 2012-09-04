@@ -1,0 +1,60 @@
+
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt">
+      <span class="gt_right_btzi">
+        公司介绍
+      </span>
+      <span class="gt_more">
+         <%= link_to "更多>>", member_show_path %>
+      </span>
+    </div>
+    <div class="gt_right_bot">
+      <ul>
+        <li><%= truncate(@user.desc, length: 300) %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="gt_right_k">
+    <div class="gt_right_bt">
+      <span class="gt_right_btzi">
+        公司最新动态
+      </span>
+      <span class="gt_more">
+         <%= link_to "更多>>", member_news_path %>
+      </span>
+    </div>
+    <div class="gt_right_bot">
+      <ul>
+        <% @news.each do |news| %>
+          <li><%= link_to truncate(news.title, length: 40), member_new_path(news.id), title: news.title, target: "_blank" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="gt_right_k">
+    <div class="gt_right_bt">
+      <span class="gt_right_btzi">最新供求</span>
+      <span class="gt_more">
+        <%= link_to "更多>>", member_transactions_path %>
+      </span>
+    </div>
+    <div class="gt_right_bot2">
+      <% @transactions.each do |transaction| %>
+      <ul>
+        <li class="gt_right_pic">
+          <a href="<%= member_transaction_path(transaction.id) %>">
+          <%= head_image(transaction, width: 110, height: 95) %>
+          </a>
+        </li>
+        <li class="gt_right_zi">
+        <%= link_to truncate(transaction.title, length: 25), member_transaction_path(transaction.id), title: transaction.title %>
+        </li>
+      </ul>
+    <% end %>
+    </div>
+  </div>
+
+</div>
+
+

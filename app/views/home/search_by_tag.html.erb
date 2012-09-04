@@ -1,0 +1,114 @@
+<% title "#{@transactions.total_entries.size}" %>
+
+<div class="lby_bottom">
+  <div class="lby_bottom_left">
+    <div class="xxlb_left_bq">
+      <ul>
+        <li class="xxlb_left_bq_zi1">
+        <strong>标签：</strong><%= @tag %>的信息列表:
+        </li>
+        <li class="xxlb_left_bq_zi2">
+        供求信息<%= @transactions.total_entries %>条
+        </li>
+      </ul>
+    </div>
+    <div class="xxlb_left_btk">
+      <ul>
+        <li class="xxlb_left_btk_zi1"><%= @tag %>供求信息</li>
+        <li class="xxlb_left_btk_zi2"> 
+        <%= link_to "查看所有#{@tag}交易信息", search_home_path(keyword: @tag) %>
+        </li>
+      </ul>
+    </div>
+    <div class="lby_left_xia">
+      <div class="lby_left_xia_bot">
+        <% @transactions.each do |t| %>
+          <ul>
+            <div class="xxlb_zik1">
+              <li class="xxlb_left_nrzi1">
+              <%= link_to truncate(t.name, length: 28), t, title: t.name %>
+              </li>
+              <li class="xxlb_left_nrzi2">
+              <%= link_to t.user.company_name, website_path(t.user), title: t.user.company_name %>
+              </li>
+            </div>
+            <li class="lby_left_xia_zi2">
+            <%= l t.created_at.to_date %>
+            </li>
+            <li class="xxlb_left_nrzi3"> 
+            <%= t.info_type_text %>： <%= truncate t.desc, length: 50 %>
+            </li>
+          </ul>
+        <% end %>
+        <%= will_paginate @transactions %>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="lby_bottom_right">
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">
+          <strong>最新产品报价</strong>
+        </span>
+      </div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% @company_prices.each do |price| %>
+            <li>
+            ·<%= link_to truncate("#{price.name} #{price.price}", length: 18), price, title: "#{price.name} #{price.price}" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="xxlb_right_k1">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">
+          <strong>搜索标签</strong>
+        </span>
+      </div>
+      <div class="xxlb_right_k2">
+        <%= form_tag search_by_tag_home_path, method: "get" do %>
+          <%= text_field_tag "tag", params[:tag], class: "wenben14" %>
+          <%= submit_tag "搜索", class: "xxlb_button" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="gqxx_right_k1">
+      <div class="jyzx_header_right_bt">
+        <span class="box1_right_xia_topzi1">
+          <strong><%= @tag %>相关标签</strong>
+        </span>
+      </div>
+      <div class="gqxx_right_k1_xia">
+        <ul>
+          <% @tags.each do |tag| %>
+            <li class="<%= ["yellow", "black", "red", "black", "green", "blue"][rand(6)] %>">
+            <%= link_to tag.name, search_by_tag_home_path(tag: tag.name) %>
+            </li>
+            <li>|</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="box3_right_1k">
+      <div class="box1_right_xia_top">
+        <span class="box1_right_xia_topzi1">
+          <strong>热点资讯</strong>
+        </span>
+      </div>
+      <div class="box3_right_1k_xia">
+        <ul>
+          <% @articles.each do |article| %>
+            <li>
+            ·<%= link_to truncate(article.title, length: 16), article, title: article.title %>
+            </li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>

@@ -1,0 +1,48 @@
+<% if nil %>
+<style type="text/CSS">
+  .simple_captcha{border: 1px solid #ccc; padding: 5px !important;}
+  .simple_captcha,
+  .simple_captcha div{display: table;}
+  .simple_captcha .simple_captcha_field,
+  .simple_captcha .simple_captcha_image{
+    border: 1px solid #ccc;
+    margin: 0px 0px 2px 0px !important;
+    padding: 0px !important;
+  }
+  .simple_captcha .simple_captcha_image img{
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 110px !important;
+  }
+  .simple_captcha .simple_captcha_label{font-size: 12px;}
+  .simple_captcha .simple_captcha_field input{
+    width: 150px !important;
+    font-size: 16px;
+    border: none;
+    background-color: #efefef;
+  }
+</style>
+<% end %>
+
+<li class="zhuce_xia_zi2">
+  <span class="required">*</span>
+  <%= simple_captcha_options[:label] %>
+</li>
+<li><input id="captcha" type="text" name="captcha" autocomplete="off" class="wenben10"></li>
+<li class="zhuce_yzm"><%= simple_captcha_options[:image] %></li>
+
+<% if nil %>
+<div class='simple_captcha'>
+  <div class='simple_captcha_image'>
+    <%= simple_captcha_options[:image] %>
+  </div>
+  
+  <div class='simple_captcha_field'>
+    <%= simple_captcha_options[:field] %>
+  </div>
+  
+  <div class='simple_captcha_label'>
+    <%= simple_captcha_options[:label] %>
+  </div>
+</div>
+<% end %>

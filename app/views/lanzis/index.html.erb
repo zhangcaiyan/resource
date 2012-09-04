@@ -1,0 +1,75 @@
+<% title "我的篮子" %>
+
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">我的篮子</div>
+  <div class="gly_yhlb_xia">
+    <div class="mybasket_bt">
+      <div id="aB1">
+        <%= link_to "全部信息", lanzis_path(search: {transaction_info_type_eq: nil}) %>
+      </div>
+      <div id="aB2"><%= link_to "供应信息", lanzis_path(search: {transaction_info_type_eq: :supply}) %></div>
+      <div id="aB3"><%= link_to "求购信息", lanzis_path(search: {transaction_info_type_eq: :seeking}) %></div>
+    </div>
+    <%= form_tag lanzi_path("id"), method: "delete" do %>
+      <%= hidden_field_tag "search[transaction_info_type_eq]", params["search"].try(:[], :transaction_info_type_eq) %>
+    <div id="aA1">
+      <div class="mybasket_top">
+        <ul>
+          <li class="mybasket_zi1"><strong><%= sort_link @search, :transaction_title, "标题" %></strong></li>
+          <li class="mybasket_zi2"><strong><%= sort_link @search, :transaction_updated_at, "信息更新时间" %></strong></li>
+          <li class="mybasket_zi2"><strong><%= sort_link @search, :created_at, "加入篮子时间" %></strong></li>
+        </ul>
+      </div>
+      <div class="mybasket_bot">
+        <% @shoucangs.each do |shoucang| %>
+        <ul>
+          <span class="fuxuank4">
+            <%= check_box_tag "shoucangs[shoucang_#{shoucang.id}]", shoucang.id, false, class: "shoucang_id" %>
+          </span>
+          <li class="mybasket_zi3"><%= shoucang.transaction.info_type_text + "信息" %></li>
+          <li class="mybasket_zi4"><%= link_to truncate(shoucang.transaction.title, length: 25), transaction_path(shoucang.transaction), title: shoucang.transaction.title %></li>
+          <li class="mybasket_zi2"><%= l shoucang.transaction.updated_at.to_date %></li>
+          <li class="mybasket_zi2"><%= l shoucang.created_at.to_date %></li>
+        </ul>
+      <% end %>
+      </div>
+      <div class="sdly_k2">
+        <ul>
+          <li class="fuxuank6"><%= check_box_tag "select" %></li>
+          <li>
+            <%= submit_tag "删除", confirm: "确定删除吗", class: "anniu8" %>
+          </li>
+        </ul>
+      </div>
+      <%= will_paginate @shoucangs %>
+    </div>
+  <% end %>
+
+  </div>
+</div>
+<div class="clear"></div>
+
+
+<script text='type/javascript'>
+  $(function(){
+    $("#lanzi").addClass("ht_dianji2")
+
+    if("<%= params[:search].try(:[], :transaction_info_type_eq) %>" == "supply"){
+      $("#aB2").addClass("fbg0")
+    }else if("<%= params[:search].try(:[], :transaction_info_type_eq) %>" == "seeking"){
+      $("#aB3").addClass("fbg0")
+    }else{
+      $("#aB1").addClass("fbg0")
+    }
+    
+
+    $("#select").change(function(){
+      $(".shoucang_id").attr("checked", $(this).prop("checked"))
+    })
+
+  })
+</script>
+
+
+

@@ -1,0 +1,15 @@
+<h1>留言信息</h1>
+<% title "留言信息" %>
+
+<%= @message.title %><br/>
+时间：<%= l @message.created_at %><br/>
+留言内容： <%= @message.desc %><br/>
+留言者： <%= current_user.name %><br/>
+地址： <%= current_user.address %><br/>
+电话： <%= current_user.phone %><br/>
+传真： <%= current_user.try(:fax) %><br/>
+手机： <%= current_user.try(:mobile_phone) %><br/>
+<%= link_to "详细情况", user_path(current_user) %><br/>
+
+<%= render "history" %>
+

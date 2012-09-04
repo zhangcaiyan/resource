@@ -1,0 +1,41 @@
+<% title = cns "comment", "category", params[:category] %>
+<% title (title) %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header"><%= title %>列表</div>
+  <div class="gly_lb_xia">
+    <div class="gly_lb_xia_top">
+      <ul>
+        <li class="gly_lb_xia_top_zi1_my">
+        <strong>
+          <%= sort_link @search, :title, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi3">
+        <strong>
+          <%= sort_link @search, :published_at, category: params[:category] %>
+        </strong>
+        </li>
+        <li class="gly_lb_xia_top_zi4"><strong>操作</strong></li>
+      </ul>
+    </div>
+    <div class="gly_lb_xia_bot">
+      <% @comments.each do |comment| %>
+        <ul>
+          <span class="fuxuank"><input name="" type="checkbox" value="" /></span>
+          <li class="gly_lb_xia_top_zi1_my"><%= link_to truncate(comment.title, length: 35), comment, title: comment.title, target: "_blank" %></li> 
+          <li class="gly_lb_xia_top_zi3"><%= (l comment.published_at) if comment.published_at %></li>
+          <li class="gly_lb_xia_top_zi4">
+          <%= link_to '编辑', edit_comment_path(comment) %> | 
+          <%= link_to '删除', comment, confirm: '确定删除吗?', method: :delete %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @comments %>
+</div>
+<div class="clear"></div>
+</div>
+
+

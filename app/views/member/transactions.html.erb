@@ -1,0 +1,22 @@
+<div class="gt_right">
+  <div class="gt_right_k">
+    <div class="gt_right_bt"><span class="gt_right_btzi">最新供求</span><span class="gt_more"></span></div>
+    <div class="gt_right_bot2">
+      <% @transactions.each do |transaction| %>
+        <ul>
+          <li class="gt_right_pic">
+          <a href="<%= member_transaction_path(transaction.id) %>" target="_blank">
+            <%= head_image(transaction, width: 110, height: 95) %>
+          </a>
+          </li>
+          <li class="gt_right_zi">
+          <%= link_to truncate(transaction.title, length: 10), member_transaction_path(transaction.id), target: "_blank", title: transaction.title %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <%= will_paginate @transactions %>
+</div>
+
+

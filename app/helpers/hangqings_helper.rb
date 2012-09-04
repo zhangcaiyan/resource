@@ -1,0 +1,2 @@
+module HangqingsHelper
+end

@@ -1,0 +1,25 @@
+<%= simple_form_for(@transaction_type, html: {class: "validate_form"}) do |f| %>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="fbxx_footer_zi4">系列名称：</li>
+        <li><%= f.input :name, input_html: {class: "validate[required, maxSize[20]] wenben9"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+        <li class="fbxx_footer_zi4">系列描述：</li>
+        <li><%= f.input :desc, input_html: {class: "validate[maxSize[1000]] wenbenyu3"}, label: false, wrapper: false %></li>
+      </ul>
+      <ul>
+        <li>
+        <%= f.button :submit, class: "anniu16", style: "background:url(/assets/ht_qyjj_anniu.gif)" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<script text="type/javascript">
+  $(function(){
+    $("#transaction_types").addClass("ht_dianji")
+  })
+</script>
+

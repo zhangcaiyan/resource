@@ -1,0 +1,12 @@
+<h2>发送解锁说明</h2>
+<%= title "发送解锁说明" %>
+<%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.submit "发送解锁说明" %></div>
+<% end %>
+
+<%= render "links" %>

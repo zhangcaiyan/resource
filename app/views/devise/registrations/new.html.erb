@@ -1,0 +1,373 @@
+<%= title "注册" %>
+  <div class="zhuce_bottom">
+    <div class="zhuce_bt">注册新用户</div> 
+    <div class="zhuce_xia">
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if nil %>
+        <div class="zhuce_xia_zi1">请选择注册会员类型</div>
+        <ul>
+          <% User.get_member_values.each do |member| %>
+            <li class="dxanniu">
+            <%= f.radio_button :member, member[1], id: "RadioGroup1_0" %>
+            </li>
+            <li class="gly_gxhy_zi2"><%= member[0]%></li>
+          <% end %>
+
+        </ul>
+        <% end %>
+        <div class="zhuce_xia_zi1">请选择类别</div>
+        <ul>
+          <% User.get_category_values.each do |category| %>
+          <li class="dxanniu">
+            <%= f.radio_button :category, category[1], id: "RadioGroup1_0" %>
+          </li>
+          <li class="gly_gxhy_zi2"><%= category[0] %></li>
+          <% end %>
+        </ul>
+        <div class="zhuce_xia_zi1">请设置您的账号信息</div>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>电子邮件：</li>
+          <li>
+          <%= f.input :email, as: :string, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_emailTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>用户名：</li>
+          <li>
+          <%= f.input :username, as: :string, input_html: {class: "wenben9"}, label: false, wrapper: false %><span id="user_usernameTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>密码：</li>
+          <li>
+          <%= f.input :password, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_passwordTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>确认密码：</li>
+          <li>
+          <%= f.input :password_confirmation, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_password_confirmationTip"></span>
+          </li>
+        </ul>
+        <div class="zhuce_xia_zi1">姓名和联系方式</div>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>姓名：</li>
+          <li>
+          <%= f.input :name, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_nameTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>性别：</li>
+          <% User.get_gender_values.each do |gender| %>
+            <li class="dxanniu">
+              <%= f.radio_button :gender, gender[1], id: "RadioGroup1_0" %>
+            </li>
+            <li class="gly_gxhy_zi2"><%= gender[0] %></li>
+          <% end %>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>固定电话：</li>
+          <li>
+          <%= f.input :phone, as: :string, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_phoneTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>地址：</li>
+          <li>
+          <%= f.input :address, input_html: {class: "wenben9"}, label: false, wrapper: false %>
+          <span id="user_addressTip"></span>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">公司名称：</li>
+          <li><%= f.input :company_name, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+          <span id="user_company_nameTip"></span>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>商业类型：</li>
+          <li>
+          <%= f.select :business_category, User.get_business_category_values, {include_blank: "请选择类别"}, {class: "xialacaidan4"} %>
+          <span id="user_business_categoryTip"></span>
+          </li>
+        </ul>
+        <div class="zhuce_xia_zi1">请设置您的账号信息</div>
+        <ul>
+          <li class="zhuce_xia_zi2"><span class="require">*</span>国家:</li>
+          <li>
+          <%= f.select :country_id, options_for_select(Country.all.collect{|c| [c.name, c.id]}, params[:user].try(:[], :country_id)), {include_blank: "请选择国家"}, {class: "xialacaidan4"} %>
+          <span id="user_country_idTip"></span>
+          <li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">省份：</li>
+          <li>
+          <%= f.select :region_id, regions, {include_blank: "请选择省份"}, {class: "xialacaidan4"} %>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">市：</li>
+          <li>
+          <%= f.select :city_id, cities, {include_blank: "请选择城市"}, {class: "xialacaidan4"} %>
+          </li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">邮编：</li>
+          <li><%= f.input :zip_code, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">传真：</li>
+          <li><%= f.input :fax, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">手机：</li>
+          <li><%= f.input :mobile_phone, as: :string, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">QQ：</li>
+          <li><%= f.input :qq, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">MSN：</li>
+          <li><%= f.input :msn, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+        </ul>
+        <ul>
+          <li class="zhuce_xia_zi2">公司网址：</li>
+          <li><%= f.input :company_url, as: :string, input_html: {class: "wenben9"}, label: false, wrapper: false %></li>
+          <div id="user_company_urlTip"></div>
+        </ul>
+        <ul>
+          <%= show_simple_captcha(label: "验证码") %>
+          <span id="captchaTip"></span>
+        </ul>
+        <ul>
+          <li>
+          <%= f.button :submit, "注册为新会员", class: "anniu11", style: "background:url(/assets/zhuceanniu.gif)"  %>
+          </li>
+        </ul>
+      <% end %>
+    </div> 
+    <div class="clear"></div>
+  </div>
+
+ 
+
+
+<script type="text/javascript">
+  $(function(){
+
+    $("#user_region_id").bind("change", function(){
+      var region_id = $(this).val()
+      $.get("<%= region_path('id') %>", {region_id : region_id}, function(data){
+        $("#user_city_id").html(data)
+      })
+    })
+
+    $("#user_country_id").bind("change", function(){
+      var country_id = $(this).val()
+      $.get("<%= country_path('id') %>", {country_id : country_id}, function(data){
+        $("#user_region_id").html(data)
+        $("#user_region_id").trigger("change")
+      })
+    })
+
+    $.formValidator.initConfig({
+      formID: "new_user",
+      wideWord: false,
+      onError:function(msg,obj,errorlist){
+        alert(msg)
+      }
+    });
+
+    $("#user_email").formValidator({
+      onShow:"",
+      onFocus:"请输入邮箱",
+      onCorrect:"该邮箱可用"
+    }).regexValidator({
+      regExp: "email",
+      onError:"输入的邮箱格式不正确",
+      dataType:"enum"
+    }).bind("blur", function(){
+      email = $.trim($(this).val())
+      $.get("<%= verify_email_exist_path %>", {email: email}, function(data){
+        if(data=="true"){
+          $("#user_emailTip").text("邮箱已存在").attr("class", "onError")
+        }
+      })
+    })
+
+    $("#user_company_url").formValidator({
+      onShow:"",
+      onFocus:"",
+      onCorrect:"",
+      empty: true,
+      onEmpty: ""
+    }).regexValidator({
+      regExp: "url",
+      onError:"输入的网址格式不正确",
+      dataType:"enum"
+    })
+
+    $("#user_username").formValidator({
+      onShow:"",
+      onFocus:"请输入4-25位字符,英文字母、数字和下划线的组合",
+      onCorrect:"该用户名可用"
+    }).inputValidator({
+      min: 4,
+      max: 25,
+      onError:"请输入4-25位字符,英文字母、数字和下划线的组合"
+    }).regexValidator({
+      regExp: "username",
+      onError:"用户名格式不正确，请注意：英文字母、数字和下划线的组合",
+      dataType:"enum"
+    }).bind("blur", function(){
+      username = $.trim($(this).val())
+      $.get("<%= verify_username_exist_path %>", {username: username}, function(data){
+        if(data=="true"){
+          $("#user_usernameTip").text("用户名已存在").attr("class", "onError")
+        }
+      })
+    })
+
+    $("#user_password").formValidator({
+      onShow:"",
+      onFocus:"长度至少为1",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min: 1,
+      empty:{
+        leftEmpty:false,
+        rightEmpty:false,
+        emptyError:"密码两边不能有空符号"
+      },
+      onError: "密码不能为空"
+    })
+
+    $("#user_password_confirmation").formValidator({
+      onShow:"",
+      onFocus:"长度至少为1",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min: 1,
+      empty:{
+        leftEmpty:false,
+        rightEmpty:false,
+        emptyError:"确认密码中不能有空符号"
+      },
+      onError:"确认密码不能为空,请确认"
+    }).compareValidator({
+      desID:"user_password",
+      operateor:"=",
+      onError:"两次密码不一致,请确认"
+    });
+
+    $("#user_name").formValidator({
+      onShow:"",
+      onFocus:"长度为2到15个字符的真实姓名",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min: 2,
+      max: 15,
+      onError:"联系人姓名长度必须为2到15个字符内"
+    })
+
+    $("#user_phone").formValidator({
+      onShow:"",
+      onFocus:"请输入固定电话, 注意区号(010-58692039)",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min: 1,
+      onError: "固定电话不能为空"
+    })
+
+    $("#user_address").formValidator({
+      onShow:"",
+      onFocus:"请输入地址",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min: 1,
+      onError:"地址不能为空"
+    })
+
+    $("#user_business_category").formValidator({
+      onShow:"",
+      onFocus:"请选择商业类型",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min:1,
+      onError: "商业类型不能为空"
+    })
+
+    $("#user_zip_code").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onEmpty: "这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({})
+
+    $("#user_fax").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({})
+
+    $("#user_mobile_phone").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({})
+
+    $("#user_qq").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({})
+
+    $("#user_msn").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({})
+
+    $("#user_desc").formValidator({
+      onShow:"",
+      onFocus:"这个可以为空",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      max: 2000,
+      onError:"长度不超过2000字符"
+    })
+
+    $("#user_country_id").formValidator({
+      onShow:"",
+      onFocus:"请选择国家",
+      onCorrect:"输入正确"
+    }).inputValidator({
+      min:1,
+      onError: "国家不能为空"
+    })
+
+    $("#captcha").formValidator({
+      onShow:"",
+      onFocus:"请输入验证码",
+      onCorrect:"输入了验证码"
+    }).inputValidator({
+      min:5,
+      max:5,
+      onError: "请输入5位数验证码"
+    })
+
+    $("#user_company_name").formValidator({
+      onShow:"",
+      onFocus:"如果为空，则默认为'个体经营'",
+      onCorrect:""
+    }).inputValidator({})
+
+  })
+</script>
+
+

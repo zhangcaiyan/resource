@@ -1,0 +1,32 @@
+<div class="nav">
+  <div class="nav_top">
+    <ul>
+      <li class="nav_top_text">
+        <%= link_to "网站首页", home_path %>
+      </li>
+      <li class="nav_top_text">
+        <%= link_to "交易中心", jiaoyis_path %>
+      </li>
+      <li class="nav_top_text">
+        <%= link_to "企业报价", baojias_path %>
+      </li>
+      <li class="nav_top_text">
+        <%= link_to "行业资讯", zixuns_path %>
+      </li>
+      <li class="nav_top_text">
+        <%= link_to "行情报价", hangqingbaojias_path %>
+      </li>
+      <li class="car_nav_text">
+        <%= link_to "报废车零部件交易平台", "http://bfc.crra010.com", target: "_blank" %>
+      </li>
+      <li class="kefu">客服热线：010-58699057</li>
+    </ul>
+  </div>
+  <div class="nav_bot">
+    <ul>
+      <% Category.roots.each do |category| %>
+        <li><%= link_to category.name, search_home_path(keyword: category.name) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

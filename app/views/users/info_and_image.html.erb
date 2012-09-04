@@ -1,0 +1,73 @@
+<% title "企业简介及照片" %>
+
+<div class="gly_bottom_right">
+  <div class="gly_right_header">企业简介</div>
+  <div class="ht_qyjj_k1">对基本资料和联系方式进行修改,请<font color="#FF6600"><%= link_to "点击这里", edit_user_registration_path %> </font> <br/>
+    对详细资料和企业图片进行修改,请<font color="#FF6600"><%= link_to "点击这里", edit_image_user_path(current_user) %></font></div>
+  <div class="ht_bot">
+    <div class="fbxx_top">企业信息</div>
+    <div class="fbxx_footer">
+      <ul>
+        <li class="ht_qyjj_zi1">
+        <strong>企业名称：</strong>
+        <%= current_user.company_name %>
+        </li>
+
+        <li class="ht_qyjj_zi1">
+        <strong>企业简介：</strong>
+        <%= current_user.desc %>
+        </li>
+        <li class="buttonk">
+        <%= link_to "点此修改公司简介", edit_desc_user_path(current_user) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">营业执照</div>
+    <div class="ht_qyjj_footer">
+      <ul>
+        <div class="kkkk">
+          <span class="kkkk_pic">
+            <% if current_user.attachment %>
+              <%= image_tag current_user.attachment.image.url, width: 110, height: 95  %>
+            <% else %>
+              <%= default_image_tag width: 110, height: 95 %>
+            <% end %>
+          </span>
+        </div>
+        <li class="buttonk">
+        <%= link_to "管理更多营业执照", edit_license_user_path(current_user) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="ht_bot">
+    <div class="fbxx_top">企业照片</div>
+    <div class="ht_qyjj_footer">
+      <ul>
+        <div class="kkkk">
+          <% current_user.attachments.each do |attachment| %>
+            <span class="kkkk_pic">
+              <%= image_tag attachment.image.url, width: 110, height: 95 %>
+            </span>
+          <% end %>
+        </div>
+        <li class="buttonk">
+        <%= link_to "管理更多企业图片", edit_image_user_path(current_user) %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+
+<script text="type/javascript">
+  $(function(){
+    $("#desc_and_pictures").addClass("ht_dianji2")
+  })
+</script>
+
+
+

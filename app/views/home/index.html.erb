@@ -55,7 +55,7 @@
             <%= image_tag @article.image_src, width: 89, height: 75 if @article %>
           </span>
           <span class="box1_left_xia_pic_zi1_ffff">
-            <strong><%= link_to_if @article, truncate(@article.try(:title), length: 9), article_path(@article), title: @article.try(:title) %></strong>
+            <strong><%= link_to truncate(@article.try(:title), length: 9), article_path(@article), title: @article.try(:title) if @article %></strong>
           </span>
           <span class="box1_left_xia_pic_zi1_ffff">
             <%= truncate(@article.try(:guolv_content), length: 22) %>
@@ -263,7 +263,7 @@
       <%= image_tag @hangye_article.try(:image_src), width: 120, height: 86 if @hangye_article %>
       </li>
       <li class="box5_xia_zi1">
-        <%= link_to_if @hangye_article, truncate(@hangye_article.try(:title), length: 20), article_path(@hangye_article), title: @hangye_article.try(:title) %>
+        <%= link_to truncate(@hangye_article.try(:title), length: 20), article_path(@hangye_article), title: @hangye_article.try(:title) if @hangye_article %>
       </li>
       <li class="box5_xia_zi2">
         <%= truncate(@hangye_article.try(:guolv_content), length: 40)%>
@@ -286,7 +286,7 @@
       <%= image_tag @zhengce_article.try(:image_src), width: 120, height: 86 if @zhengce_article %>
       </li>
       <li class="box5_xia_zi1">
-        <%= link_to_if @zhengce_article, truncate(@zhengce_article.try(:title), length: 20), article_path(@zhengce_article), title: @zhengce_article.try(:title) %>
+        <%= link_to truncate(@zhengce_article.try(:title), length: 20), article_path(@zhengce_article), title: @zhengce_article.try(:title) if @zhengce_article %>
       </li>
       <li class="box5_xia_zi2">
       <%= truncate(@zhengce_article.try(:guolv_content), length: 40)%>
@@ -309,7 +309,7 @@
       <%= image_tag @zaisheng_article.image_src, width: 120, height: 86 if @zaisheng_article %>
       </li>
       <li class="box5_xia_zi1">
-        <%= link_to_if @zaisheng_article, truncate(@zaisheng_article.try(:title), length: 20), article_path(@zaisheng_article), title: @zaisheng_article.try(:title) %>
+        <%= link_to truncate(@zaisheng_article.try(:title), length: 20), article_path(@zaisheng_article), title: @zaisheng_article.try(:title) if @zaisheng_article %>
       </li>
       <li class="box5_xia_zi2">
         <%= truncate(@zaisheng_article.try(:guolv_content), length: 40)%>
@@ -332,7 +332,7 @@
       <%= image_tag @zhishi_article.try(:image_src), width: 120, height: 86 if @zhishi_article %>
       </li>
       <li class="box5_xia_zi1">
-        <%= link_to_if @zhishi_article, truncate(@zhishi_article.try(:title), length: 20), article_path(@zhishi_article), title: @zhishi_article.try(:title) %>
+        <%= link_to truncate(@zhishi_article.try(:title), length: 20), article_path(@zhishi_article), title: @zhishi_article.try(:title) if @zhishi_article %>
       </li>
       <li class="box5_xia_zi2">
         <%= truncate(@zhishi_article.try(:guolv_content), length: 40)%>

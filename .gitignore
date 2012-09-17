@@ -15,7 +15,6 @@ db/schema.rb
 Gemfile.lock
 public/ckeditor_assets/*
 public/system/*
-.rvmrc
 coverage
 coverage.data 
 pkg

@@ -11,7 +11,7 @@ defaults: &defaults
     country_id: 1
     region_id: 1
     city_id: 1
-    phone: 58699057 
+    phone: 68392872 
     category: buy_and_sell
     business_category: a
 
@@ -27,7 +27,7 @@ defaults: &defaults
     country_id: 1
     region_id: 1
     city_id: 1
-    phone: 58699057 
+    phone: 68392872 
     category: buy_and_sell
     business_category: a
 
